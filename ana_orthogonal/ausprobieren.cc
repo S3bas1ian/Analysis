@@ -26,7 +26,7 @@ void ausprobieren()
     while (i < hits->GetEntries())
     {
         hits->GetEntry(i);
-        event_size = hits->Scan("","events=" + std::to_string(event_number));
+        event_size = hits->Scan("","events=" + event_number);
         outputTree->Fill();
         i += event_size;
     }
