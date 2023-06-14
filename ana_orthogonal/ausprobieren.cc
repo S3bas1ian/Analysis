@@ -9,7 +9,7 @@ void ausprobieren()
     TTree *hits = (TTree *)file->Get("hits");
 
     //File, where I write the cluster sizes out
-    TFile *outputFile = newTFile("cluster_size.root", "recreate");
+    TFile *outputFile = new TFile("cluster_size.root", "recreate");
     TTree *outputTree = new TTree("cluster_size", "cluster_size");
 
     int event_size;
@@ -22,10 +22,11 @@ void ausprobieren()
     hits->SetBranchAddress("Hit_Name", &name_hitscoll);
     hits->SetBranchAddress("event", &event_number);
 
-    while (int i < hits->GetEntries())
+    int i=0;
+    while (i < hits->GetEntries())
     {
         hits->GetEntry(i);
-        event_size = hits->Scan("","events=" + str(event_number))
+        event_size = hits->Scan("","events=" + std::to_string(event_number));
         outputTree->Fill();
         i += event_size;
     }
