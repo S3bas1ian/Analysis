@@ -4,11 +4,11 @@
 void ausprobieren()
 {
 
-    //File which will be read
+    // File which will be read
     TFile *file = new TFile("mess_1/output_t0.root", "read");
     TTree *hits = (TTree *)file->Get("hits");
 
-    //File, where I write the cluster sizes out
+    // File, where I write the cluster sizes out
     TFile *outputFile = new TFile("cluster_size.root", "recreate");
     TTree *outputTree = new TTree("cluster_size", "cluster_size");
 
@@ -28,27 +28,43 @@ void ausprobieren()
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
 
-    int i=0;
+    hits->LoadBaskets();
+
+    int i = 0;
     while (i < hits->GetEntries())
     {
-        front_size=0;
-        back_size=0;
+        front_size = 0;
+        back_size = 0;
         hits->GetEntry(i);
-        std::string s = "event==" + std::to_string(event_number);
-        event_size = hits->GetEntries(s.std::string::c_str());
+        int currEvent = event_number;
 
-        for (int j=0; j<event_size; j++){
-            hits->GetEntry(i+j);
-            if(det_id%2 == 0){
-                front_size+=1;
-            } else {
-                back_size+=1;
+        event_size = 0;
+
+        bool sameEvent = true;
+
+        while (sameEvent)
+        {
+            hits->GetEntry(i);
+            if (event_number == currEvent)
+            {
+                if (det_id % 2 == 0)
+                {
+                    front_size += 1;
+                }
+                else
+                {
+                    back_size += 1;
+                }
+
+                i+=1;
+            }
+            else
+            {
+                sameEvent = false;
             }
         }
 
-
         outputTree->Fill();
-        i += event_size;
     }
 
     outputFile->Write();
