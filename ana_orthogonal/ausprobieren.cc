@@ -14,7 +14,7 @@ void ausprobieren()
 
     int event_size;
     int front_size;
-    int back_side;
+    int back_size;
 
     outputTree->Branch("event_size", &event_size, "event_size/I");
     outputTree->Branch("front_size", &front_size, "front_size/I");
@@ -38,9 +38,9 @@ void ausprobieren()
         for (int j=0; j<event_size; j++){
             hits->GetEntry(i+j);
             if(det_id%2 == 0){
-                front+=1;
+                front_size+=1;
             } else {
-                back+=1;
+                back_size+=1;
             }
         }
 
