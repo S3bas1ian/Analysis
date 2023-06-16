@@ -13,14 +13,20 @@ void ausprobieren()
     TTree *outputTree = new TTree("cluster_size", "cluster_size");
 
     int event_size;
+    int front_size;
+    int back_side;
 
     outputTree->Branch("event_size", &event_size, "event_size/I");
+    outputTree->Branch("front_size", &front_size, "front_size/I");
+    outputTree->Branch("back_size", &back_size, "back_size/I");
 
     char name_hitscoll[128];
     int event_number;
+    int det_id;
 
     hits->SetBranchAddress("Hit_Name", &name_hitscoll);
     hits->SetBranchAddress("event", &event_number);
+    hits->SetBranchAddress("Det_ID", &det_id);
 
     int i=0;
     while (i < hits->GetEntries())
@@ -28,6 +34,17 @@ void ausprobieren()
         hits->GetEntry(i);
         std::string s = "event==" + std::to_string(event_number);
         event_size = hits->GetEntries(s.std::string::c_str());
+
+        for (int j=0; j<event_size; j++){
+            hits->GetEntry(i+j);
+            if(det_id%2 == 0){
+                front+=1;
+            } else {
+                back+=1;
+            }
+        }
+
+
         outputTree->Fill();
         i += event_size;
     }
