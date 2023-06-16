@@ -31,6 +31,8 @@ void ausprobieren()
     int i=0;
     while (i < hits->GetEntries())
     {
+        front_size=0;
+        back_size=0;
         hits->GetEntry(i);
         std::string s = "event==" + std::to_string(event_number);
         event_size = hits->GetEntries(s.std::string::c_str());
