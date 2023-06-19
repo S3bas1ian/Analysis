@@ -98,11 +98,11 @@ void ausprobieren()
     h3->Draw("SAMES");
 
 
-    auto legend = new TLegend(10, 25000, 20, 15000);
+    auto legend = new TLegend();
     legend->SetHeader("# hits per event", "C");
-    legend->AddEntry(h3, "All hits");
-    legend->AddEntry(h1, "hits from front sides");
-    legend->AddEntry(h2, "hits from back sides");
+    legend->AddEntry(h3, "All hits", "l");
+    legend->AddEntry(h1, "hits from front sides", "l");
+    legend->AddEntry(h2, "hits from back sides", "l");
 
     legend->Draw();
 
