@@ -37,7 +37,12 @@ void ausprobieren()
     hits->LoadBaskets();
 
     int i = 0;
-    while (i < hits->GetEntries())
+    int size = hits->GetEntries();
+
+    cout << size << endl;
+
+
+    while (i < size)
     {
         front_size = 0;
         back_size = 0;
@@ -48,7 +53,7 @@ void ausprobieren()
 
         bool sameEvent = true;
 
-        while (sameEvent)
+        while (sameEvent && i < size)
         {
             hits->GetEntry(i);
             if (event_number == currEvent)
