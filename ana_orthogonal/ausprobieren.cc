@@ -5,9 +5,9 @@ void ausprobieren()
 {
 
     // stuff for plotting
-    auto h1 = new TH1F("front side", "front side; N_{Counts}; #", 10, 0, 10);
-    auto h2 = new TH1F("back side", "back side; N_{Counts}; #", 10, 0, 10);
-    auto h3 = new TH1F("total", "total per detector; N_{Counts}; #", 20, 0, 20);
+    auto h1 = new TH1("front side", "front side; N_{Counts}; #", 10, 0, 10);
+    auto h2 = new TH1("back side", "back side; N_{Counts}; #", 10, 0, 10);
+    auto h3 = new TH1("total", "total per detector; N_{Counts}; #", 20, 0, 20);
 
     // File which will be read
     TFile *file = new TFile("mess_1/output_t0.root", "read");
