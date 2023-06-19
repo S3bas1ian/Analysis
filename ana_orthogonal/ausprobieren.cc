@@ -5,9 +5,9 @@ void ausprobieren()
 {
 
     // stuff for plotting
-    auto h1 = new TH1I("front side", "front side; N_{Counts}; #", 10, 0, 10);
-    auto h2 = new TH1I("back side", "back side; N_{Counts}; #", 10, 0, 10);
-    auto h3 = new TH1I("total", "total per detector; N_{Counts}; #", 20, 0, 20);
+    auto h1 = new TH1I("front side", "front side; N_{Counts}; #", 6, 0, 6);
+    auto h2 = new TH1I("back side", "back side; N_{Counts}; #", 6, 0, 6);
+    auto h3 = new TH1I("total", "total per detector; N_{Counts}; #", 6, 0, 6);
 
     // File which will be read
     TFile *file = new TFile("mess_1/output_t0.root", "read");
@@ -71,7 +71,7 @@ void ausprobieren()
                     }
 
                     i += 1;
-                } else { i+=1}
+                } else { i+=1};
             }
             else
             {
