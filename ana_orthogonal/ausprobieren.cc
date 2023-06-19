@@ -84,28 +84,17 @@ void ausprobieren()
     outputFile->Close();
 
     auto c1 = new TCanvas("c1", "hits per side");
+    c1->Divide(2, 1, xmargin = 0.1);
+    c1->cd(1);
 
-    h1->SetFillColor(kBlue);
-    gStyle->SetStatY(0.9);
-    gStyle->SetStatX(0.2);
-    gStyle->SetStatW(0.2);
-    gStyle->SetStatH(0.3);
-    h1->Draw("SAMES");
+    h1->Draw();
 
-    h2->SetFillColor(kGreen);
-    gStyle->SetStatY(0.9);
-    gStyle->SetStatX(0.5);
-    gStyle->SetStatW(0.2);
-    gStyle->SetStatH(0.3);
-    h2->Draw("SAMES");
+    c1->cd(2);
+    h2->Draw();
 
-    h3->SetFillColor(kRed);
-    h3->SetFillStyle(3003);
-    gStyle->SetStatY(0.9);
-    gStyle->SetStatX(0.8);
-    gStyle->SetStatW(0.2);
-    gStyle->SetStatH(0.3);
-    h3->Draw("SAMES");
+    auto c2 = new TCanvas("c2", "total hits");
+
+    h3->Draw();
 
     // auto legend = new TLegend(0.7, 0.5, 1.0, 0.3);
     // legend->SetHeader("# hits per event", "C");
@@ -114,6 +103,4 @@ void ausprobieren()
     // legend->AddEntry(h2, "hits from back sides", "l");
 
     // legend->Draw();
-
-    c1->BuildLegend(0.7, 0.5, 1.0, 0.3);
 }
