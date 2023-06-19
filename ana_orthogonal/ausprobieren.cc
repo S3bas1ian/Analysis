@@ -5,9 +5,9 @@ void ausprobieren()
 {
 
     // stuff for plotting
-    auto h1 = new TH1F("h1", "front side; N_{Counts}; #", 30, 0, 30);
-    auto h2 = new TH1F("h2", "back side; N_{Counts}; #", 30, 0, 30);
-    auto h3 = new TH1F("h3", "total per detector; N_{Counts}; #", 30, 0, 30);
+    auto h1 = new TH1F("h1", "front side; N_{Counts}; #", 20, 0, 20);
+    auto h2 = new TH1F("h2", "back side; N_{Counts}; #", 20, 0, 20);
+    auto h3 = new TH1F("h3", "total per detector; N_{Counts}; #", 20, 0, 20);
 
     // File which will be read
     TFile *file = new TFile("mess_1/output_t0.root", "read");
@@ -98,7 +98,7 @@ void ausprobieren()
     h3->Draw("SAMES");
 
 
-    auto legend = new TLegend();
+    auto legend = new TLegend(10, 25000, 20, 15000);
     legend->SetHeader("# hits per event", "C");
     legend->AddEntry(h3, "All hits");
     legend->AddEntry(h1, "hits from front sides");
