@@ -84,7 +84,7 @@ void ausprobieren()
     outputFile->Close();
 
     auto c1 = new TCanvas("c1", "hits per side");
-    c1->Divide(2, 1, xmargin = 0.1);
+    c1->Divide(2, 1);
     c1->cd(1);
 
     h1->Draw();
