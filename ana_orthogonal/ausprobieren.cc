@@ -86,8 +86,13 @@ void ausprobieren()
     outputFile->Close();
 
     auto c1 = new TCanvas("c1", "hits per side");
-    gStyle->SetPalette(kOcean);
-    h1->Draw("PLC PMC");
-    h2->Draw("SAMES PLC PMC");
-    h3->Draw("SAMES PLC PMC ");
+    h1->SetFillColor(kBlue);
+    h1->Draw();
+
+    h2->SetFillColor(kGreen);
+    h2->Draw("SAMES");
+
+    h3->SetFillColor(kRed);
+    h3->SetFillStyle(3003);
+    h3->Draw("SAMES");
 }
