@@ -4,6 +4,12 @@
 void ausprobieren()
 {
 
+
+    //stuff for plotting
+    auto h1 = new TH1F("h1", "front side; N_{Counts}; #", 30, 0, 30);
+    auto h2 = new TH1F("h2", "back side; N_{Counts}; #", 30, 0, 30);
+    auto h3 = new TH1F("h3", "total per detector; N_{Counts}; #", 30, 0 , 30);
+
     // File which will be read
     TFile *file = new TFile("mess_1/output_t0.root", "read");
     TTree *hits = (TTree *)file->Get("hits");
@@ -31,7 +37,7 @@ void ausprobieren()
     hits->LoadBaskets();
 
     int i = 0;
-    while (i < 50000)    //hits->GetEntries()
+    while (i < hits->GetEntries())
     {
         front_size = 0;
         back_size = 0;
@@ -65,9 +71,17 @@ void ausprobieren()
             }
         }
 
+        h1->Fill(front_size);
+        h2->Fill(back_size);
+        h3->Fill(event_size);
         outputTree->Fill();
     }
 
     outputFile->Write();
     outputFile->Close();
+
+    auto c1 = new TCanvas("c1", "hits per side");
+    h1->Draw();
+    h2->Draw("SAME");
+    h3->Draw("SAME");
 }
