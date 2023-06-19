@@ -28,10 +28,12 @@ void ausprobieren()
     char name_hitscoll[128];
     int event_number;
     int det_id;
+    double edep;
 
     hits->SetBranchAddress("Hit_Name", &name_hitscoll);
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
+    hits->SetBranchAddress("edep", &edep);
 
     hits->LoadBaskets();
 
@@ -56,17 +58,20 @@ void ausprobieren()
             hits->GetEntry(i);
             if (event_number == currEvent)
             {
-                event_size += 1;
-                if (det_id % 2 == 0)
+                if (edep > 0)
                 {
-                    front_size += 1;
-                }
-                else
-                {
-                    back_size += 1;
-                }
+                    event_size += 1;
+                    if (det_id % 2 == 0)
+                    {
+                        front_size += 1;
+                    }
+                    else
+                    {
+                        back_size += 1;
+                    }
 
-                i += 1;
+                    i += 1;
+                } else { i+=1}
             }
             else
             {
