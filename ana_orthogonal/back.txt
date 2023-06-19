@@ -36,36 +36,24 @@ void ausprobieren()
         front_size = 0;
         back_size = 0;
         hits->GetEntry(i);
-        int currEvent = event_number;
+        std::string s = "event==" + std::to_string(event_number);
+        event_size = hits->GetEntries(s.std::string::c_str());
 
-        event_size = 0;
-
-        bool sameEvent = true;
-
-        while (sameEvent)
+        for (int j = 0; j < event_size; j++)
         {
-            hits->GetEntry(i);
-            if (event_number == currEvent)
+            hits->GetEntry(i + j);
+            if (det_id % 2 == 0)
             {
-                event_size +=1;
-                if (det_id % 2 == 0)
-                {
-                    front_size += 1;
-                }
-                else
-                {
-                    back_size += 1;
-                }
-
-                i+=1;
+                front_size += 1;
             }
             else
             {
-                sameEvent = false;
+                back_size += 1;
             }
         }
 
         outputTree->Fill();
+        i += event_size;
     }
 
     outputFile->Write();
