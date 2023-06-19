@@ -85,15 +85,17 @@ void ausprobieren()
 
     auto c1 = new TCanvas("c1", "hits per side");
 
-    h3->SetFillColor(kRed);
-    h3->SetFillStyle(3003);
-    h3->Draw("SAMES");
+    
 
     h1->SetFillColor(kBlue);
     h1->Draw();
 
     h2->SetFillColor(kGreen);
     h2->Draw("SAMES");
+
+    h3->SetFillColor(kRed);
+    h3->SetFillStyle(3003);
+    h3->Draw("SAMES");
 
 
     auto legend = new TLegend();
