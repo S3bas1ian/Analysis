@@ -5,9 +5,9 @@ void ausprobieren()
 {
 
     // stuff for plotting
-    auto h1 = new TH1F("h1", "front side; N_{Counts}; #", 20, 0, 20);
-    auto h2 = new TH1F("h2", "back side; N_{Counts}; #", 20, 0, 20);
-    auto h3 = new TH1F("h3", "total per detector; N_{Counts}; #", 20, 0, 20);
+    auto h1 = new TH1F("front side", "front side; N_{Counts}; #", 20, 0, 20);
+    auto h2 = new TH1F("back side", "back side; N_{Counts}; #", 20, 0, 20);
+    auto h3 = new TH1F("total", "total per detector; N_{Counts}; #", 20, 0, 20);
 
     // File which will be read
     TFile *file = new TFile("mess_1/output_t0.root", "read");
@@ -85,27 +85,35 @@ void ausprobieren()
 
     auto c1 = new TCanvas("c1", "hits per side");
 
-    
-
     h1->SetFillColor(kBlue);
-    h1->Draw();
+    gStyle->SetStatY(0.9);
+    gStyle->SetStatX(0.2);
+    gStyle->SetStatW(0.2);
+    gStyle->SetStatH(0.3);
+    h1->Draw("SAMES");
 
     h2->SetFillColor(kGreen);
+    gStyle->SetStatY(0.9);
+    gStyle->SetStatX(0.5);
+    gStyle->SetStatW(0.2);
+    gStyle->SetStatH(0.3);
     h2->Draw("SAMES");
 
     h3->SetFillColor(kRed);
     h3->SetFillStyle(3003);
+    gStyle->SetStatY(0.9);
+    gStyle->SetStatX(0.8);
+    gStyle->SetStatW(0.2);
+    gStyle->SetStatH(0.3);
     h3->Draw("SAMES");
 
+    // auto legend = new TLegend(0.7, 0.5, 1.0, 0.3);
+    // legend->SetHeader("# hits per event", "C");
+    // legend->AddEntry(h3, "All hits", "l");
+    // legend->AddEntry(h1, "hits from front sides", "l");
+    // legend->AddEntry(h2, "hits from back sides", "l");
 
-    auto legend = new TLegend(0.8, 0.5, 1.0, 0.3);
-    legend->SetHeader("# hits per event", "C");
-    legend->AddEntry(h3, "All hits", "l");
-    legend->AddEntry(h1, "hits from front sides", "l");
-    legend->AddEntry(h2, "hits from back sides", "l");
+    // legend->Draw();
 
-    legend->Draw();
-
-    //c1->BuildLegend();
-
+    c1->BuildLegend(0.7, 0.5, 1.0, 0.3);
 }
