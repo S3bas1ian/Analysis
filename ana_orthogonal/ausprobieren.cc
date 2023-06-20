@@ -71,7 +71,11 @@ void ausprobieren()
                     }
 
                     i += 1;
-                } else { i+=1;}
+                }
+                else
+                {
+                    i += 1;
+                }
             }
             else
             {
@@ -79,10 +83,14 @@ void ausprobieren()
             }
         }
 
-        h1->Fill(front_size);
-        h2->Fill(back_size);
-        h3->Fill(event_size);
-        outputTree->Fill();
+        if (event_size > 0)
+        {
+
+            h1->Fill(front_size);
+            h2->Fill(back_size);
+            h3->Fill(event_size);
+            outputTree->Fill();
+        }
     }
 
     outputFile->Write();
