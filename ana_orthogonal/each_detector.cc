@@ -40,20 +40,20 @@ void each_detector()
     while (i < size)
     {
 
-        event_size_det_1 = 0;
-        event_size_det_2 = 0;
-        event_size_det_3 = 0;
-        event_size_det_4 = 0;
+        int event_size_det_1 = 0;
+        int event_size_det_2 = 0;
+        int event_size_det_3 = 0;
+        int event_size_det_4 = 0;
 
-        front_size_det_1 = 0;
-        front_size_det_2 = 0;
-        front_size_det_3 = 0;
-        front_size_det_4 = 0;
+        int front_size_det_1 = 0;
+        int front_size_det_2 = 0;
+        int front_size_det_3 = 0;
+        int front_size_det_4 = 0;
 
-        back_size_det_1 = 0;
-        back_size_det_2 = 0;
-        back_size_det_3 = 0;
-        back_size_det_4 = 0;
+        int back_size_det_1 = 0;
+        int back_size_det_2 = 0;
+        int back_size_det_3 = 0;
+        int back_size_det_4 = 0;
 
         hits->GetEntry(i);
         int currEvent = event_number;
