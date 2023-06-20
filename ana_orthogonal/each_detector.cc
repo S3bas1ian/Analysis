@@ -165,5 +165,5 @@ void each_detector()
     c2->cd(4);
     h2_1d->Draw();
 
-    c2->SaveAs("total_detectors.png")
+    c2->SaveAs("total_detectors.png");
 }
