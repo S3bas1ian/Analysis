@@ -105,9 +105,13 @@ void ausprobieren()
     c1->cd(2);
     h2->Draw();
 
+    c1->SaveAs("hits_per_side.png");
+
     auto c2 = new TCanvas("c2", "total hits");
 
     h3->Draw();
+
+    c2->SaveAs("total_hits.png");
 
     // auto legend = new TLegend(0.7, 0.5, 1.0, 0.3);
     // legend->SetHeader("# hits per event", "C");
