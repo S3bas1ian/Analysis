@@ -1,5 +1,6 @@
 #include <TFile.h>
 #include <TTree.h>
+#include <string.h>
 
 void each_detector()
 {
@@ -13,15 +14,15 @@ void each_detector()
     auto h3_1d = new TH1I("total_2", "total detector 2; N_{Counts}; #", 10, 0, 10);
     auto h4_1d = new TH1I("total_3", "total detector 3; N_{Counts}; #", 10, 0, 10);
 
-    auto h_particles_1d = new TH1I("particles", "total events per particle; ;#", 4, 4);
+    auto h_particles_1d = new TH1I("particles", "total events per particle; ;#", 4, 4.0f);
 
     auto h1_2d = new TH2I("0", "detector 0; front side; back side;", 10, 0, 10, 10, 0, 10);
     auto h2_2d = new TH2I("1", "detector 1; front side; back side;", 10, 0, 10, 10, 0, 10);
     auto h3_2d = new TH2I("2", "detector 2; front side; back side;", 10, 0, 10, 10, 0, 10);
     auto h4_2d = new TH2I("3", "detector 3; front side; back side;", 10, 0, 10, 10, 0, 10);
 
-    auto particles[4] = {"gamma", "proton", "e-", "other"};
-    auto particle_size[4];
+    // auto particles[4] = {"gamma", "proton", "e-", "other"};
+    // auto particle_size[4];
 
     char name_hitscoll[128];
     char particle_name[128];
@@ -134,24 +135,24 @@ void each_detector()
         if (event_size > 0)
         {
 
-            if (particle_name == "gamma")
+            if (strcmp(particle_name, "gamma") == 0)
             {
-                particle_size[0] += 1;
+                // particle_size[0] += 1;
                 h_particles_1d->Fill("gamma", 1);
             }
-            else if (particle_name == "proton")
+            else if (strcmp(particle_name ,"proton") == 0)
             {
-                particle_size[1] += 1;
+                // particle_size[1] += 1;
                 h_particles_1d->Fill("proton", 1);
             }
-            else if (particle_name == "e-")
+            else if (strcmp(particle_name, "e-") == 0)
             {
-                particle_size[2] += 1;
+                // particle_size[2] += 1;
                 h_particles_1d->Fill("e-", 1);
             }
             else
             {
-                particle_size[3] += 1;
+                // particle_size[3] += 1;
                 h_particles_1d->Fill("other", 1);
             }
 
