@@ -152,7 +152,8 @@ void each_detector()
     c1->cd(4);
     h2_2d->Draw("colz");
 
-    c1->SaveAs("2d_hist_detectos.png");
+    gStyle->SetImageScaling(3);
+    c1->SaveAs("2d_hist_detectors.png");
 
     auto c2 = new TCanvas("c2", "total detectors");
     c2->Divide(2, 2);
@@ -165,5 +166,6 @@ void each_detector()
     c2->cd(4);
     h2_1d->Draw();
 
+    gStyle->SetImageScaling(3);
     c2->SaveAs("total_detectors.png");
 }
