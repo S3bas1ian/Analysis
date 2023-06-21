@@ -214,4 +214,5 @@ void each_detector()
 
     auto c3 = new TCanvas("c3", "particles");
     h_particles_1d->Draw();
+    c3->SaveAs("particle_overview.png");
 }
