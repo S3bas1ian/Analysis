@@ -13,19 +13,24 @@ void each_detector()
     auto h3_1d = new TH1I("total_2", "total detector 2; N_{Counts}; #", 10, 0, 10);
     auto h4_1d = new TH1I("total_3", "total detector 3; N_{Counts}; #", 10, 0, 10);
 
+    auto h_particles_1d = new TH1I("particles", "total events per particle; ;#", 4, 4);
+
     auto h1_2d = new TH2I("0", "detector 0; front side; back side;", 10, 0, 10, 10, 0, 10);
     auto h2_2d = new TH2I("1", "detector 1; front side; back side;", 10, 0, 10, 10, 0, 10);
     auto h3_2d = new TH2I("2", "detector 2; front side; back side;", 10, 0, 10, 10, 0, 10);
     auto h4_2d = new TH2I("3", "detector 3; front side; back side;", 10, 0, 10, 10, 0, 10);
 
-
+    auto particles[4] = {"gamma", "proton", "e-", "other"};
+    auto particle_size[4];
 
     char name_hitscoll[128];
+    char particle_name[128];
     int event_number;
     int det_id;
     double edep;
 
     hits->SetBranchAddress("Hit_Name", &name_hitscoll);
+    hits->SetBranchAddress("name", &particle_name);
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
     hits->SetBranchAddress("edep", &edep);
@@ -54,6 +59,7 @@ void each_detector()
         int back_size_det_2 = 0;
         int back_size_det_3 = 0;
         int back_size_det_4 = 0;
+        int event_size = 0;
 
         hits->GetEntry(i);
         int currEvent = event_number;
@@ -70,6 +76,7 @@ void each_detector()
                 if (edep > 0)
                 {
                     // count the event
+                    event_size += 1;
 
                     if (det_id == 0)
                     {
@@ -124,22 +131,57 @@ void each_detector()
             }
         }
 
-        if(event_size_det_1 >0){
-            h1_1d->Fill(event_size_det_1);
-            h1_2d->Fill(front_size_det_1, back_size_det_1);
-        } else if(event_size_det_2>0){
-            h2_1d->Fill(event_size_det_2);
-            h2_2d->Fill(front_size_det_2, back_size_det_2);
-        }else if(event_size_det_3>0){
-            h3_1d->Fill(event_size_det_3);
-            h3_2d->Fill(front_size_det_3, back_size_det_3);
-        } else if(event_size_det_4>0){
-            h4_1d->Fill(event_size_det_4);
-            h4_2d->Fill(front_size_det_4, back_size_det_4);
+        if (event_size > 0)
+        {
+
+            if (particle_name == "gamma")
+            {
+                particle_size[0] += 1;
+                h_particles_1d->Fill("gamma", 1);
+            }
+            else if (particle_name == "proton")
+            {
+                particle_size[1] += 1;
+                h_particles_1d->Fill("proton", 1);
+            }
+            else if (particle_name == "e-")
+            {
+                particle_size[2] += 1;
+                h_particles_1d->Fill("e-", 1);
+            }
+            else
+            {
+                particle_size[3] += 1;
+                h_particles_1d->Fill("other", 1);
+            }
+
+
+
+
+
+
+            if (event_size_det_1 > 0)
+            {
+                h1_1d->Fill(event_size_det_1);
+                h1_2d->Fill(front_size_det_1, back_size_det_1);
+            }
+            else if (event_size_det_2 > 0)
+            {
+                h2_1d->Fill(event_size_det_2);
+                h2_2d->Fill(front_size_det_2, back_size_det_2);
+            }
+            else if (event_size_det_3 > 0)
+            {
+                h3_1d->Fill(event_size_det_3);
+                h3_2d->Fill(front_size_det_3, back_size_det_3);
+            }
+            else if (event_size_det_4 > 0)
+            {
+                h4_1d->Fill(event_size_det_4);
+                h4_2d->Fill(front_size_det_4, back_size_det_4);
+            }
         }
-
     }
-
 
     auto c1 = new TCanvas("c1", "detectors");
     c1->Divide(2, 2);
@@ -152,7 +194,6 @@ void each_detector()
     c1->cd(4);
     h2_2d->Draw("colz");
 
-    gStyle->SetImageScaling(3);
     c1->SaveAs("2d_hist_detectors.png");
 
     auto c2 = new TCanvas("c2", "total detectors");
@@ -166,6 +207,10 @@ void each_detector()
     c2->cd(4);
     h2_1d->Draw();
 
-    gStyle->SetImageScaling(3);
+    //gStyle->SetImageScaling(3); should create a high res image, but doesnt work
     c2->SaveAs("total_detectors.png");
+
+
+    auto c3 = new TCanvas("c3", "particles");
+    h_particles_1d->Draw();
 }
