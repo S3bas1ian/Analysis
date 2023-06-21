@@ -14,7 +14,7 @@ void each_detector()
     auto h3_1d = new TH1I("total_2", "total detector 2; N_{Counts}; #", 10, 0, 10);
     auto h4_1d = new TH1I("total_3", "total detector 3; N_{Counts}; #", 10, 0, 10);
 
-    auto h_particles_1d = new TH1I("particles", "total events per particle; ;#", 4, 4.0f);
+    auto h_particles_1d = new TH1I("particles", "total events per particle; particle ;#", 4, 0, 4);
 
     auto h1_2d = new TH2I("0", "detector 0; front side; back side;", 10, 0, 10, 10, 0, 10);
     auto h2_2d = new TH2I("1", "detector 1; front side; back side;", 10, 0, 10, 10, 0, 10);
