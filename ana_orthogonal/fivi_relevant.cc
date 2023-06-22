@@ -179,7 +179,18 @@ void fivi_relevant()
 
     }
 
-    print_ratio();
+
+    //print ratios
+    float total_size = (float) h_particles_1d->GetEntries();
+    float gamma_size = (float) h_particles_1d->GetBinContent(0);
+    float proton_size = (float) h_particles_1d->GetBinContent(1);
+    float e_size = (float) h_particles_1d->GetBinContent(2);
+    float other_size = (float) h_particles_1d->GetBinContent(03);
+
+    cout << "gammas:" << gamma_size/total_size << endl;
+    cout << "protons:" << proton_size/total_size << endl;
+    cout << "e-:" << e_size/total_size << endl;
+    cout << "other:" << other_size/total_size << endl;
 
 
     // plotting and saving images with root
@@ -213,19 +224,4 @@ void fivi_relevant()
     auto c3 = new TCanvas("c3", "particles (fivi relevant)");
     h_particles_1d->Draw();
     c3->SaveAs("particle_overview_fivi_relevant.png");
-}
-
-void print_ratio(){
-    float total_size = (float) h_particles_1d->GetEntries();
-    float gamma_size = (float) h_particles_1d->GetBinContent(0);
-    float proton_size = (float) h_particles_1d->GetBinContent(1);
-    float e_size = (float) h_particles_1d->GetBinContent(2);
-    float other_size = (float) h_particles_1d->GetBinContent(03);
-
-    cout << "gammas:" << gamma_size/total_size << endl;
-    cout << "protons:" << proton_size/total_size << endl;
-    cout << "e-:" << e_size/total_size << endl;
-    cout << "other:" << other_size/total_size << endl;
-    
-
 }
