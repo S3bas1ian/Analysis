@@ -226,10 +226,9 @@ void fivi_relevant()
     auto text = new TText();
     text->SetTextColor(kBlue);
     text->SetTextAngle(45);
-    text->SetNDC(kTrue);
 
-    text->DrawText(0.05, 0.45, std::to_string(gamma_size/total_size));
-    text->DrawText(0.25, 0.2, std::to_string(gamma_size/total_size));
+    text->DrawTextNDC(0.05, 0.45, "test 1");
+    text->DrawTextNDC(0.25, 0.2, "test 2");
 
     c3->SaveAs("particle_overview_fivi_relevant.png");
 }
