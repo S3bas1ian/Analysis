@@ -180,6 +180,19 @@ void each_detector()
         }
     }
 
+
+    //print ratios
+    float total_size = (float) h_particles_1d->GetEntries();
+    float gamma_size = (float) h_particles_1d->GetBinContent(1);
+    float proton_size = (float) h_particles_1d->GetBinContent(2);
+    float e_size = (float) h_particles_1d->GetBinContent(3);
+    float other_size = (float) h_particles_1d->GetBinContent(4);
+
+    cout << "gammas:" << gamma_size/total_size << endl;
+    cout << "protons:" << proton_size/total_size << endl;
+    cout << "e-:" << e_size/total_size << endl;
+    cout << "other:" << other_size/total_size << endl;
+
     // plotting and saving images with root
     auto c1 = new TCanvas("c1", "detectors");
     c1->Divide(2, 2);
@@ -210,5 +223,15 @@ void each_detector()
 
     auto c3 = new TCanvas("c3", "particles");
     h_particles_1d->Draw();
+
+     auto text = new TText();
+    text->SetTextColor(kBlue);
+    text->SetTextAngle(45);
+
+    text->DrawText(0.25, 20000, std::to_string((std::round(gamma_size/total_size * 1000.0)/1000.0)).c_str());
+    text->DrawText(1.25, 12000, std::to_string((std::round(proton_size/total_size * 1000.0)/1000.0)).c_str());
+    text->DrawText(2.25, 4000, std::to_string((std::round(e_size/total_size * 1000.0)/1000.0)).c_str());
+    text->DrawText(3.25, 2000, std::to_string((std::round(other_size/total_size * 1000.0)/1000.0)).c_str());
+
     c3->SaveAs("particle_overview.png");
 }

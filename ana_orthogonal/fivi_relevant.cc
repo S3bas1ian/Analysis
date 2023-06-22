@@ -224,6 +224,7 @@ void fivi_relevant()
 
     auto c3 = new TCanvas("c3", "particles (fivi relevant)");
     h_particles_1d->Draw();
+    
     auto text = new TText();
     text->SetTextColor(kBlue);
     text->SetTextAngle(45);
