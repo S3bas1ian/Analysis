@@ -9,19 +9,19 @@ void fivi_relevant()
     TTree *hits = (TTree *)file->Get("hits");
 
     // 2d histogram for each detector where I seperate between front and backside
-    auto h1_2d = new TH2I("0", "detector 0; front side; back side;", 10, 0, 10, 10, 0, 10);
-    auto h2_2d = new TH2I("1", "detector 1; front side; back side;", 10, 0, 10, 10, 0, 10);
-    auto h3_2d = new TH2I("2", "detector 2; front side; back side;", 10, 0, 10, 10, 0, 10);
-    auto h4_2d = new TH2I("3", "detector 3; front side; back side;", 10, 0, 10, 10, 0, 10);
+    auto h1_2d = new TH2I("0", "detector 0 (fivi); front side; back side;", 10, 0, 10, 10, 0, 10);
+    auto h2_2d = new TH2I("1", "detector 1 (fivi); front side; back side;", 10, 0, 10, 10, 0, 10);
+    auto h3_2d = new TH2I("2", "detector 2 (fivi); front side; back side;", 10, 0, 10, 10, 0, 10);
+    auto h4_2d = new TH2I("3", "detector 3 (fivi); front side; back side;", 10, 0, 10, 10, 0, 10);
 
     // 1d histogram for each detector where the total hits (front + backside) are plottet
-    auto h1_1d = new TH1I("total_0", "total detector 0; N_{Counts}; #", 10, 0, 10);
-    auto h2_1d = new TH1I("total_1", "total detector 1; N_{Counts}; #", 10, 0, 10);
-    auto h3_1d = new TH1I("total_2", "total detector 2; N_{Counts}; #", 10, 0, 10);
-    auto h4_1d = new TH1I("total_3", "total detector 3; N_{Counts}; #", 10, 0, 10);
+    auto h1_1d = new TH1I("total_0", "total detector 0 (fivi); N_{Counts}; #", 10, 0, 10);
+    auto h2_1d = new TH1I("total_1", "total detector 1 (fivi); N_{Counts}; #", 10, 0, 10);
+    auto h3_1d = new TH1I("total_2", "total detector 2 (fivi); N_{Counts}; #", 10, 0, 10);
+    auto h4_1d = new TH1I("total_3", "total detector 3 (fivi); N_{Counts}; #", 10, 0, 10);
 
     // 1d histogram for gamma, proton, e- and other
-    auto h_particles_1d = new TH1I("particles", "total events per particle; particle ;#", 4, 0, 4);
+    auto h_particles_1d = new TH1I("particles", "total events per particle (fivi); particle ;#", 4, 0, 4);
 
 
 
