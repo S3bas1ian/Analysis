@@ -228,10 +228,10 @@ void fivi_relevant()
     text->SetTextColor(kBlue);
     text->SetTextAngle(45);
 
-    text->DrawText(0.2, 20000, std::to_string((std::round(gamma_size/total_size * 1000.0)/1000.0)).c_str());
-    text->DrawText(1.2, 12000, "test 2");
-    text->DrawText(2.2, 4000, "test 2");
-    text->DrawText(3.2, 2000, "test 2");
+    text->DrawText(0.25, 20000, std::to_string((std::round(gamma_size/total_size * 1000.0)/1000.0)).c_str());
+    text->DrawText(1.25, 12000, std::to_string((std::round(proton_size/total_size * 1000.0)/1000.0)).c_str());
+    text->DrawText(2.25, 4000, std::to_string((std::round(e_size/total_size * 1000.0)/1000.0)).c_str());
+    text->DrawText(3.25, 2000, std::to_string((std::round(other_size/total_size * 1000.0)/1000.0)).c_str());
 
     c3->SaveAs("particle_overview_fivi_relevant.png");
 }
