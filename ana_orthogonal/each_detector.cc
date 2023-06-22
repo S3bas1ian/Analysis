@@ -228,10 +228,10 @@ void each_detector()
     text->SetTextColor(kBlue);
     text->SetTextAngle(45);
 
-    text->DrawText(0.25, 20000, std::to_string((std::round(gamma_size/total_size * 1000.0)/1000.0)).c_str());
-    text->DrawText(1.25, 12000, std::to_string((std::round(proton_size/total_size * 1000.0)/1000.0)).c_str());
-    text->DrawText(2.25, 4000, std::to_string((std::round(e_size/total_size * 1000.0)/1000.0)).c_str());
-    text->DrawText(3.25, 2000, std::to_string((std::round(other_size/total_size * 1000.0)/1000.0)).c_str());
+    text->DrawText(0.25, 20000, std::to_string(gamma_size/total_size ).c_str());
+    text->DrawText(1.25, 12000, std::to_string(proton_size/total_size ).c_str());
+    text->DrawText(2.25, 4000, std::to_string(e_size/total_size ).c_str());
+    text->DrawText(3.25, 2000, std::to_string(other_size/total_size ).c_str());
 
     c3->SaveAs("particle_overview.png");
 }
