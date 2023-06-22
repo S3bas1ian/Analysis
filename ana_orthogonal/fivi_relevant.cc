@@ -182,10 +182,10 @@ void fivi_relevant()
 
     //print ratios
     float total_size = (float) h_particles_1d->GetEntries();
-    float gamma_size = (float) h_particles_1d->GetBinContent(0);
-    float proton_size = (float) h_particles_1d->GetBinContent(1);
-    float e_size = (float) h_particles_1d->GetBinContent(2);
-    float other_size = (float) h_particles_1d->GetBinContent(03);
+    float gamma_size = (float) h_particles_1d->GetBinContent(1);
+    float proton_size = (float) h_particles_1d->GetBinContent(2);
+    float e_size = (float) h_particles_1d->GetBinContent(3);
+    float other_size = (float) h_particles_1d->GetBinContent(4);
 
     cout << "gammas:" << gamma_size/total_size << endl;
     cout << "protons:" << proton_size/total_size << endl;
