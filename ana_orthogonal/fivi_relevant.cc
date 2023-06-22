@@ -228,7 +228,7 @@ void fivi_relevant()
     text->SetTextColor(kBlue);
     text->SetTextAngle(45);
 
-    text->DrawText(0.2, 20000, (std::round(gamma_size/total_size * 1000.0)/1000.0).c_str());
+    text->DrawText(0.2, 20000, std::to_string((std::round(gamma_size/total_size * 1000.0)/1000.0)).c_str());
     text->DrawText(1.2, 12000, "test 2");
     text->DrawText(2.2, 4000, "test 2");
     text->DrawText(3.2, 2000, "test 2");
