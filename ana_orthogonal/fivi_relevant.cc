@@ -1,5 +1,6 @@
 #include <TFile.h>
 #include <TTree.h>
+#include <string.h>
 
 void fivi_relevant()
 {
@@ -227,8 +228,10 @@ void fivi_relevant()
     text->SetTextColor(kBlue);
     text->SetTextAngle(45);
 
-    text->DrawTextNDC(0.05, 0.45, "test 1");
-    text->DrawTextNDC(0.25, 0.2, "test 2");
+    text->DrawText(0.2, 20000, std::to_string(std::round(gamma_size/total_size , 3)));
+    text->DrawText(1.2, 12000, "test 2");
+    text->DrawText(2.2, 4000, "test 2");
+    text->DrawText(3.2, 2000, "test 2");
 
     c3->SaveAs("particle_overview_fivi_relevant.png");
 }
