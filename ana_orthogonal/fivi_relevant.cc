@@ -5,6 +5,9 @@
 void fivi_relevant()
 {
 
+    //constants
+    energy_min = 100000; //eV
+
     // File which will be read
     TFile *file = new TFile("mess_1/full_output.root", "read");
     TTree *hits = (TTree *)file->Get("hits");
@@ -74,7 +77,7 @@ void fivi_relevant()
             {
                 // we are still looking at the right event
 
-                if (edep > 0) // only count event if energy is deposited
+                if (edep > energy_min) // only count event if energy is deposited
                 {
                     // count the event
                     event_size += 1;
@@ -195,7 +198,7 @@ void fivi_relevant()
 
 
     // plotting and saving images with root
-    auto c1 = new TCanvas("c1", "detectors (fivi relevant)");
+    auto c1 = new TCanvas("c1", "detectors (fivi relevant)(e_min= 100keV)");
     c1->Divide(2, 2);
     c1->cd(1);
     h3_2d->Draw("colz");
@@ -206,9 +209,9 @@ void fivi_relevant()
     c1->cd(4);
     h2_2d->Draw("colz");
 
-    c1->SaveAs("2d_hist_detectors_fivi_relevant.png");
+    c1->SaveAs("2d_hist_detectors_fivi_relevant_" + std::to_string(energy_min) + ".png");
 
-    auto c2 = new TCanvas("c2", "total detectors (fivi relevant)");
+    auto c2 = new TCanvas("c2", "total detectors (fivi relevant) (e_min= 100keV)");
     c2->Divide(2, 2);
     c2->cd(1);
     h3_1d->Draw();
@@ -220,9 +223,9 @@ void fivi_relevant()
     h2_1d->Draw();
 
     // gStyle->SetImageScaling(3); should create a high res image, but doesnt work
-    c2->SaveAs("total_detectors_fivi_relevant.png");
+    c2->SaveAs("total_detectors_fivi_relevant_" + std::to_string(energy_min) + ".png");
 
-    auto c3 = new TCanvas("c3", "particles (fivi relevant)");
+    auto c3 = new TCanvas("c3", "particles (fivi relevant) (e_min= 100keV)");
     h_particles_1d->Draw();
 
     auto text = new TText();
@@ -234,5 +237,5 @@ void fivi_relevant()
     text->DrawText(2.25, 4000, std::to_string(e_size/total_size ).c_str());
     text->DrawText(3.25, 2000, std::to_string(other_size/total_size ).c_str());
 
-    c3->SaveAs("particle_overview_fivi_relevant.png");
+    c3->SaveAs("particle_overview_fivi_relevant_" + std::to_string(energy_min) + ".png");
 }

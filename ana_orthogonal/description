@@ -1,0 +1,28 @@
+orthogonal strips
+detector size 6cm x 6cm x 300um
+no virtual segmentation, the strip volumes are physically seperated
+
+PHANTOM_DEPTH                           20.0        cm
+
+PHANTOM_INNER_RADIUS                    0.0         cm
+PHANTOM_OUTER_RADIUS                    10.0        cm
+
+INHOMO_0_ACTIVE                         false
+
+#beam settings
+
+BEAM_PROFILE                            GAUSS
+BEAM_ENERGY                             5500     MeV     #run 123
+BEAM_FWHM                               7.6144      MeV     #run 123
+BEAM_WIDTH                              3.0         mm
+BEAM_X_POS                              0.18067     cm
+BEAM_Y_POS                              -0.0905     cm
+BEAM_Z_POS                              -10.5       cm
+BEAM_PX                                 -0.05502
+BEAM_PY                                 -0.0301
+BEAM_PZ                                 12.0
+BEAM_A                                  16
+BEAM_Z                                  8
+BEAM_Q                                  8
+BEAM_EX                                 0           eV
+

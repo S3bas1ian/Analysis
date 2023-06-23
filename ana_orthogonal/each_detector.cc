@@ -5,6 +5,9 @@
 void each_detector()
 {
 
+    //constants
+    energy_min = 100000; //eV
+
     // File which will be read
     TFile *file = new TFile("mess_1/full_output.root", "read");
     TTree *hits = (TTree *)file->Get("hits");
@@ -73,7 +76,7 @@ void each_detector()
             {
                 // we are still looking at the right event
 
-                if (edep > 0) // only count event if energy is deposited
+                if (edep > energy_min) // only count event if energy is deposited
                 {
                     // count the event
                     event_size += 1;
@@ -194,7 +197,7 @@ void each_detector()
     cout << "other:" << other_size/total_size << endl;
 
     // plotting and saving images with root
-    auto c1 = new TCanvas("c1", "detectors");
+    auto c1 = new TCanvas("c1", "detectors (e_min= 100keV)");
     c1->Divide(2, 2);
     c1->cd(1);
     h3_2d->Draw("colz");
@@ -205,9 +208,9 @@ void each_detector()
     c1->cd(4);
     h2_2d->Draw("colz");
 
-    c1->SaveAs("2d_hist_detectors.png");
+    c1->SaveAs("2d_hist_detectors_" + std::to_string(energy_min) + ".png");
 
-    auto c2 = new TCanvas("c2", "total detectors");
+    auto c2 = new TCanvas("c2", "total detectors (e_min= 100keV)");
     c2->Divide(2, 2);
     c2->cd(1);
     h3_1d->Draw();
@@ -219,9 +222,9 @@ void each_detector()
     h2_1d->Draw();
 
     // gStyle->SetImageScaling(3); should create a high res image, but doesnt work
-    c2->SaveAs("total_detectors.png");
+    c2->SaveAs("total_detectors_" + std::to_string(energy_min) + ".png");
 
-    auto c3 = new TCanvas("c3", "particles");
+    auto c3 = new TCanvas("c3", "particles (e_min= 100keV)");
     h_particles_1d->Draw();
 
      auto text = new TText();
@@ -233,5 +236,5 @@ void each_detector()
     text->DrawText(2.25, 4000, std::to_string(e_size/total_size ).c_str());
     text->DrawText(3.25, 2000, std::to_string(other_size/total_size ).c_str());
 
-    c3->SaveAs("particle_overview.png");
+    c3->SaveAs("particle_overview_" + std::to_string(energy_min) + ".png");
 }
