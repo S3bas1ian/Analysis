@@ -6,7 +6,7 @@ void each_detector()
 {
 
     //constants
-    energy_min = 100000; //eV
+    double energy_min = 100000; //eV
 
     // File which will be read
     TFile *file = new TFile("mess_1/full_output.root", "read");
