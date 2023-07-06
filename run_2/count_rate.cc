@@ -52,8 +52,9 @@ void count_rate(){
 
 	std::sort(vec_time.begin(), vec_time.end());
 	auto g = new TGraph(vec_time.size(), &vec_time[0]);
+	auto c1 = new TCanvas("c", "c", 800, 800);
 	g->SetTitle("Time between hits in specific strip");
 	g->Draw();
-	g->SaveAs("time_elapsed.png");
+	c1->SaveAs("time_elapsed.png");
 
 }
