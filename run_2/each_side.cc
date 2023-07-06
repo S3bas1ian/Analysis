@@ -1,7 +1,7 @@
 #include <TFile.h>
 #include <TTree.h>
 
-void ausprobieren()
+void each_side()
 {
 
     // stuff for plotting
