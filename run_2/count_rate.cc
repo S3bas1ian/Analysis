@@ -1,7 +1,8 @@
 #include <TFile.h>
+#include <TGraph.h>
 #include <TTree.h>
 #include <string.h>
-#include <vector.h>
+#include <vector>
 
 
 void count_rate(){
@@ -13,7 +14,7 @@ void count_rate(){
 	double psPerEvent = 1/100000000; //1s/10^8ions in this one second
 	vector<double> vec_time;
 
-	TFile *file = new TFile("data/final_output/final_output.root", "read");
+	TFile *file = new TFile("data/final_output/output3.root", "read");
     	TTree *hits = (TTree *)file->Get("hits");
 
 	char particle_name[128];
@@ -42,15 +43,15 @@ void count_rate(){
 		hits->GetEntry(i);
 
 		if(det_id==det && strip_id==strip){
-			t = psPerEvent*event_number + time;
-			vec_time.insert(t);
+			double t = psPerEvent*event_number + time;
+			vec_time.insert(vec_time.end(), t);
 		}
 
 	}
 
 
 	std::sort(vec_time.begin(), vec_time.end());
-	auto g = new TGraph(vec_time.size(), vec_time);
+	auto g = new TGraph(vec_time.size(), &vec_time[0]);
 	g->SetTitle("Time between hits in specific strip");
 	g->Draw();
 	g->SaveAs("time_elapsed.png");
