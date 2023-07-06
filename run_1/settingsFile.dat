@@ -1,0 +1,363 @@
+ #automation settings
+
+EXE_PATH                                /home/sschroe/fivi/bin/ivi
+
+#global simulation settings
+
+P2P                                     false
+CHECK_OVERLAPS                          false
+
+#I/O settings
+
+MACRO_PATH                              /home/sschroe/fivi/bin/
+OUTPUT_PATH                             /home/sschroe/fivi/bin/
+DOSE_SCORING                            false
+PATH_SCORING                            false
+SAVE_PRODUCED                           true
+MIN_HITS                                1
+
+#phantom settings
+
+#main phantom
+
+PHANTOM_ACTIVE                          true
+
+PHANTOM_TYPE                            CYLINDER
+
+PHANTOM_DEPTH                           20.0        cm
+
+PHANTOM_INNER_RADIUS                    0.0         cm
+PHANTOM_OUTER_RADIUS                    10.0        cm
+
+#ZYZ Euler angles, equivalent to rotation 90 deg about X axis
+PHANTOM_ROT_Y                           90.0        deg
+PHANTOM_ROT_Z                           90.0        deg
+
+PHANTOM_X                               0.0         cm
+PHANTOM_Y                               0.0         cm
+PHANTOM_Z                               0.0         cm
+
+#PHANTOM_ACTIVE                          true
+
+#PHANTOM_TYPE                            BOX
+
+#PHANTOM_WIDTH                           52          mm
+#PHANTOM_HEIGHT                          52          mm
+#PHANTOM_DEPTH                           40          mm
+
+#PHANTOM_X                               0.0         cm
+#PHANTOM_Y                               0.0         cm
+#PHANTOM_Z                               -10         mm
+
+PHANTOM_MAT                             PMMA
+
+#inhomogeneities
+
+INHOMO_0_ACTIVE                         false
+
+INHOMO_0_TYPE                           BOX
+
+INHOMO_0_DEPTH                          0.01        cm
+INHOMO_0_WIDTH                          5.0         cm
+INHOMO_0_HEIGHT                         5.0         cm
+
+INHOMO_0_X                              0.0         cm
+INHOM0_0_Y                              0.0         cm
+INHOMO_0_Z                              1.65        cm
+
+INHOMO_0_MAT                            G4_Ag
+
+#beam settings
+
+BEAM_PROFILE                            GAUSS
+BEAM_ENERGY                             2500     MeV     #run 123
+BEAM_FWHM                               7.6144      MeV     #run 123
+BEAM_WIDTH                              3.0         mm
+BEAM_X_POS                              0.18067     cm
+BEAM_Y_POS                              -0.0905     cm
+BEAM_Z_POS                              -10.5       cm
+BEAM_PX                                 -0.05502
+BEAM_PY                                 -0.0301
+BEAM_PZ                                 12.0
+BEAM_A                                  16
+BEAM_Z                                  8
+BEAM_Q                                  8
+BEAM_EX                                 0           eV
+
+#tracker settings
+
+#NUM_TRACKER                             2
+#DET_PER_TRACKER                         2
+
+NUM_TRACKERS                            2
+ALL_NUM_DETECTORS                       2
+ALL_FRONT_NUM_BOARDS                    8
+ALL_REAR_NUM_BOARDS                     8
+ALL_FRONT_STRIP_READOUT                 LEFT_TO_RIGHT
+ALL_REAR_STRIP_READOUT                  LEFT_TO_RIGHT
+ALL_FRONT_STRIP_EDGE                    BOTTOM
+ALL_REAR_STRIP_EDGE                     BOTTOM
+ALL_FRONT_INFER_PITCH                   TRUE
+ALL_REAR_INFER_PITCH                    TRUE
+ALL_FRONT_DIR_X                         0
+ALL_FRONT_DIR_Y                         1
+ALL_REAR_DIR_X                          -0.130526
+ALL_REAR_DIR_Y                          0.991445
+ALL_NUM_CHANNELS                        128
+
+#tracker 0
+
+TRACKER_0_PREFIX                        TRACKER_0_
+
+TRACKER_0_ACTIVE                        true
+
+TRACKER_0_MAT                           G4_Al
+TRACKER_0_WINDOW_MAT                    G4_Al
+
+TRACKER_0_WALL_THICKNESS                1.0         cm
+TRACKER_0_WINDOW_THICKNESS              16.0        um
+
+TRACKER_0_SEPARATION_FROM_ORIGIN        13.8        cm
+
+TRACKER_0_LENGTH                        30.0        cm
+TRACKER_0_WIDTH                         9.0         cm
+TRACKER_0_HEIGHT                        9.0         cm
+
+TRACKER_0_X                             0.0         cm
+TRACKER_0_Y                             0.0        cm
+TRACKER_0_Z                             0.0         cm
+
+#true angle
+TRACKER_0_ROT_Y                         -45.0        deg
+
+TRACKER_0_COLL_ACTIVE                   false
+
+TRACKER_0_COLL_MAT                      G4_Fe
+
+TRACKER_0_COLL_THICKNESS                30.0        mm
+TRACKER_0_COLL_SPACING                  0.0         mm
+
+TRACKER_0_COLL_WINDOW_WIDTH             10.0        mm
+
+TRACKER_0_COLL_WINDOW_HEIGHT            10.0        mm
+TRACKER_0_COLL_WINDOW_LATERAL           0.0         mm
+
+#tracker 0 front detector
+
+TRACKER_0_DETECTOR_0_PREFIX             DET_0_0_
+
+DET_0_0_ACTIVE                          true
+
+DET_0_0_X                               0.0         cm
+DET_0_0_Y                               0.0         cm
+DET_0_0_Z                               3.4         cm
+
+DET_0_0_HEIGHT                          6.0         cm
+DET_0_0_WIDTH                           6.0         cm
+DET_0_0_THICKNESS                       300.0       um
+
+DET_0_0_DET_TYPE                        FRONT
+DET_0_0_BOARD_0_FRONT_ID                0
+DET_0_0_BOARD_1_FRONT_ID                1
+DET_0_0_BOARD_2_FRONT_ID                2
+DET_0_0_BOARD_3_FRONT_ID                3
+DET_0_0_BOARD_4_FRONT_ID                4
+DET_0_0_BOARD_5_FRONT_ID                5
+DET_0_0_BOARD_6_FRONT_ID                6
+DET_0_0_BOARD_7_FRONT_ID                7
+
+DET_0_0_BOARD_0_REAR_ID                 8
+DET_0_0_BOARD_1_REAR_ID                 9
+DET_0_0_BOARD_2_REAR_ID                 10
+DET_0_0_BOARD_3_REAR_ID                 11
+DET_0_0_BOARD_4_REAR_ID                 12
+DET_0_0_BOARD_5_REAR_ID                 13
+DET_0_0_BOARD_6_REAR_ID                 14
+DET_0_0_BOARD_7_REAR_ID                 15
+
+#tracker 0 rear detector
+
+TRACKER_0_DETECTOR_1_PREFIX             DET_0_1_
+
+DET_0_1_ACTIVE                          true
+
+DET_0_1_X                               0.0         cm
+DET_0_1_Y                               0.0         cm
+DET_0_1_Z                               15.4        cm
+
+DET_0_1_HEIGHT                          6.0         cm
+DET_0_1_WIDTH                           6.0         cm
+DET_0_1_THICKNESS                       300.0       um
+
+DET_0_1_DET_TYPE                        REAR
+DET_0_1_BOARD_0_FRONT_ID                16
+DET_0_1_BOARD_1_FRONT_ID                17
+DET_0_1_BOARD_2_FRONT_ID                18
+DET_0_1_BOARD_3_FRONT_ID                19
+DET_0_1_BOARD_4_FRONT_ID                20
+DET_0_1_BOARD_5_FRONT_ID                21
+DET_0_1_BOARD_6_FRONT_ID                22
+DET_0_1_BOARD_7_FRONT_ID                23
+
+DET_0_1_BOARD_0_REAR_ID                 24
+DET_0_1_BOARD_1_REAR_ID                 25
+DET_0_1_BOARD_2_REAR_ID                 26
+DET_0_1_BOARD_3_REAR_ID                 27
+DET_0_1_BOARD_4_REAR_ID                 28
+DET_0_1_BOARD_5_REAR_ID                 29
+DET_0_1_BOARD_6_REAR_ID                 30
+DET_0_1_BOARD_7_REAR_ID                 31
+
+#tracker 1
+
+TRACKER_1_PREFIX                        TRACKER_1_
+
+TRACKER_1_ACTIVE                        true
+
+TRACKER_1_MAT                           G4_Al
+TRACKER_1_WINDOW_MAT                    G4_Al
+
+TRACKER_1_WALL_THICKNESS                1.0         cm
+TRACKER_1_WINDOW_THICKNESS              16.0        um
+
+TRACKER_1_SEPARATION_FROM_ORIGIN        13.8        cm
+
+TRACKER_1_LENGTH                        30.0        cm
+TRACKER_1_WIDTH                         9.0         cm
+TRACKER_1_HEIGHT                        9.0         cm
+
+TRACKER_1_X                             0.0         cm
+TRACKER_1_Y                             0.0        cm
+TRACKER_1_Z                             0.0         cm
+
+#true angle
+TRACKER_1_ROT_Y                         45.0        deg
+
+TRACKER_1_COLL_ACTIVE                   false
+
+TRACKER_1_COLL_MAT                      G4_Fe
+
+TRACKER_1_COLL_THICKNESS                30.0        mm
+TRACKER_1_COLL_SPACING                  0.0         mm
+
+TRACKER_1_COLL_WINDOW_WIDTH             10.0        mm
+
+TRACKER_1_COLL_WINDOW_HEIGHT            10.0        mm
+TRACKER_1_COLL_WINDOW_LATERAL           0.0         mm
+
+#tracker 1 front detector
+
+TRACKER_1_DETECTOR_0_PREFIX             DET_1_0_
+
+DET_1_0_ACTIVE                          true
+
+DET_1_0_X                               0.0         cm
+DET_1_0_Y                               0.0         cm
+DET_1_0_Z                               3.4         cm
+
+DET_1_0_HEIGHT                          6.0         cm
+DET_1_0_WIDTH                           6.0         cm
+DET_1_0_THICKNESS                       300.0       um
+
+DET_1_0_DET_TYPE                        FRONT
+DET_1_0_BOARD_0_FRONT_ID                32
+DET_1_0_BOARD_1_FRONT_ID                33
+DET_1_0_BOARD_2_FRONT_ID                34
+DET_1_0_BOARD_3_FRONT_ID                35
+DET_1_0_BOARD_4_FRONT_ID                36
+DET_1_0_BOARD_5_FRONT_ID                37
+DET_1_0_BOARD_6_FRONT_ID                38
+DET_1_0_BOARD_7_FRONT_ID                39
+
+DET_1_0_BOARD_0_REAR_ID                 40
+DET_1_0_BOARD_1_REAR_ID                 41
+DET_1_0_BOARD_2_REAR_ID                 42
+DET_1_0_BOARD_3_REAR_ID                 43
+DET_1_0_BOARD_4_REAR_ID                 44
+DET_1_0_BOARD_5_REAR_ID                 45
+DET_1_0_BOARD_6_REAR_ID                 46
+DET_1_0_BOARD_7_REAR_ID                 47
+
+#tracker 1 rear detector
+
+TRACKER_1_DETECTOR_1_PREFIX     DET_1_1_
+
+DET_1_1_ACTIVE                          true
+
+DET_1_1_X                               0.0         cm
+DET_1_1_Y                               0.0         cm
+DET_1_1_Z                               15.4        cm
+
+DET_1_1_HEIGHT                          6.0         cm
+DET_1_1_WIDTH                           6.0         cm
+DET_1_1_THICKNESS                       300.0       um
+
+DET_1_1_DET_TYPE                        REAR
+DET_1_1_BOARD_0_FRONT_ID                48
+DET_1_1_BOARD_1_FRONT_ID                49
+DET_1_1_BOARD_2_FRONT_ID                50
+DET_1_1_BOARD_3_FRONT_ID                51
+DET_1_1_BOARD_4_FRONT_ID                52
+DET_1_1_BOARD_5_FRONT_ID                53
+DET_1_1_BOARD_6_FRONT_ID                54
+DET_1_1_BOARD_7_FRONT_ID                55
+
+DET_1_1_BOARD_0_REAR_ID                 56
+DET_1_1_BOARD_1_REAR_ID                 57
+DET_1_1_BOARD_2_REAR_ID                 58
+DET_1_1_BOARD_3_REAR_ID                 59
+DET_1_1_BOARD_4_REAR_ID                 60
+DET_1_1_BOARD_5_REAR_ID                 61
+DET_1_1_BOARD_6_REAR_ID                 62
+DET_1_1_BOARD_7_REAR_ID                 63
+
+#tracking settings
+
+TR_ELECTRONS                            true
+TR_GAMMAS                               true
+TR_NEUTRONS                             false
+
+MIN_TIME_DELTA                          10          ns
+MIN_SPACE_DELTA                         100         um
+
+#reconstruction settings
+
+RECON_BEAM_X0                           0.07063     cm
+RECON_BEAM_Y0                           -0.1517     cm
+RECON_BEAM_Z0                           13.5        cm
+
+RECON_BEAM_X1                           0.01561     cm
+RECON_BEAM_Y1                           -0.1818     cm
+RECON_BEAM_Z1                           25.5        cm
+
+APPLY_DISTORTION                        false
+DISTORTION_LEVEL                        0.05
+
+APPLY_EFFICIENCY_CORRECTION             false
+
+ENERGY_RESOLUTION                       0.00        #FWHM/E_0
+TIME_RESOLUTION                         0.0         ns  #FWHM (ns)
+VERTICAL_RESOLUTION                     0.03        mm  #FWHM (mm)
+HORIZONTAL_RESOLUTION                   0.03        mm  #FWHM (mm)
+
+#2nA O-16
+#NS_PER_EVENT                            0.641       #ns
+
+#50pA O-16
+#PS_PER_EVENT               25635       #ps
+
+#5e8 pps
+PS_PER_EVENT                            2000        ps
+
+TICK_DURATION               976.5625    ps  #1e12 ps, divided by 1024 MHz clock rate
+QUEUE_DEPTH             4       #XYTER
+
+MIN_DET                                 0
+MAX_DET                                 8
+
+COINCIDENCE_WINDOW                      50000       ps
+SCATTER_FACTOR                          2           
+ORTHO_MAG_MAX                           0.6         cm
+MIN_DE                                  1.0         keV
+
+ANALYZE_EXTRAS              true
