@@ -17,9 +17,9 @@ void each_side()
     // TFile *outputFile = new TFile("cluster_size.root", "recreate");
     // TTree *outputTree = new TTree("cluster_size", "cluster_size");
 
-    // int event_size;
-    // int front_size;
-    // int back_size;
+    int event_size;
+    int front_size;
+    int back_size;
 
     // outputTree->Branch("event_size", &event_size, "event_size/I");
     // outputTree->Branch("front_size", &front_size, "front_size/I");
