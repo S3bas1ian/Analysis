@@ -10,20 +10,20 @@ void ausprobieren()
     auto h3 = new TH1I("total", "total per detector; N_{Counts}; #", 10, 0, 10);
 
     // File which will be read
-    TFile *file = new TFile("mess_1/full_output.root", "read");
+    TFile *file = new TFile("data/final_output/final_output.root", "read");
     TTree *hits = (TTree *)file->Get("hits");
 
     // File, where I write the cluster sizes out
-    TFile *outputFile = new TFile("cluster_size.root", "recreate");
-    TTree *outputTree = new TTree("cluster_size", "cluster_size");
+    // TFile *outputFile = new TFile("cluster_size.root", "recreate");
+    // TTree *outputTree = new TTree("cluster_size", "cluster_size");
 
-    int event_size;
-    int front_size;
-    int back_size;
+    // int event_size;
+    // int front_size;
+    // int back_size;
 
-    outputTree->Branch("event_size", &event_size, "event_size/I");
-    outputTree->Branch("front_size", &front_size, "front_size/I");
-    outputTree->Branch("back_size", &back_size, "back_size/I");
+    // outputTree->Branch("event_size", &event_size, "event_size/I");
+    // outputTree->Branch("front_size", &front_size, "front_size/I");
+    // outputTree->Branch("back_size", &back_size, "back_size/I");
 
     char name_hitscoll[128];
     int event_number;
@@ -89,12 +89,12 @@ void ausprobieren()
             h1->Fill(front_size);
             h2->Fill(back_size);
             h3->Fill(event_size);
-            outputTree->Fill();
+            //outputTree->Fill();
         }
     }
 
-    outputFile->Write();
-    outputFile->Close();
+    // outputFile->Write();
+    // outputFile->Close();
 
     auto c1 = new TCanvas("c1", "hits per side");
     c1->Divide(2, 1);
