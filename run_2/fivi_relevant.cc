@@ -9,7 +9,7 @@ void fivi_relevant()
     double energy_min = 100000; //eV
 
     // File which will be read
-    TFile *file = new TFile("mess_1/full_output.root", "read");
+    TFile *file = new TFile("data/final_output/final_output.root", "read");
     TTree *hits = (TTree *)file->Get("hits");
 
     // 2d histogram for each detector where I seperate between front and backside
@@ -141,27 +141,29 @@ void fivi_relevant()
         if((event_size_det_1 >0 && event_size_det_2 >0) || (event_size_det_3>0 && event_size_det_4 >0)){
             //one particle triggered both detectors in one box
 
+            h_particles_1d->Fill(particle_name, 1);
+
             // count amount of events with gamma, proton etc.
-            if (strcmp(particle_name, "gamma") == 0)
-            {
-                // particle_size[0] += 1;
-                h_particles_1d->Fill("gamma", 1);
-            }
-            else if (strcmp(particle_name, "proton") == 0)
-            {
-                // particle_size[1] += 1;
-                h_particles_1d->Fill("proton", 1);
-            }
-            else if (strcmp(particle_name, "e-") == 0)
-            {
-                // particle_size[2] += 1;
-                h_particles_1d->Fill("e-", 1);
-            }
-            else
-            {
-                // particle_size[3] += 1;
-                h_particles_1d->Fill("other", 1);
-            }
+            // if (strcmp(particle_name, "gamma") == 0)
+            // {
+            //     // particle_size[0] += 1;
+            //     h_particles_1d->Fill("gamma", 1);
+            // }
+            // else if (strcmp(particle_name, "proton") == 0)
+            // {
+            //     // particle_size[1] += 1;
+            //     h_particles_1d->Fill("proton", 1);
+            // }
+            // else if (strcmp(particle_name, "e-") == 0)
+            // {
+            //     // particle_size[2] += 1;
+            //     h_particles_1d->Fill("e-", 1);
+            // }
+            // else
+            // {
+            //     // particle_size[3] += 1;
+            //     h_particles_1d->Fill("other", 1);
+            // }
 
 
             //add 2d histogramm
@@ -184,17 +186,17 @@ void fivi_relevant()
     }
 
 
-    //print ratios
-    float total_size = (float) h_particles_1d->GetEntries();
-    float gamma_size = (float) h_particles_1d->GetBinContent(1);
-    float proton_size = (float) h_particles_1d->GetBinContent(2);
-    float e_size = (float) h_particles_1d->GetBinContent(3);
-    float other_size = (float) h_particles_1d->GetBinContent(4);
+    // //print ratios
+    // float total_size = (float) h_particles_1d->GetEntries();
+    // float gamma_size = (float) h_particles_1d->GetBinContent(1);
+    // float proton_size = (float) h_particles_1d->GetBinContent(2);
+    // float e_size = (float) h_particles_1d->GetBinContent(3);
+    // float other_size = (float) h_particles_1d->GetBinContent(4);
 
-    cout << "gammas:" << gamma_size/total_size << endl;
-    cout << "protons:" << proton_size/total_size << endl;
-    cout << "e-:" << e_size/total_size << endl;
-    cout << "other:" << other_size/total_size << endl;
+    // cout << "gammas:" << gamma_size/total_size << endl;
+    // cout << "protons:" << proton_size/total_size << endl;
+    // cout << "e-:" << e_size/total_size << endl;
+    // cout << "other:" << other_size/total_size << endl;
 
 
     // plotting and saving images with root
@@ -228,14 +230,14 @@ void fivi_relevant()
     auto c3 = new TCanvas("c3", "particles (fivi relevant) (e_min= 100keV)");
     h_particles_1d->Draw();
 
-    auto text = new TText();
-    text->SetTextColor(kBlue);
-    text->SetTextAngle(45);
+    // auto text = new TText();
+    // text->SetTextColor(kBlue);
+    // text->SetTextAngle(45);
 
-    text->DrawText(0.25, 20000, std::to_string(gamma_size/total_size ).c_str());
-    text->DrawText(1.25, 12000, std::to_string(proton_size/total_size ).c_str());
-    text->DrawText(2.25, 4000, std::to_string(e_size/total_size ).c_str());
-    text->DrawText(3.25, 2000, std::to_string(other_size/total_size ).c_str());
+    // text->DrawText(0.25, 20000, std::to_string(gamma_size/total_size ).c_str());
+    // text->DrawText(1.25, 12000, std::to_string(proton_size/total_size ).c_str());
+    // text->DrawText(2.25, 4000, std::to_string(e_size/total_size ).c_str());
+    // text->DrawText(3.25, 2000, std::to_string(other_size/total_size ).c_str());
 
     c3->SaveAs((std::string("particle_overview_fivi_relevant_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 }
