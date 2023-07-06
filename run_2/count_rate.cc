@@ -12,7 +12,7 @@ void count_rate(){
 	double e_min = 100000; //unit eV
 	
 	double psPerEvent = 1/100000000; //1s/10^8ions in this one second
-	vector<double> vec_time;
+	vector<double> vec_time_point;
 
 	TFile *file = new TFile("data/final_output/output3.root", "read");
     	TTree *hits = (TTree *)file->Get("hits");
@@ -44,14 +44,22 @@ void count_rate(){
 
 		if(det_id==det && strip_id==strip){
 			double t = psPerEvent*event_number + time;
-			vec_time.insert(vec_time.end(), t);
+			vec_time_point.insert(vec_time_point.end(), t);
 		}
 
 	}
 
+	std::sort(vec_time_point.begin(), vec_time_point.end());
 
-	std::sort(vec_time.begin(), vec_time.end());
-	auto g = new TGraph(vec_time.size(), &vec_time[0]);
+	int s = vec_time_point.size();
+
+	double delta_time [s-1];
+	
+	for(int i=0; i<vec_time_point.size()-1; i++){
+		delta_time[i] = vec_time_point[i+1] - vec_time_point[i];
+	}
+
+	auto g = new TGraph(s-1, delta_time);
 	auto c1 = new TCanvas("c", "c", 800, 800);
 	g->SetTitle("Time between hits in specific strip");
 	g->Draw();
