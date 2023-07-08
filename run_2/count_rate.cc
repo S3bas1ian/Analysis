@@ -55,7 +55,7 @@ void count_rate(){
 	cout << "average [ps]: " << std::reduce(vec_time_point.begin(), vec_time_point.end())/static_cast<float>(vec_time_point.size()) << endl;
 
 	double delta_time [s-1];
-	auto h = new TH1D("hist","delta time", 20, 0, 300);
+	auto h = new TH1D("hist","delta time", 75, 0, 75);
 	
 	for(int i=0; i<vec_time_point.size()-1; i++){
 		double t = vec_time_point[i+1] - vec_time_point[i];
