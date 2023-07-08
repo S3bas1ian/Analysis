@@ -58,7 +58,7 @@ void count_rate(){
 	auto h = new TH1D("hist","delta time", 20, 0, 2000);
 	
 	for(int i=0; i<vec_time_point.size()-1; i++){
-		t = vec_time_point[i+1] - vec_time_point[i];
+		double t = vec_time_point[i+1] - vec_time_point[i];
 		delta_time[i] = t;
 		h->Fill(t);
 	}
