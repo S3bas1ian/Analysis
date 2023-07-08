@@ -52,6 +52,7 @@ void count_rate(){
 	std::sort(vec_time_point.begin(), vec_time_point.end());
 
 	int s = vec_time_point.size();
+	cout << "average [ps]: " << std::reduce(vec_time_point.begin(), vec_time_point.end())/static_cast<float>(vec_time_point.size()) << endl;
 
 	double delta_time [s-1];
 	
