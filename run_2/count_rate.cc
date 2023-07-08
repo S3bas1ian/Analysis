@@ -61,7 +61,7 @@ void count_rate(){
 	}
 
 	auto h = new TH1D("hist","delta time", 20, 0, 2000);
-	h->Fill(delta_time);
+	h->Fill(s-1, delta_time, 1, 1);
 	auto c1 = new TCanvas("c", "c", 800, 800);
 	//g->SetTitle("Time between hits in specific strip");
 	h->Draw();
