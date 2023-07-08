@@ -60,10 +60,11 @@ void count_rate(){
 		delta_time[i] = vec_time_point[i+1] - vec_time_point[i];
 	}
 
-	auto g = new TGraph(s-1, delta_time);
+	auto h = new TH1D("hist","delta time", 20, 0, 2000);
+	h->Fill(delta_time);
 	auto c1 = new TCanvas("c", "c", 800, 800);
-	g->SetTitle("Time between hits in specific strip");
-	g->Draw();
+	//g->SetTitle("Time between hits in specific strip");
+	h->Draw();
 	c1->SaveAs("time_elapsed.png");
 
 }
