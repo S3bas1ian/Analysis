@@ -54,13 +54,16 @@ void count_rate(){
 	int s = vec_time_point.size();
 
 	double delta_time [s-1];
+	auto h = new TH1D("hist","delta time", 20, 0, 2000);
 	
 	for(int i=0; i<vec_time_point.size()-1; i++){
-		delta_time[i] = vec_time_point[i+1] - vec_time_point[i];
+		t = vec_time_point[i+1] - vec_time_point[i];
+		delta_time[i] = t;
+		h->Fill(t);
 	}
 
-	auto h = new TH1D("hist","delta time", 20, 0, 2000);
-	h->Fill(s-1, delta_time, 1, 1);
+	
+	
 	auto c1 = new TCanvas("c", "c", 800, 800);
 	//g->SetTitle("Time between hits in specific strip");
 	h->Draw();
