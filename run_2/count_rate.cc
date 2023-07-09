@@ -60,6 +60,7 @@ void count_rate(){
 	for(int i=0; i<vec_time_point.size()-1; i++){
 		double t = vec_time_point[i+1] - vec_time_point[i];
 		delta_time[i] = t;
+		cout << t << endl;
 		h->Fill(t);
 	}
 
