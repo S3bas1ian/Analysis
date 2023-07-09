@@ -50,8 +50,6 @@ void count_rate()
 
 	std::sort(vec_time_point.begin(), vec_time_point.end());
 
-	int s = vec_time_point.size();
-
 	vector<double> delta_time;
 	auto h = new TH1D("hist", "delta time", 100, 0, 2);
 
@@ -63,13 +61,16 @@ void count_rate()
 		h->Fill(t);
 	}
 
+	double sum = std::accumulate(std::begin(delta_time), std::end(delta_time), 0.0);
+	double m = sum / delta_time.size();
+
 	double accum = 0.0;
 	std::for_each(std::begin(delta_time), std::end(delta_time), [&](const double d)
 				  { accum += (d - m) * (d - m); });
 
 	double stdev = sqrt(accum / (delta_time.size() - 1));
 
-	cout << "average [ps]: " << std::reduce(delta_time[0], delta_time[s - 1]) / static_cast<float>(s - 1) << endl;
+	cout << "average [ps]: " << m << endl;
 	cout << "std deviation [ps]: " << stdev << endl;
 
 	auto c1 = new TCanvas("c", "c", 800, 800);
