@@ -11,7 +11,7 @@ void count_rate(){
 	int strip = 123;
 	double e_min = 100000; //unit eV
 	
-	double psPerEvent = 1/100000000; //1s/10^8ions in this one second
+	double psPerEvent = 1e4; //
 	vector<double> vec_time_point;
 
 	TFile *file = new TFile("data/final_output/output3.root", "read");
