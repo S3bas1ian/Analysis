@@ -85,7 +85,7 @@ void count_rate()
 	TTree *hits = (TTree *)file->Get("hits");
 
 	TFile *delta_time_file = new TFile("data/delta_time.root", "recreate");
-	auto output_tree = new TTree("time", "delta_time");
+	TTree* output_tree = new TTree("delta_time", "delta_time");
 
 	//vector<double> all_times;
 	//vector<double> all_Stdv;
@@ -93,9 +93,9 @@ void count_rate()
 	double t, stdv;
 	int dt, strp; 
 
-	output_tree->Branch("detector", &dt, "dt/I");
-	output_tree->Branch("strip", &strp, "strp/I");
-	output_tree->Branch("delta_time", &t, "t/D");
+	output_tree->Branch("dt", &dt, "dt/I");
+	output_tree->Branch("strp", &strp, "strp/I");
+	output_tree->Branch("t", &t, "t/D");
 	output_tree->Branch("stdv", &stdv, "stdv/D");
 
 	// iterate through the wanted detectors and strips
