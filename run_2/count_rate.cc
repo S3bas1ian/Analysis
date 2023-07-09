@@ -51,7 +51,7 @@ void count_rate()
 	std::sort(vec_time_point.begin(), vec_time_point.end());
 
 	int s = vec_time_point.size();
-	cout << "average [ps]: " << std::reduce(vec_time_point.begin(), vec_time_point.end()) / static_cast<float>(vec_time_point.size()) << endl;
+	
 
 	double delta_time[s - 1];
 	auto h = new TH1D("hist", "delta time", 100, 0, 2);
@@ -63,6 +63,8 @@ void count_rate()
 		cout << t << endl;
 		h->Fill(t);
 	}
+
+	cout << "average [ps]: " << std::reduce(delta_time[0], delta_time[s-1]) / static_cast<float>(s-1) << endl;
 
 	auto c1 = new TCanvas("c", "c", 800, 800);
 	// g->SetTitle("Time between hits in specific strip");
