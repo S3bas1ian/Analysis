@@ -115,7 +115,7 @@ void count_rate()
 			strp = s;
 			output_tree->Fill();
 
-			cout << "------------ detector: " << d << "and strips: " << s << "------------" << endl;
+			cout << "------------ detector: " << d << " and strips: " << s << "------------" << endl;
 			cout << "average [ps]: " << o[0] << endl;
 			cout << "std deviation [ps]: " << o[1] << endl;
 
