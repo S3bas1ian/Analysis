@@ -30,13 +30,15 @@ void count_rate()
 	hits->SetBranchAddress("Strip_ID", &strip_id);
 	hits->SetBranchAddress("edep", &edep);
 	hits->SetBranchAddress("time", &time);
+	hits->LoadBaskets();
 
 	// preload stuff to speed things up
 	for (int d : det)
 	{
 		for (int s : strip)
 		{
-			double o* = get_Mean_and_Stdv(d, s);
+			double* o;
+			o = get_Mean_and_Stdv(d, s);
 			cout << "------------ detector: " << d << "and strips: " << s << "------------"  << endl;
 			cout << "average [ps]: " << *o << endl;
 			cout << "std deviation [ps]: " << *(o+1) << endl;
@@ -51,7 +53,7 @@ void count_rate()
 
 double* get_Mean_and_Stdv(int det_id, int strip_id)
 {
-	this.hits->LoadBaskets();
+	
 
 	int size = this.hits->GetEntries();
 
