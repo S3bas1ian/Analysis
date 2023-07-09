@@ -44,27 +44,33 @@ void count_rate()
 		if (det_id == det && strip_id == strip)
 		{
 			double t = psPerEvent * event_number + time;
-			vec_time_point.insert(vec_time_point.end(), t);
+			vec_time_point.push_back(t);
 		}
 	}
 
 	std::sort(vec_time_point.begin(), vec_time_point.end());
 
 	int s = vec_time_point.size();
-	
 
-	double delta_time[s - 1];
+	vector<double> delta_time;
 	auto h = new TH1D("hist", "delta time", 100, 0, 2);
 
 	for (int i = 0; i < vec_time_point.size() - 1; i++)
 	{
 		double t = vec_time_point[i + 1] - vec_time_point[i];
-		delta_time[i] = t;
+		delta_time.push_back(t);
 		cout << t << endl;
 		h->Fill(t);
 	}
 
-	cout << "average [ps]: " << std::reduce(delta_time[0], delta_time[s-1]) / static_cast<float>(s-1) << endl;
+	double accum = 0.0;
+	std::for_each(std::begin(delta_time), std::end(delta_time), [&](const double d)
+				  { accum += (d - m) * (d - m); });
+
+	double stdev = sqrt(accum / (delta_time.size() - 1));
+
+	cout << "average [ps]: " << std::reduce(delta_time[0], delta_time[s - 1]) / static_cast<float>(s - 1) << endl;
+	cout << "std deviation [ps]: " << stdev << endl;
 
 	auto c1 = new TCanvas("c", "c", 800, 800);
 	// g->SetTitle("Time between hits in specific strip");
