@@ -93,10 +93,10 @@ void count_rate()
 	double t, stdv;
 	int dt, strp; 
 
-	output_tree->Branch("detector", &dt);
-	output_tree->Branch("strip", &strp);
-	output_tree->Branch("delta_time", &t);
-	output_tree->Branch("stdv", &stdv);
+	output_tree->Branch("detector", &dt, "dt/I");
+	output_tree->Branch("strip", &strp, "strp/I");
+	output_tree->Branch("delta_time", &t, "t/D");
+	output_tree->Branch("stdv", &stdv, "stdv/D");
 
 	// iterate through the wanted detectors and strips
 	for (int d : det)
