@@ -36,10 +36,10 @@ void count_rate()
 	{
 		for (int s : strip)
 		{
-			double o[] = get_Mean_and_Stdv(d, s);
+			double o* = get_Mean_and_Stdv(d, s);
 			cout << "------------ detector: " << d << "and strips: " << s << "------------"  << endl;
-			cout << "average [ps]: " << o[0] << endl;
-			cout << "std deviation [ps]: " << o[1] << endl;
+			cout << "average [ps]: " << *o << endl;
+			cout << "std deviation [ps]: " << *(o+1) << endl;
 		}
 	}
 
@@ -49,31 +49,31 @@ void count_rate()
 	// c1->SaveAs("time_elapsed.png");
 }
 
-double[] get_Mean_and_Stdv(det_id, strip_id)
+double* get_Mean_and_Stdv(int det_id, int strip_id)
 {
-	hits->LoadBaskets();
+	this.hits->LoadBaskets();
 
-	int size = hits->GetEntries();
+	int size = this.hits->GetEntries();
 
 	for (int i = 0; i < size; i++)
 	{
-		hits->GetEntry(i);
+		this.hits->GetEntry(i);
 
 		if (this.det_id == det_id && this.strip_id == strip_id)
 		{
-			double t = psPerEvent * event_number + time;
-			vec_time_point.push_back(t);
+			double t = this.psPerEvent * this.event_number + this.time;
+			this.vec_time_point.push_back(t);
 		}
 	}
 
-	std::sort(vec_time_point.begin(), vec_time_point.end());
+	std::sort(this.vec_time_point.begin(), this.vec_time_point.end());
 
 	vector<double> delta_time;
-	auto h = new TH1D("hist", "delta time", 100, 0, 2);
+	//auto h = new TH1D("hist", "delta time", 100, 0, 2);
 
 	for (int i = 0; i < vec_time_point.size() - 1; i++)
 	{
-		double t = vec_time_point[i + 1] - vec_time_point[i];
+		double t = this.vec_time_point[i + 1] - this.vec_time_point[i];
 		delta_time.push_back(t);
 		//h->Fill(t);
 	}
