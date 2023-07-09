@@ -84,7 +84,7 @@ void count_rate()
 	TFile *file = new TFile("data/final_output/output3.root", "read");
 	TTree *hits = (TTree *)file->Get("hits");
 
-	TFile *delta_time_file = new TFile("data/delta_time.root", "recreate");
+	TFile *delta_time_file = new TFile("data/delta_time_first_tracker.root", "recreate");
 	TTree* output_tree = new TTree("delta_time", "delta_time");
 
 	//vector<double> all_times;
@@ -99,9 +99,9 @@ void count_rate()
 	output_tree->Branch("stdv", &stdv, "stdv/D");
 
 	// iterate through the wanted detectors and strips
-	for (int d : det)
+	for (int d=0; d<4; d++)
 	{
-		for (int s : strip)
+		for (int s=0; s<1024; s++)
 		{
 			vector<double> o;
 
@@ -115,9 +115,9 @@ void count_rate()
 			strp = s;
 			output_tree->Fill();
 
-			cout << "------------ detector: " << d << " and strips: " << s << "------------" << endl;
-			cout << "average [ps]: " << o[0] << endl;
-			cout << "std deviation [ps]: " << o[1] << endl;
+			// cout << "------------ detector: " << d << " and strips: " << s << "------------" << endl;
+			// cout << "average [ps]: " << o[0] << endl;
+			// cout << "std deviation [ps]: " << o[1] << endl;
 
 
 		}
