@@ -36,7 +36,7 @@ void count_rate()
 	// c1->SaveAs("time_elapsed.png");
 }
 
-vector<double> get_Mean_and_Stdv(int det_id, int strip_id, TTree *hits) // should return mean and stdv
+vector<double> get_Mean_and_Stdv(int d, int s, TTree *hits) // should return mean and stdv
 {
 
 	double e_min = 100000;	 // unit eV
@@ -69,7 +69,7 @@ vector<double> get_Mean_and_Stdv(int det_id, int strip_id, TTree *hits) // shoul
 		hits->GetEntry(i);
 
 		// if the current entry is on the specific strip
-		if (det_id == det_id && strip_id == strip_id && edep>0)
+		if (det_id == d && strip_id == s && edep>0)
 		{
 			// then add the time point to the vector
 			double t = psPerEvent * event_number + time;
