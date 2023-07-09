@@ -101,7 +101,7 @@ void count_rate()
 	// iterate through the wanted detectors and strips
 	for (int d=0; d<4; d++)
 	{
-		for (int s=0; s<1024; s++)
+		for (int s=0; s<1024; s+=4)	//in 4 steps, to speed things up
 		{
 			vector<double> o;
 
