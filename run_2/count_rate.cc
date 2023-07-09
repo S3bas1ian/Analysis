@@ -4,37 +4,6 @@
 #include <string.h>
 #include <vector>
 
-void count_rate()
-{
-
-	int det[] = {0, 1, 7, 8};
-	int strip[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
-
-	TFile *file = new TFile("data/final_output/output3.root", "read");
-	TTree *hits = (TTree *)file->Get("hits");
-	vector<double> all_times;
-
-	// iterate through the wanted detectors and strips
-	for (int d : det)
-	{
-		for (int s : strip)
-		{
-			vector<double> o;
-
-			// calculate for each det/strip combnination the mean and stdv
-			o = get_Mean_and_Stdv(d, s, hits);
-			all_times.push_back(o[0]);
-			cout << "------------ detector: " << d << "and strips: " << s << "------------" << endl;
-			cout << "average [ps]: " << o[0] << endl;
-			cout << "std deviation [ps]: " << o[1] << endl;
-		}
-	}
-
-	// auto c1 = new TCanvas("c", "c", 800, 800);
-	// // g->SetTitle("Time between hits in specific strip");
-	// h->Draw();
-	// c1->SaveAs("time_elapsed.png");
-}
 
 vector<double> get_Mean_and_Stdv(int d, int s, TTree *hits) // should return mean and stdv
 {
@@ -105,3 +74,37 @@ vector<double> get_Mean_and_Stdv(int d, int s, TTree *hits) // should return mea
 	out.push_back(stdev);
 	return out;
 }
+
+void count_rate()
+{
+
+	int det[] = {0, 1, 7, 8};
+	int strip[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
+
+	TFile *file = new TFile("data/final_output/output3.root", "read");
+	TTree *hits = (TTree *)file->Get("hits");
+	vector<double> all_times;
+
+	// iterate through the wanted detectors and strips
+	for (int d : det)
+	{
+		for (int s : strip)
+		{
+			vector<double> o;
+
+			// calculate for each det/strip combnination the mean and stdv
+			o = get_Mean_and_Stdv(d, s, hits);
+			all_times.push_back(o[0]);
+			cout << "------------ detector: " << d << "and strips: " << s << "------------" << endl;
+			cout << "average [ps]: " << o[0] << endl;
+			cout << "std deviation [ps]: " << o[1] << endl;
+		}
+	}
+
+	// auto c1 = new TCanvas("c", "c", 800, 800);
+	// // g->SetTitle("Time between hits in specific strip");
+	// h->Draw();
+	// c1->SaveAs("time_elapsed.png");
+}
+
+
