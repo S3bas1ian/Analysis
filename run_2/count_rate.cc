@@ -78,12 +78,25 @@ vector<double> get_Mean_and_Stdv(int d, int s, TTree *hits) // should return mea
 void count_rate()
 {
 
-	int det[] = {0, 1, 7, 8};
+	int det[] = {0, 1, 6, 7};
 	int strip[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
 
 	TFile *file = new TFile("data/final_output/output3.root", "read");
 	TTree *hits = (TTree *)file->Get("hits");
-	vector<double> all_times;
+
+	TFile *delta_time_file = new TFile("data/delta_time.root", "recreate");
+	auto output_tree = new TTree("time", "delta_time");
+
+	//vector<double> all_times;
+	//vector<double> all_Stdv;
+
+	double t, stdv;
+	int dt, strp; 
+
+	output_tree->Branch("detector", &dt);
+	output_tree->Branch("strip", &strp);
+	output_tree->Branch("delta_time", &t);
+	output_tree->Branch("stdv", &stdv);
 
 	// iterate through the wanted detectors and strips
 	for (int d : det)
@@ -94,12 +107,24 @@ void count_rate()
 
 			// calculate for each det/strip combnination the mean and stdv
 			o = get_Mean_and_Stdv(d, s, hits);
-			all_times.push_back(o[0]);
+			//all_times.push_back(o[0]);
+
+			t = o[0];
+			stdv = o[1];
+			dt = d;
+			strp = s;
+			output_tree->Fill();
+
 			cout << "------------ detector: " << d << "and strips: " << s << "------------" << endl;
 			cout << "average [ps]: " << o[0] << endl;
 			cout << "std deviation [ps]: " << o[1] << endl;
+
+
 		}
 	}
+
+	delta_time_file->Write();
+	delta_time_file->Close();
 
 	// auto c1 = new TCanvas("c", "c", 800, 800);
 	// // g->SetTitle("Time between hits in specific strip");
