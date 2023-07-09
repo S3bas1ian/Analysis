@@ -7,11 +7,11 @@
 void count_rate()
 {
 
-	int det = 0;
-	int strip = 123;
+	int det[] = {0, 1, 7, 8};
+	int strip[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
 	double e_min = 100000; // unit eV
 
-	double psPerEvent = 1e4; //
+	double psPerEvent = 1e4; //unit pS
 	vector<double> vec_time_point;
 
 	TFile *file = new TFile("data/final_output/output3.root", "read");
@@ -32,16 +32,34 @@ void count_rate()
 	hits->SetBranchAddress("time", &time);
 
 	// preload stuff to speed things up
+	for (int d : det)
+	{
+		for (int s : strip)
+		{
+			double o[] = get_Mean_and_Stdv(d, s);
+			cout << "------------ detector: " << d << "and strips: " << s << "------------"  << endl;
+			cout << "average [ps]: " << o[0] << endl;
+			cout << "std deviation [ps]: " << o[1] << endl;
+		}
+	}
+
+	// auto c1 = new TCanvas("c", "c", 800, 800);
+	// // g->SetTitle("Time between hits in specific strip");
+	// h->Draw();
+	// c1->SaveAs("time_elapsed.png");
+}
+
+double[] get_Mean_and_Stdv(det_id, strip_id)
+{
 	hits->LoadBaskets();
 
-	// int i = 0;
 	int size = hits->GetEntries();
 
 	for (int i = 0; i < size; i++)
 	{
 		hits->GetEntry(i);
 
-		if (det_id == det && strip_id == strip)
+		if (this.det_id == det_id && this.strip_id == strip_id)
 		{
 			double t = psPerEvent * event_number + time;
 			vec_time_point.push_back(t);
@@ -57,8 +75,7 @@ void count_rate()
 	{
 		double t = vec_time_point[i + 1] - vec_time_point[i];
 		delta_time.push_back(t);
-		cout << t << endl;
-		h->Fill(t);
+		//h->Fill(t);
 	}
 
 	double sum = std::accumulate(std::begin(delta_time), std::end(delta_time), 0.0);
@@ -69,12 +86,6 @@ void count_rate()
 				  { accum += (d - m) * (d - m); });
 
 	double stdev = sqrt(accum / (delta_time.size() - 1));
-
-	cout << "average [ps]: " << m << endl;
-	cout << "std deviation [ps]: " << stdev << endl;
-
-	auto c1 = new TCanvas("c", "c", 800, 800);
-	// g->SetTitle("Time between hits in specific strip");
-	h->Draw();
-	c1->SaveAs("time_elapsed.png");
+	double out[] = {m, stdev};
+	return out;
 }
