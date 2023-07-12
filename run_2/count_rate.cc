@@ -21,6 +21,8 @@ private:
 	TTree *tree_;
 	TTree *output_tree;
 
+	TH2D* 2d_hist;
+
 	char particleName_[128];
 	/*  Use ROOT's data types Int_t & Double_t for improved
 	 * portability
@@ -43,17 +45,19 @@ public:
 	{
 		file_ = std::make_unique<TFile>(path.c_str(), "read");
 		delta_time_file = std::make_unique<TFile>("data/delta_time.root", "recreate");
-		output_tree = new TTree("delta_time", "delta_time");
+		//output_tree = new TTree("delta_time", "delta_time");
 
-		output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
-		output_tree->Branch("stdv", &stdv, "stdv/D");
-		output_tree->Branch("min", &min, "min/D");
-		output_tree->Branch("max", &max, "max/D");
-		output_tree->Branch("median", &median, "median/D");
-		output_tree->Branch("l_quarter", &l_quarter, "l_quarter/D");
-		output_tree->Branch("h_quarter", &h_quarter, "h_quarter/D");
-		output_tree->Branch("det_id", &out_det_id, "out_det_id/I");
-		output_tree->Branch("strip_id", &out_strip_id, "out_strip_id/I");
+		2d_hist = new TH2D("Delta Time", "Time between two hits for each strip", 100, 0, 20, 1024, 0, 1023);
+
+		// output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
+		// output_tree->Branch("stdv", &stdv, "stdv/D");
+		// output_tree->Branch("min", &min, "min/D");
+		// output_tree->Branch("max", &max, "max/D");
+		// output_tree->Branch("median", &median, "median/D");
+		// output_tree->Branch("l_quarter", &l_quarter, "l_quarter/D");
+		// output_tree->Branch("h_quarter", &h_quarter, "h_quarter/D");
+		// output_tree->Branch("det_id", &out_det_id, "out_det_id/I");
+		// output_tree->Branch("strip_id", &out_strip_id, "out_strip_id/I");
 
 		// file_ = std::make_shared<TFile>(path.c_str(), "read");
 
@@ -88,14 +92,26 @@ public:
 		return tree_->GetEntries();
 	}
 
+	void Fill(Double_t x, Double_t y){
+		2d_hist->Fill(x, y);
+	}
+
 	void getEntry(Long64_t entry)
 	{
 		tree_->GetEntry(entry);
 	}
 
 	void Write(){
-		delta_time_file->Write();
+		delta_time_file->WriteObject(&2d_hist, "histogram");
+
+		auto c1 = new TCanvas("c1", "$\Delta t$ for each strip");
+		2d_hist->SetXTitle("$\Delta t$");
+		2d_hist->SetYTitle("strip");
+		2d_hist->Draw();
+		c1->SaveAs("delta_time.png");
+
 	}
+	
 
 	// Provide access to the data you want to be able to see
 	std::string getName()
@@ -128,27 +144,27 @@ public:
 		return time_;
 	}
 
-	void enterOutput(Double_t av_delta_time, Double_t stdv, Double_t min, Double_t max, Double_t median, Double_t l_quarter, Double_t h_quarter, Int_t det_id, Int_t strip_id)
-	{
-		this->av_delta_time = av_delta_time;
-		this->stdv = stdv;
-		this->min = min;
-		this->max = max;
-		this->median = median;
-		this->l_quarter = l_quarter;
-		this->h_quarter = h_quarter;
-		out_det_id = det_id;
-		out_strip_id = strip_id;
+	// void enterOutput(Double_t av_delta_time, Double_t stdv, Double_t min, Double_t max, Double_t median, Double_t l_quarter, Double_t h_quarter, Int_t det_id, Int_t strip_id)
+	// {
+	// 	this->av_delta_time = av_delta_time;
+	// 	this->stdv = stdv;
+	// 	this->min = min;
+	// 	this->max = max;
+	// 	this->median = median;
+	// 	this->l_quarter = l_quarter;
+	// 	this->h_quarter = h_quarter;
+	// 	out_det_id = det_id;
+	// 	out_strip_id = strip_id;
 
-		output_tree->Fill();
-	}
+	// 	output_tree->Fill();
+	// }
 };
 
 /*  Change return type, since you want to return just a pair of values
  *  Change parameters to accept the TTree wrapper class, other needed
  *  values
  */
-std::vector<Double_t> get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, Double_t psPerEvent)
+void get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, Double_t psPerEvent)
 {
 	Long64_t size = tree.getEntries();
 
@@ -181,63 +197,43 @@ std::vector<Double_t> get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapp
 	{
 		Double_t dt = times[i] - times[i - 1];
 		delta_times.push_back(dt);
+		tree.Fill(dt ,stripID);
 		// h->Fill(dt);
 	}
 
 	// Declare the iterators in a slightly more concise way
-	Double_t sum = std::accumulate(delta_times.begin(), delta_times.end(), 0.0);
+	// Double_t sum = std::accumulate(delta_times.begin(), delta_times.end(), 0.0);
 
-	Double_t mean = sum / delta_times.size();
+	// Double_t mean = sum / delta_times.size();
 
-	// Can use accumulate here again if you want to be fancy
-	Double_t stdev = TMath::Sqrt(
-		std::accumulate(
-			delta_times.begin(),
-			delta_times.end(),
-			0.0,
-			[mean](Double_t sum, Double_t elem)
-			{ return sum + (elem - mean) * (elem - mean); }) /
-		delta_times.size());
+	// // Can use accumulate here again if you want to be fancy
+	// Double_t stdev = TMath::Sqrt(
+	// 	std::accumulate(
+	// 		delta_times.begin(),
+	// 		delta_times.end(),
+	// 		0.0,
+	// 		[mean](Double_t sum, Double_t elem)
+	// 		{ return sum + (elem - mean) * (elem - mean); }) /
+	// 	delta_times.size());
 
-	Double_t min = delta_times[0];
-	Double_t max = delta_times[1];
+	// Double_t min = delta_times[0];
+	// Double_t max = delta_times[1];
 
-	int s = delta_times.size();
-	Double_t median = delta_times[s/2];
-	Double_t l_quarter = delta_times[s/4];
-	Double_t h_quarter = delta_times[3*s/4];
+	// int s = delta_times.size();
+	// Double_t median = delta_times[s/2];
+	// Double_t l_quarter = delta_times[s/4];
+	// Double_t h_quarter = delta_times[3*s/4];
 
-	std::vector<Double_t> output;
+	// std::vector<Double_t> output;
 
-	output.push_back(mean);
-	output.push_back(stdev);
-	output.push_back(min);
-	output.push_back(max);
-	output.push_back(median);
-	output.push_back(l_quarter);
-	output.push_back(h_quarter);
+	// output.push_back(mean);
+	// output.push_back(stdev);
+	// output.push_back(min);
+	// output.push_back(max);
+	// output.push_back(median);
+	// output.push_back(l_quarter);
+	// output.push_back(h_quarter);
 
-
-
-
-
-
-
-	/*  Foreach should just compile to this anyway, if you don't care
-	 *  about being fancy
-	 */
-	/* Double_t stdev2 = 0.0;
-
-	for (auto dt : delta_times){
-		stdev2 += (dt - mean) * (dt - mean);
-	}
-	stdev2 /= delta_times.size();
-	stdev2 = TMath::Sqrt(stdev2);
-
-	std::cout << stdev << std::endl;
-	std::cout << stdev2 << std::endl;
-	std::cout << stdev2 - stdev << std::endl;
-	*/
 
 	/*  Helper method, rather than needing to declare stuff. This also
 	 *  allows C++ to do some optimization, this will actually be
@@ -245,7 +241,7 @@ std::vector<Double_t> get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapp
 	 *  to, rather than in this method, then moved when the method
 	 *  returns.
 	 */
-	return output;
+	// return output;
 }
 
 /*  Move the main method to the bottom, to avoid needing prototypes,
@@ -256,26 +252,20 @@ void count_rate(std::string path)
 	Int_t detectors[] = {0, 1, 6, 7};
 	Int_t strips[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
 
-	// This does not seem to be used?
-	Double_t e_min = 100000; // unit eV
-
 	Double_t psPerEvent = 1e4; // unit ps
 
-	// TreeWrapper input("data/final_output/output3.root");
-	// TreeWrapper input(path);
 	TreeWrapper input = TreeWrapper(path);
-	// auto input = std::make_unique<TreeWrapper>(path);
 
 	// Loop is unchanged, just cleaned up names for readability
-	for (Int_t det = 0; det<8; det++)
+	for (Int_t det = 0; det<1; det++)
 	{
 		for (Int_t strip = 0; strip < 1023; strip += 4)
 		{
 			// use auto here to avoid needing to write out the full type
 			// std::pair<Double_t, Double_t>
-			auto rval = get_Boxplot_and_Stdv(det, strip, input, psPerEvent);
+			get_Boxplot_and_Stdv(det, strip, input, psPerEvent);
 
-			input.enterOutput(rval[0], rval[1], rval[2], rval[3], rval[4], rval[5], rval[6], det, strip);
+			//input.enterOutput(rval[0], rval[1], rval[2], rval[3], rval[4], rval[5], rval[6], det, strip);
 
 			std::cout << "------------ detector: " << det << " and strip: " << strip << "------------" << std::endl;
 			std::cout << "average [ps]: " << rval[0] << std::endl;
