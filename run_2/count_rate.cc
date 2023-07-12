@@ -267,9 +267,9 @@ void count_rate(std::string path)
 	// auto input = std::make_unique<TreeWrapper>(path);
 
 	// Loop is unchanged, just cleaned up names for readability
-	for (Int_t det : detectors)
+	for (Int_t det = 0; det<4; det++)
 	{
-		for (Int_t strip : strips)
+		for (Int_t strip = 0; strip < 1023; strip += 4)
 		{
 			// use auto here to avoid needing to write out the full type
 			// std::pair<Double_t, Double_t>
