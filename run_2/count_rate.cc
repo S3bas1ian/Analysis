@@ -1,135 +1,281 @@
-#include <TFile.h>
-#include <TGraph.h>
-#include <TTree.h>
-#include <string.h>
+#include "TFile.h"
+#include "TGraph.h"
+#include "TTree.h"
+
+#include <string>
 #include <vector>
+#include <memory>
 
-
-vector<double> get_Mean_and_Stdv(int d, int s, TTree *hits) // should return mean and stdv
+/*  Create an object to control access to the TTree, since you want to
+ *  pass around all of these variables as a group
+ */
+class TreeWrapper
 {
+private:
+	// Use unique_ptr instead of raw pointer wherever possible.
+	std::unique_ptr<TFile> file_;
+	std::unique_ptr<TFile> delta_time_file;
+	// std::shared_ptr<TFile> file_;
 
-	double e_min = 100000;	 // unit eV
-	double psPerEvent = 1e4; // unit pS
-	vector<double> vec_time_point;
-	int size = hits->GetEntries();
+	// ROOT's does not support the use of smart pointers here
+	TTree *tree_;
+	TTree *output_tree;
 
-	// variables that are connected to the root file
-	char particle_name[128];
-	int event_number;
-	int det_id;
-	int strip_id;
-	double edep;
-	double time;
+	char particleName_[128];
+	/*  Use ROOT's data types Int_t & Double_t for improved
+	 * portability
+	 */
+	Int_t eventNumber_;
+	Int_t detId_;
+	Int_t stripId_;
+	Double_t edep_;
+	Double_t time_;
 
-	// connect variables with the branch from the root file
-	hits->SetBranchAddress("name", &particle_name);
-	hits->SetBranchAddress("event", &event_number);
-	hits->SetBranchAddress("Det_ID", &det_id);
-	hits->SetBranchAddress("Strip_ID", &strip_id);
-	hits->SetBranchAddress("edep", &edep);
-	hits->SetBranchAddress("time", &time);
+	Double_t av_delta_time, stdv, min, max, median, l_quarter, h_quarter;
+	Int_t out_det_id, out_strip_id;
 
-	// preload stuff to speed things up
-	hits->LoadBaskets();
-
-	// iterate through the whole root file
-	for (int i = 0; i < size; i++)
+public:
+	/*  This is just all the setup you had before, moved into the
+	 *  constructor. Let you define a path, rather than forcing it
+	 *  to be hardcoded, for better reuse.
+	 */
+	TreeWrapper(std::string path)
 	{
-		hits->GetEntry(i);
+		file_ = std::make_unique<TFile>(path.c_str(), "read");
+		delta_time_file = std::make_unique<TFile>("data/test.root", "recreate");
+		output_tree = new TTree("delta_time", "delta_time")
 
-		// if the current entry is on the specific strip
-		if (det_id == d && strip_id == s && edep>0)
+		output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
+		output_tree->Branch("stdv", &stdv, "stdv/D");
+		output_tree->Branch("min", &min, "min/D");
+		output_tree->Branch("max", &max, "max/D");
+		output_tree->Branch("median", &median, "median/D");
+		output_tree->Branch("l_quarter", &l_quarter, "l_quarter/D");
+		output_tree->Branch("h_quarter", &h_quarter, "h_quarter/D");
+		output_tree->Branch("det_id", &out_det_id, "out_det_id/I");
+		output_tree->Branch("strip_id", &out_strip_id, "out_strip_id/I");
+
+		// file_ = std::make_shared<TFile>(path.c_str(), "read");
+
+		// Slightly safer method of getting access to the TTree
+		file_->GetObject("hits", tree_);
+
+		tree_->SetBranchAddress("name", &particleName_);
+		tree_->SetBranchAddress("event", &eventNumber_);
+		tree_->SetBranchAddress("Det_ID", &detId_);
+		tree_->SetBranchAddress("Strip_ID", &stripId_);
+		tree_->SetBranchAddress("edep", &edep_);
+		tree_->SetBranchAddress("time", &time_);
+
+		tree_->LoadBaskets();
+	}
+
+	~TreeWrapper()
+	{
+		if (file_)
 		{
-			// then add the time point to the vector
-			double t = psPerEvent * event_number + time;
-			vec_time_point.push_back(t);
+			file_->Close();
+			delta_time_file->Close();
+		}
+	};
+
+	// Provide access to the TTree methods you need to use
+	Long64_t getEntries()
+	{
+		return tree_->GetEntries();
+	}
+
+	void getEntry(Long64_t entry)
+	{
+		tree_->GetEntry(entry);
+	}
+
+	// Provide access to the data you want to be able to see
+	std::string getName()
+	{
+		return std::string(particleName_);
+	}
+
+	Int_t getEventNum()
+	{
+		return eventNumber_;
+	}
+
+	Int_t getDetID()
+	{
+		return detId_;
+	}
+
+	Int_t getStripID()
+	{
+		return stripId_;
+	}
+
+	Double_t getEdep()
+	{
+		return edep_;
+	}
+
+	Double_t getTime()
+	{
+		return time_;
+	}
+
+	void enterOutput(Double_t av_delta_time, Double_t stdv, Double_t min, Double_t max, Double_t median, Double_t l_quarter, Double_t h_quarter, Int_t det_id, Int_t strip_id)
+	{
+		this.av_delta_time = av_delta_time;
+		this.stdv = stdv;
+		this.min = min;
+		this.max = max;
+		this.median = median;
+		this.l_quarter = l_quarter;
+		this.h_quarter = h_quarter;
+		out_det_id = det_id;
+		out_strip_id = strip_id;
+
+		output_tree->Fill();
+	}
+};
+
+/*  Change return type, since you want to return just a pair of values
+ *  Change parameters to accept the TTree wrapper class, other needed
+ *  values
+ */
+std::vector<Double_t> get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, Double_t psPerEvent)
+{
+	Long64_t size = tree.getEntries();
+
+	// Since you use the vector in this method, declare it in this method
+	std::vector<Double_t> times;
+
+	/*  Looks basically the same, but replace `this' with your tree
+	 *  wrapper object
+	 */
+	for (Long64_t i = 0; i < size; ++i)
+	{
+		tree.getEntry(i);
+
+		if (tree.getDetID() == detID && tree.getStripID() == stripID)
+		{
+			times.push_back(psPerEvent * tree.getEventNum() * tree.getTime());
 		}
 	}
 
-	// sort the time point vector
-	std::sort(vec_time_point.begin(), vec_time_point.end());
+	std::sort(times.begin(), times.end());
 
-	vector<double> delta_time;
-	// auto h = new TH1D("hist", "delta time", 100, 0, 2);
+	std::vector<Double_t> delta_times;
+	std::sort(delta_times.begin(), delta_times.end());
+	// auto h = new TH1D ("hist", "delta time", 100, 0, 2);
 
-	// calculate the time between two events
-	for (int i = 0; i < vec_time_point.size() - 1; i++)
+	/*  Change the offset by 1 to the start, rather than the end, since
+	 *  the size type is unsigned, and otherwise this fails at size 0.
+	 */
+	for (std::vector<Double_t>::size_type i = 1; i < times.size(); ++i)
 	{
-		double t = vec_time_point[i + 1] - vec_time_point[i];
-		delta_time.push_back(t);
-		// h->Fill(t);
+		Double_t dt = times[i] - times[i - 1];
+		delta_times.push_back(dt);
+		// h->Fill(dt);
 	}
 
-	// calculate mean and stdv and return it
-	double sum = std::accumulate(std::begin(delta_time), std::end(delta_time), 0.0);
-	double m = sum / delta_time.size();
+	// Declare the iterators in a slightly more concise way
+	Double_t sum = std::accumulate(delta_times.begin(), delta_times.end(), 0.0);
 
-	double accum = 0.0;
-	std::for_each(std::begin(delta_time), std::end(delta_time), [&](const double d)
-				  { accum += (d - m) * (d - m); });
+	Double_t mean = sum / delta_times.size();
 
-	double stdev = sqrt(accum / (delta_time.size() - 1));
-	vector<double> out;
-	out.push_back(m); 
-	out.push_back(stdev);
-	return out;
+	// Can use accumulate here again if you want to be fancy
+	Double_t stdev = TMath::Sqrt(
+		std::accumulate(
+			delta_times.begin(),
+			delta_times.end(),
+			0.0,
+			[mean](Double_t sum, Double_t elem)
+			{ return sum + (elem - mean) * (elem - mean); }) /
+		delta_times.size());
+
+	Double_t min = delta_times.begin();
+	Double_t max = delta_times.end();
+
+	int s = delta_times.size();
+	Double_t median = delta_times[s/2];
+	Double_t l_quarter = delta_times[s/4];
+	Double_t h_quarter = delta_times[3*s/4];
+
+	std::vector<Double_t> output;
+
+	output.push_back(mean);
+	output.push_back(stdev);
+	output.push_back(min);
+	output.push_back(max);
+	output.push_back(median);
+	output.push_back(l_quarter);
+	output.push_back(h_quarter);
+
+
+
+
+
+
+
+	/*  Foreach should just compile to this anyway, if you don't care
+	 *  about being fancy
+	 */
+	/* Double_t stdev2 = 0.0;
+
+	for (auto dt : delta_times){
+		stdev2 += (dt - mean) * (dt - mean);
+	}
+	stdev2 /= delta_times.size();
+	stdev2 = TMath::Sqrt(stdev2);
+
+	std::cout << stdev << std::endl;
+	std::cout << stdev2 << std::endl;
+	std::cout << stdev2 - stdev << std::endl;
+	*/
+
+	/*  Helper method, rather than needing to declare stuff. This also
+	 *  allows C++ to do some optimization, this will actually be
+	 *  constructed in the place where the return value would be moved
+	 *  to, rather than in this method, then moved when the method
+	 *  returns.
+	 */
+	return output;
 }
 
-void count_rate()
+/*  Move the main method to the bottom, to avoid needing prototypes,
+ *  since ROOT, like the preprocessor, reads files top to bottom
+ */
+void count_rate(std::string path)
 {
+	Int_t detectors[] = {0, 1, 7, 8};
+	Int_t strips[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
 
-	int det[] = {0, 1, 6, 7};
-	int strip[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
+	// This does not seem to be used?
+	Double_t e_min = 100000; // unit eV
 
-	TFile *file = new TFile("data/final_output/output3.root", "read");
-	TTree *hits = (TTree *)file->Get("hits");
+	Double_t psPerEvent = 1e4; // unit ps
 
-	TFile *delta_time_file = new TFile("data/delta_time_first_tracker.root", "recreate");
-	TTree* output_tree = new TTree("delta_time", "delta_time");
+	// TreeWrapper input("data/final_output/output3.root");
+	// TreeWrapper input(path);
+	TreeWrapper input = TreeWrapper(path);
+	// auto input = std::make_unique<TreeWrapper>(path);
 
-	//vector<double> all_times;
-	//vector<double> all_Stdv;
-
-	double t, stdv;
-	int dt, strp; 
-
-	output_tree->Branch("dt", &dt, "dt/I");
-	output_tree->Branch("strp", &strp, "strp/I");
-	output_tree->Branch("t", &t, "t/D");
-	output_tree->Branch("stdv", &stdv, "stdv/D");
-
-	// iterate through the wanted detectors and strips
-	for (int d=0; d<4; d++)
+	// Loop is unchanged, just cleaned up names for readability
+	for (Int_t det : detectors)
 	{
-		for (int s=0; s<1024; s+=4)	//in 4 steps, to speed things up
+		for (Int_t strip : strips)
 		{
-			vector<double> o;
+			// use auto here to avoid needing to write out the full type
+			// std::pair<Double_t, Double_t>
+			auto rval = get_Boxplot_and_Stdv(det, strip, input, psPerEvent);
 
-			// calculate for each det/strip combnination the mean and stdv
-			o = get_Mean_and_Stdv(d, s, hits);
-			//all_times.push_back(o[0]);
+			input.enterOutput(rval[0], rval[1], rval[2], rval[3], rval[4], rval[5], rval[6], det, strip);
 
-			t = o[0];
-			stdv = o[1];
-			dt = d;
-			strp = s;
-			output_tree->Fill();
+			std::cout << "------------ detector: " << det << " and strip: " << strip << "------------" << std::endl;
+			std::cout << "average [ps]: " << rval.first << std::endl;
+			std::cout << "std deviation [ps]: " << rval.second << std::endl;
 
-			// cout << "------------ detector: " << d << " and strips: " << s << "------------" << endl;
-			// cout << "average [ps]: " << o[0] << endl;
-			// cout << "std deviation [ps]: " << o[1] << endl;
-
-
+			// add a blank line for easier visual separation between data
+			std::cout << std::endl;
 		}
 	}
-
-	delta_time_file->Write();
-	delta_time_file->Close();
-
-	// auto c1 = new TCanvas("c", "c", 800, 800);
-	// // g->SetTitle("Time between hits in specific strip");
-	// h->Draw();
-	// c1->SaveAs("time_elapsed.png");
 }
-
-
