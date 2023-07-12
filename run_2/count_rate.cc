@@ -44,10 +44,10 @@ public:
 	TreeWrapper(std::string path)
 	{
 		file_ = std::make_unique<TFile>(path.c_str(), "read");
-		delta_time_file = std::make_unique<TFile>("data/delta_time.root", "recreate");
+		delta_time_file = std::make_unique<TFile>("data/hist.root", "recreate");
 		//output_tree = new TTree("delta_time", "delta_time");
 
-		hist = new TH2D("Delta Time", "Time between two hits for each strip", 100, 0, 20, 1024, 0, 1023);
+		hist = new TH2D("Delta_time", "Time between two hits for each strip", 100, 0, 20, 1024, 0, 1023);
 
 		// output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
 		// output_tree->Branch("stdv", &stdv, "stdv/D");
@@ -102,13 +102,13 @@ public:
 	}
 
 	void Write(){
-		delta_time_file->WriteObject(&hist, "histogram");
-
-		auto c1 = new TCanvas("c1", "$\Delta t$ for each strip");
-		hist->SetXTitle("$\Delta t$");
+		auto c1 = new TCanvas("c1", "$Delta t$ for each strip");
+		hist->SetXTitle("$Delta t$ [ms]");
 		hist->SetYTitle("strip");
 		hist->Draw();
 		c1->SaveAs("delta_time.png");
+
+		delta_time_file->WriteObject(&hist, "Delta_time");
 
 	}
 	
@@ -197,7 +197,7 @@ void get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, Double_
 	{
 		Double_t dt = times[i] - times[i - 1];
 		delta_times.push_back(dt);
-		tree.Fill(dt ,stripID);
+		tree.Fill(dt/1e9 ,stripID);
 		// h->Fill(dt);
 	}
 
