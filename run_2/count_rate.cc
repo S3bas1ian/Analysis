@@ -42,7 +42,7 @@ public:
 	TreeWrapper(std::string path)
 	{
 		file_ = std::make_unique<TFile>(path.c_str(), "read");
-		delta_time_file = std::make_unique<TFile>("data/test.root", "recreate");
+		delta_time_file = std::make_unique<TFile>("data/delta_time.root", "recreate");
 		output_tree = new TTree("delta_time", "delta_time");
 
 		output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
@@ -267,7 +267,7 @@ void count_rate(std::string path)
 	// auto input = std::make_unique<TreeWrapper>(path);
 
 	// Loop is unchanged, just cleaned up names for readability
-	for (Int_t det = 0; det<4; det++)
+	for (Int_t det = 0; det<8; det++)
 	{
 		for (Int_t strip = 0; strip < 1023; strip += 4)
 		{
