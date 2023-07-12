@@ -246,7 +246,7 @@ std::vector<Double_t> get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapp
  */
 void count_rate(std::string path)
 {
-	Int_t detectors[] = {0, 1, 7, 8};
+	Int_t detectors[] = {0, 1, 6, 7};
 	Int_t strips[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
 
 	// This does not seem to be used?
