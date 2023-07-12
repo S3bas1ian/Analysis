@@ -43,7 +43,7 @@ public:
 	{
 		file_ = std::make_unique<TFile>(path.c_str(), "read");
 		delta_time_file = std::make_unique<TFile>("data/test.root", "recreate");
-		output_tree = new TTree("delta_time", "delta_time")
+		output_tree = new TTree("delta_time", "delta_time");
 
 		output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
 		output_tree->Branch("stdv", &stdv, "stdv/D");
@@ -123,13 +123,13 @@ public:
 
 	void enterOutput(Double_t av_delta_time, Double_t stdv, Double_t min, Double_t max, Double_t median, Double_t l_quarter, Double_t h_quarter, Int_t det_id, Int_t strip_id)
 	{
-		this.av_delta_time = av_delta_time;
-		this.stdv = stdv;
-		this.min = min;
-		this.max = max;
-		this.median = median;
-		this.l_quarter = l_quarter;
-		this.h_quarter = h_quarter;
+		this->av_delta_time = av_delta_time;
+		this->stdv = stdv;
+		this->min = min;
+		this->max = max;
+		this->median = median;
+		this->l_quarter = l_quarter;
+		this->h_quarter = h_quarter;
 		out_det_id = det_id;
 		out_strip_id = strip_id;
 
@@ -192,8 +192,8 @@ std::vector<Double_t> get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapp
 			{ return sum + (elem - mean) * (elem - mean); }) /
 		delta_times.size());
 
-	Double_t min = delta_times.begin();
-	Double_t max = delta_times.end();
+	Double_t min = delta_times[0];
+	Double_t max = delta_times[1];
 
 	int s = delta_times.size();
 	Double_t median = delta_times[s/2];
@@ -271,8 +271,8 @@ void count_rate(std::string path)
 			input.enterOutput(rval[0], rval[1], rval[2], rval[3], rval[4], rval[5], rval[6], det, strip);
 
 			std::cout << "------------ detector: " << det << " and strip: " << strip << "------------" << std::endl;
-			std::cout << "average [ps]: " << rval.first << std::endl;
-			std::cout << "std deviation [ps]: " << rval.second << std::endl;
+			std::cout << "average [ps]: " << rval[0] << std::endl;
+			std::cout << "std deviation [ps]: " << rval[1] << std::endl;
 
 			// add a blank line for easier visual separation between data
 			std::cout << std::endl;
