@@ -21,7 +21,7 @@ private:
 	TTree *tree_;
 	TTree *output_tree;
 
-	TH2D* 2d_hist;
+	TH2D* hist;
 
 	char particleName_[128];
 	/*  Use ROOT's data types Int_t & Double_t for improved
@@ -47,7 +47,7 @@ public:
 		delta_time_file = std::make_unique<TFile>("data/delta_time.root", "recreate");
 		//output_tree = new TTree("delta_time", "delta_time");
 
-		2d_hist = new TH2D("Delta Time", "Time between two hits for each strip", 100, 0, 20, 1024, 0, 1023);
+		hist = new TH2D("Delta Time", "Time between two hits for each strip", 100, 0, 20, 1024, 0, 1023);
 
 		// output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
 		// output_tree->Branch("stdv", &stdv, "stdv/D");
@@ -93,7 +93,7 @@ public:
 	}
 
 	void Fill(Double_t x, Double_t y){
-		2d_hist->Fill(x, y);
+		hist->Fill(x, y);
 	}
 
 	void getEntry(Long64_t entry)
@@ -102,12 +102,12 @@ public:
 	}
 
 	void Write(){
-		delta_time_file->WriteObject(&2d_hist, "histogram");
+		delta_time_file->WriteObject(&hist, "histogram");
 
 		auto c1 = new TCanvas("c1", "$\Delta t$ for each strip");
-		2d_hist->SetXTitle("$\Delta t$");
-		2d_hist->SetYTitle("strip");
-		2d_hist->Draw();
+		hist->SetXTitle("$\Delta t$");
+		hist->SetYTitle("strip");
+		hist->Draw();
 		c1->SaveAs("delta_time.png");
 
 	}
@@ -267,12 +267,12 @@ void count_rate(std::string path)
 
 			//input.enterOutput(rval[0], rval[1], rval[2], rval[3], rval[4], rval[5], rval[6], det, strip);
 
-			std::cout << "------------ detector: " << det << " and strip: " << strip << "------------" << std::endl;
-			std::cout << "average [ps]: " << rval[0] << std::endl;
-			std::cout << "std deviation [ps]: " << rval[1] << std::endl;
+			// std::cout << "------------ detector: " << det << " and strip: " << strip << "------------" << std::endl;
+			// std::cout << "average [ps]: " << rval[0] << std::endl;
+			// std::cout << "std deviation [ps]: " << rval[1] << std::endl;
 
-			// add a blank line for easier visual separation between data
-			std::cout << std::endl;
+			// // add a blank line for easier visual separation between data
+			// std::cout << std::endl;
 		}
 	}
 
