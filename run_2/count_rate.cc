@@ -75,6 +75,9 @@ public:
 		if (file_)
 		{
 			file_->Close();
+		}
+
+		if(delta_time_file){
 			delta_time_file->Close();
 		}
 	};
@@ -88,6 +91,10 @@ public:
 	void getEntry(Long64_t entry)
 	{
 		tree_->GetEntry(entry);
+	}
+
+	void Write(){
+		delta_time_file->Write();
 	}
 
 	// Provide access to the data you want to be able to see
@@ -278,4 +285,6 @@ void count_rate(std::string path)
 			std::cout << std::endl;
 		}
 	}
+
+	input.Write();
 }
