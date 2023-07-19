@@ -276,7 +276,7 @@ void count_rate(std::string path)
 		}
 	}
 	auto c1 = new TCanvas("c1", "name");
-	hist->DrawCopy("ColZ");
+	hist.DrawCopy("ColZ");
 
 	//input.Write();
 }
