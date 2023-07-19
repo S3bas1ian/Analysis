@@ -259,7 +259,7 @@ void count_rate(std::string path)
 	// Loop is unchanged, just cleaned up names for readability
 	for (Int_t det = 0; det<1; det++)
 	{
-		for (Int_t strip = 0; strip < 1023; strip += 4)
+		for (Int_t strip = 0; strip < 8; strip += 4)
 		{
 			// use auto here to avoid needing to write out the full type
 			// std::pair<Double_t, Double_t>
