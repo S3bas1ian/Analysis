@@ -21,7 +21,7 @@ private:
 	TTree *tree_;
 	TTree *output_tree;
 
-	TH2D* hist;
+	//TH2D* hist;
 
 	char particleName_[128];
 	/*  Use ROOT's data types Int_t & Double_t for improved
@@ -46,8 +46,6 @@ public:
 		file_ = std::make_unique<TFile>(path.c_str(), "read");
 		delta_time_file = std::make_unique<TFile>("data/hist.root", "recreate");
 		//output_tree = new TTree("delta_time", "delta_time");
-
-		hist = new TH2D("Delta_time", "Time between two hits for each strip", 100, 0, 20, 1024, 0, 1023);
 
 		// output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
 		// output_tree->Branch("stdv", &stdv, "stdv/D");
@@ -164,7 +162,7 @@ public:
  *  Change parameters to accept the TTree wrapper class, other needed
  *  values
  */
-void get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, Double_t psPerEvent)
+void get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, TH2D& hist, Double_t psPerEvent)
 {
 	Long64_t size = tree.getEntries();
 
@@ -197,7 +195,7 @@ void get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, Double_
 	{
 		Double_t dt = times[i] - times[i - 1];
 		delta_times.push_back(dt);
-		tree.Fill(dt/1e9 ,stripID);
+		hist.Fill(dt/1e12 ,stripID);
 		// h->Fill(dt);
 	}
 
@@ -256,6 +254,8 @@ void count_rate(std::string path)
 
 	TreeWrapper input = TreeWrapper(path);
 
+	auto hist = TH2D("Delta_time", "Time between two hits for each strip", 100, 0, 20, 1024, 0, 1023);
+
 	// Loop is unchanged, just cleaned up names for readability
 	for (Int_t det = 0; det<1; det++)
 	{
@@ -263,7 +263,7 @@ void count_rate(std::string path)
 		{
 			// use auto here to avoid needing to write out the full type
 			// std::pair<Double_t, Double_t>
-			get_Boxplot_and_Stdv(det, strip, input, psPerEvent);
+			get_Boxplot_and_Stdv(det, strip, input, hist, psPerEvent);
 
 			//input.enterOutput(rval[0], rval[1], rval[2], rval[3], rval[4], rval[5], rval[6], det, strip);
 
@@ -276,5 +276,7 @@ void count_rate(std::string path)
 		}
 	}
 
-	input.Write();
+	hist.Draw("ColZ");
+
+	//input.Write();
 }
