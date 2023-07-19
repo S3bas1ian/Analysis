@@ -178,7 +178,7 @@ void get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, TH2D& h
 
 		if (tree.getDetID() == detID && tree.getStripID() == stripID)
 		{
-			times.push_back(psPerEvent * tree.getEventNum() * tree.getTime());
+			times.push_back(psPerEvent * tree.getEventNum() + tree.getTime());
 		}
 	}
 
