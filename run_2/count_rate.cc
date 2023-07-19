@@ -44,7 +44,7 @@ public:
 	TreeWrapper(std::string path)
 	{
 		file_ = std::make_unique<TFile>(path.c_str(), "read");
-		delta_time_file = std::make_unique<TFile>("data/hist.root", "recreate");
+		//delta_time_file = std::make_unique<TFile>("data/hist.root", "recreate");
 		//output_tree = new TTree("delta_time", "delta_time");
 
 		// output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
@@ -90,16 +90,16 @@ public:
 		return tree_->GetEntries();
 	}
 
-	void Fill(Double_t x, Double_t y){
+	/*void Fill(Double_t x, Double_t y){
 		hist->Fill(x, y);
-	}
+	}*/
 
 	void getEntry(Long64_t entry)
 	{
 		tree_->GetEntry(entry);
 	}
 
-	void Write(){
+	/*void Write(){
 		auto c1 = new TCanvas("c1", "$Delta t$ for each strip");
 		hist->SetXTitle("$Delta t$ [ms]");
 		hist->SetYTitle("strip");
@@ -108,7 +108,7 @@ public:
 
 		delta_time_file->WriteObject(&hist, "Delta_time");
 
-	}
+	}*/
 	
 
 	// Provide access to the data you want to be able to see
