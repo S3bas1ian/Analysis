@@ -165,7 +165,6 @@ void each_detector()
     // plotting and saving images with root
     auto c1 = new TCanvas("c1", "detectors (e_min= 100keV)");
     c1->Divide(2, 2);
-    gPad->SetLogz();
     c1->cd(1);
     h3_2d->Draw("colz");
     c1->cd(2);
@@ -174,6 +173,7 @@ void each_detector()
     h1_2d->Draw("colz");
     c1->cd(4);
     h2_2d->Draw("colz");
+    c1->SetLogz();
 
     c1->SaveAs((std::string("2d_hist_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
