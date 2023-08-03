@@ -168,11 +168,14 @@ void each_detector()
     TPad *p1 = (TPad*) (c1->cd(1));
     p1->SetLogz();
     h3_2d->Draw("colz");
-    c1->cd(2);
+    TPad *p2 = (TPad*) (c1->cd(2));
+    p2->SetLogz();
     h4_2d->Draw("colz");
-    c1->cd(3);
+    TPad *p3 = (TPad*) (c1->cd(3));
+    p3->SetLogz();
     h1_2d->Draw("colz");
-    c1->cd(4);
+    TPad *p4 = (TPad*) (c1->cd(4));
+    p4->SetLogz();
     h2_2d->Draw("colz");
     c1->SetLogz();
 
