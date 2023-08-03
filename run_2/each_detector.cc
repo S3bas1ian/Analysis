@@ -196,6 +196,7 @@ void each_detector()
     c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
     auto c3 = new TCanvas("c3", "particles (e_min= 100keV)");
+    gStyle->SetOptStat(11); //we need only the name and amount of entries here
     h_particles_1d->Draw();
 
     c3->SaveAs((std::string("particle_overview_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
