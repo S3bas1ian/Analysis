@@ -165,7 +165,7 @@ void each_detector()
     // plotting and saving images with root
     auto c1 = new TCanvas("c1", "detectors (e_min= 100keV)");
     c1->Divide(2, 2);
-    c1->SetLogz();
+    gPad->SetLogz();
     c1->cd(1);
     h3_2d->Draw("colz");
     c1->cd(2);
