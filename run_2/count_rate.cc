@@ -195,7 +195,7 @@ void get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, TH2D& h
 	{
 		Double_t dt = times[i] - times[i - 1];
 		delta_times.push_back(dt);
-		hist.Fill(dt/1e12 ,stripID);
+		hist.Fill(dt/1e9 ,stripID);
 		// h->Fill(dt);
 	}
 
@@ -276,6 +276,8 @@ void count_rate(std::string path)
 		}
 	}
 	auto c1 = new TCanvas("c1", "colz");
+	hist->SetXTitle("$Delta t$ [ms]");
+	hist->SetYTitle("strip");
 	hist.DrawCopy("ColZ");
 	c1->SaveAs("count_rate_colz.png");
 
