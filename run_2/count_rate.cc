@@ -245,7 +245,7 @@ void get_Boxplot_and_Stdv(Int_t detID, Int_t stripID, TreeWrapper &tree, TH2D& h
 /*  Move the main method to the bottom, to avoid needing prototypes,
  *  since ROOT, like the preprocessor, reads files top to bottom
  */
-void count_rate(std::string path)
+void count_rate(std::string path, Int_t det)
 {
 	Int_t detectors[] = {0, 1, 6, 7};
 	Int_t strips[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
@@ -257,8 +257,7 @@ void count_rate(std::string path)
 	auto hist = TH2D("Delta_time", "Time between two hits for each strip", 500, 0, 0.5, 1024, 0, 1023);
 
 	// Loop is unchanged, just cleaned up names for readability
-	for (Int_t det = 0; det<1; det++)
-	{
+	
 		for (Int_t strip = 0; strip < 1024; strip += 4)
 		{
 			// use auto here to avoid needing to write out the full type
@@ -274,7 +273,7 @@ void count_rate(std::string path)
 			// // add a blank line for easier visual separation between data
 			// std::cout << std::endl;
 		}
-	}
+	
 	auto c1 = new TCanvas("c1", "colz");
 	hist->SetXTitle("$Delta t$ [ms]");
 	hist->SetYTitle("strip");
