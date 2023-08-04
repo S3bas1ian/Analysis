@@ -275,7 +275,7 @@ void count_rate(std::string path, Int_t det)
 		}
 	
 	auto c1 = new TCanvas("c1", "colz");
-	hist.SetXTitle("$Delta t$ [ms]");
+	hist.SetXTitle("\Delta t [ms]");
 	hist.SetYTitle("strip");
 	hist.DrawCopy("ColZ");
 	c1->SaveAs("count_rate_colz.png");
