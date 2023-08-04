@@ -80,6 +80,7 @@ void each_detector()
                 {
                     // count the event
                     event_size += 1;
+                    h_particles_1d->Fill(particle_name, 1);
 
                     if (det_id == 0)
                     {
@@ -136,7 +137,6 @@ void each_detector()
 
         if (event_size > 0)
         {
-            h_particles_1d->Fill(particle_name, 1);
 
             // Fill histogramms only if there is an event to avoid 0 pile
             if (event_size_det_1 > 0)
