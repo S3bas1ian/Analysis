@@ -213,8 +213,8 @@ void count_root(std::string path)
     //auto input = std::make_unique<TreeWrapper>(path);
     
     //Loop is unchanged, just cleaned up names for readability
-    for (Int_t det = 0; det<1; det++){
-        for (Int_t strip= 0; strip<400; strip+=4){
+    for (Int_t det = 0; det<8; det++){
+        for (Int_t strip= 0; strip<1024; strip+=4){
             //use auto here to avoid needing to write out the full type
             //std::pair<Double_t, Double_t>
             auto rval = get_Mean_and_Stdev(det, strip, input, psPerEvent);
