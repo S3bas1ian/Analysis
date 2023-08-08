@@ -179,7 +179,7 @@ void each_detector()
     h2_2d->Draw("colz");
     c1->SetLogz();
 
-    c1->SaveAs((std::string("2d_hist_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
+    //c1->SaveAs((std::string("2d_hist_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
     auto c2 = new TCanvas("c2", "total detectors (e_min= 100keV)");
     c2->Divide(2, 2);
@@ -193,11 +193,11 @@ void each_detector()
     h2_1d->Draw();
 
     // gStyle->SetImageScaling(3); should create a high res image, but doesnt work
-    c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
+    //c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
     auto c3 = new TCanvas("c3", "particles (e_min= 100keV)");
     gStyle->SetOptStat(0); //we need only the name and amount of entries here
     h_particles_1d->Draw();
 
-    c3->SaveAs((std::string("particle_overview_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
+    //c3->SaveAs((std::string("particle_overview_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 }

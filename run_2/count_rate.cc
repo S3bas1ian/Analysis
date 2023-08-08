@@ -44,7 +44,7 @@ public:
 	TreeWrapper(std::string path)
 	{
 		file_ = std::make_unique<TFile>(path.c_str(), "read");
-		//delta_time_file = std::make_unique<TFile>("data/hist.root", "recreate");
+		delta_time_file = std::make_unique<TFile>("data/hist.root", "recreate");
 		//output_tree = new TTree("delta_time", "delta_time");
 
 		// output_tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
@@ -99,16 +99,9 @@ public:
 		tree_->GetEntry(entry);
 	}
 
-	/*void Write(){
-		auto c1 = new TCanvas("c1", "$Delta t$ for each strip");
-		hist->SetXTitle("$Delta t$ [ms]");
-		hist->SetYTitle("strip");
-		hist->Draw();
-		c1->SaveAs("delta_time.png");
-
+	void Write(&hist){
 		delta_time_file->WriteObject(&hist, "Delta_time");
-
-	}*/
+	}
 	
 
 	// Provide access to the data you want to be able to see
@@ -254,7 +247,7 @@ void count_rate(std::string path, Int_t det)
 
 	TreeWrapper input = TreeWrapper(path);
 
-	auto hist = TH2D("Delta_time", "Time between two hits for each strip", 500, 0, 0.5, 1024, 0, 1023);
+	auto hist = TH2D("Delta_time", "Time between two hits for each strip", 700, 0, 0.7, 1024, 0, 1023);
 
 	// Loop is unchanged, just cleaned up names for readability
 	
@@ -278,11 +271,13 @@ void count_rate(std::string path, Int_t det)
 	hist.SetXTitle("\Delta t [ms]");
 	hist.SetYTitle("strip");
 	hist.DrawCopy("ColZ");
-	c1->SaveAs("count_rate_colz.png");
+	//c1->SaveAs("count_rate_colz.png");
 
 	auto c2 = new TCanvas("c2", "candley2");
 	hist.DrawCopy("candley2");
-	c2->SaveAs("count_rate_candley.png");
+	//c2->SaveAs("count_rate_candley.png");
+
+	input.Write(&hist);
 
 	//input.Write();
 }
