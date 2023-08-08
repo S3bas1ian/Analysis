@@ -99,7 +99,7 @@ public:
 		tree_->GetEntry(entry);
 	}
 
-	void Write(TH2D& hist){
+	void Write(TH2D* hist){
 		delta_time_file->WriteObject(&hist, "Delta_time");
 	}
 	
@@ -277,7 +277,7 @@ void count_rate(std::string path, Int_t det)
 	hist.DrawCopy("candley2");
 	//c2->SaveAs("count_rate_candley.png");
 
-	input.Write(&hist);
+	input.Write(hist);
 
 	//input.Write();
 }
