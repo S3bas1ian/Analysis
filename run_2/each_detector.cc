@@ -76,7 +76,7 @@ void each_detector()
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min) // only count event if energy is deposited
+                if (edep > energy_min && std::string(particle_name).compare("e-")) // only count event if energy is deposited
                 {
                     // count the event
                     event_size += 1;
