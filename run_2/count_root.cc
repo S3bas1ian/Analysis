@@ -40,11 +40,7 @@ class TreeWrapper{
          */
         TreeWrapper(std::string path){
             file_ = std::make_unique<TFile>(path.c_str(), "read");
-
-            output_Tree->Branch("av_delta_time", &av_delte_time, "av_delta_time/D");
-		    output_Tree->Branch("stdv", &stdv, "stdv/D");
-            output_Tree->Branch("det_id", &out_det_id, "out_det_id/I");
-		    output_Tree->Branch("strip_id", &out_strip_id, "out_strip_id/I");
+            
             //file_ = std::make_shared<TFile>(path.c_str(), "read");
             
             //Slightly safer method of getting access to the TTree
@@ -61,6 +57,10 @@ class TreeWrapper{
 
             file_ = std::make_unique<TFile>("data/delta_time.root", "recreate");
             output_Tree = new TTree("delta_time", "delta_time");
+            output_Tree->Branch("av_delta_time", &av_delte_time, "av_delta_time/D");
+		    output_Tree->Branch("stdv", &stdv, "stdv/D");
+            output_Tree->Branch("det_id", &out_det_id, "out_det_id/I");
+		    output_Tree->Branch("strip_id", &out_strip_id, "out_strip_id/I");
         }
         
         ~TreeWrapper(){
