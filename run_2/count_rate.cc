@@ -247,7 +247,7 @@ void count_rate(std::string path, Int_t det)
 
 	TreeWrapper input = TreeWrapper(path);
 
-	auto hist = TH2D("Delta_time", "Time between two hits for each strip", 700, 0, 0.7, 1024, 0, 1023);
+	auto hist = TH2D("Delta_time", "Time between two hits for each strip", 1000, 0, 2, 1024, 0, 1023);
 
 	// Loop is unchanged, just cleaned up names for readability
 	
