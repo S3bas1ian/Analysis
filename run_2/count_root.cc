@@ -43,7 +43,7 @@ class TreeWrapper{
             file_ = std::make_unique<TFile>("data/delta_time.root", "recreate");
             output_Tree = new TTree("delta_time", "delta_time");
 
-            output_Tree->Branch("av_delta_time", &av_delta_time, "av_delta_time/D");
+            output_Tree->Branch("av_delta_time", &av_delte_time, "av_delta_time/D");
 		    output_Tree->Branch("stdv", &stdv, "stdv/D");
             output_Tree->Branch("det_id", &out_det_id, "out_det_id/I");
 		    output_Tree->Branch("strip_id", &out_strip_id, "out_strip_id/I");
@@ -104,8 +104,8 @@ class TreeWrapper{
 
         void enterOutput(Double_t av_delta_time, Double_t stdv, Int_t det_id, Int_t strip_id)
 	{
-		this.av_delta_time = av_delta_time;
-		this.stdv = stdv;
+		this->av_delte_time = av_delta_time;
+		this->stdv = stdv;
 		out_det_id = det_id;
 		out_strip_id = strip_id;
 
