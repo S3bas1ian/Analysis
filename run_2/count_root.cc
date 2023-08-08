@@ -55,7 +55,7 @@ class TreeWrapper{
             
             tree_->LoadBaskets();
 
-            file_ = std::make_unique<TFile>("data/delta_time.root", "recreate");
+            output_File = std::make_unique<TFile>("data/delta_time.root", "recreate");
             output_Tree = new TTree("delta_time", "delta_time");
             output_Tree->Branch("av_delta_time", &av_delte_time, "av_delta_time/D");
 		    output_Tree->Branch("stdv", &stdv, "stdv/D");
@@ -112,6 +112,10 @@ class TreeWrapper{
 
 		output_Tree->Fill();
 	}
+
+    void Write(){
+        output_Tree->Write();
+    }
 };
 
 /*  Change return type, since you want to return just a pair of values
@@ -218,4 +222,5 @@ void count_root(std::string path)
             input.enterOutput(rval.first, rval.second, det, strip);
         }
     }
+    input.Write();
 }
