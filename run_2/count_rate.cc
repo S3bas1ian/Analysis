@@ -273,8 +273,8 @@ void count_rate(std::string path, Int_t det)
 	hist.DrawCopy("ColZ");
 	//c1->SaveAs("count_rate_colz.png");
 
-	auto c2 = new TCanvas("c2", "candley2");
-	hist.DrawCopy("candley2");
+	auto c2 = new TCanvas("c2", "candley1");
+	hist.DrawCopy("candley1");
 	//c2->SaveAs("count_rate_candley.png");
 
 	//input.Write(*hist);
