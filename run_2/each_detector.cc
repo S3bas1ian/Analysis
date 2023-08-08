@@ -76,7 +76,7 @@ void each_detector()
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min && std::string(particle_name).compare("e-")) // only count event if energy is deposited
+                if (edep > energy_min && std::string(particle_name).compare("e-")==0) // only count event if energy is deposited
                 {
                     // count the event
                     event_size += 1;
@@ -196,7 +196,7 @@ void each_detector()
     //c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
     auto c3 = new TCanvas("c3", "particles (e_min= 100keV)");
-    gStyle->SetOptStat(0); //we need only the name and amount of entries here
+    //gStyle->SetOptStat(0); //we need only the name and amount of entries here
     h_particles_1d->Draw();
 
     //c3->SaveAs((std::string("particle_overview_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
