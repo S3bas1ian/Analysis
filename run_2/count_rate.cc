@@ -277,7 +277,7 @@ void count_rate(std::string path, Int_t det)
 	hist.DrawCopy("candley2");
 	//c2->SaveAs("count_rate_candley.png");
 
-	input.Write(hist);
+	input.Write(*hist);
 
 	//input.Write();
 }
