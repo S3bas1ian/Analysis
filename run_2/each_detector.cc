@@ -81,9 +81,9 @@ void each_detector(std::string path)
                     // count the event
                     event_size += 1;
 
-                    if (std::string(particle_name).compare("proton") || std::string(particle_name).compare("deuteron") 
-                        || std::string(particle_name).compare("trition") 
-                        || std::string(particle_name).compare("e-") || std::string(particle_name).compare("e+"))
+                    if (std::string(particle_name).compare("proton") == 0 || std::string(particle_name).compare("deuteron") == 0
+                        || std::string(particle_name).compare("trition") == 0
+                        || std::string(particle_name).compare("e-") == 0 || std::string(particle_name).compare("e+") == 0 )
                     {
                         h_particles_1d->Fill(particle_name, 1);
                     }else
