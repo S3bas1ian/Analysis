@@ -76,7 +76,7 @@ void each_detector(std::string path)
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min && std::string(particle_name).compare("proton")==0) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
+                if (edep > energy_min && std::string(particle_name).compare("deuteron")==0) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
                 {
                     // count the event
                     event_size += 1;
@@ -175,7 +175,7 @@ void each_detector(std::string path)
 }
 
 // plotting and saving images with root
-auto c1 = new TCanvas("detectors_particle==proton", "detectors (e_min= 100keV)");
+auto c1 = new TCanvas("detectors_particle==deuteron", "detectors (e_min= 100keV)");
 c1->Divide(2, 2);
 TPad *p1 = (TPad *)(c1->cd(1));
 p1->SetLogz();
@@ -193,7 +193,7 @@ c1->SetLogz();
 
 // c1->SaveAs((std::string("2d_hist_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
-auto c2 = new TCanvas("total_detectors_particle==proton", "total detectors (e_min= 100keV)");
+auto c2 = new TCanvas("total_detectors_particle==deuteron", "total detectors (e_min= 100keV)");
 c2->Divide(2, 2);
 c2->cd(1);
 h3_1d->Draw();
