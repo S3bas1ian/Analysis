@@ -10,7 +10,7 @@ void each_side(std::string path)
     auto h3 = new TH1I("total", "total per detector; N_{Counts}; #", 10, 0, 10);
 
     // File which will be read
-    TFile *file = new TFile(path, "read");
+    TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
     // File, where I write the cluster sizes out

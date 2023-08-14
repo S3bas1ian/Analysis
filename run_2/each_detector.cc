@@ -9,7 +9,7 @@ void each_detector(std::string path)
     double energy_min = 100000; // eV
 
     // File which will be read
-    TFile *file = new TFile(path, "read");
+    TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
     // 1d histogram for each detector where the total hits (front + backside) are plottet
