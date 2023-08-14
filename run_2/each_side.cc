@@ -1,7 +1,7 @@
 #include <TFile.h>
 #include <TTree.h>
 
-void each_side()
+void each_side(std::string path)
 {
 
     // stuff for plotting
@@ -10,7 +10,7 @@ void each_side()
     auto h3 = new TH1I("total", "total per detector; N_{Counts}; #", 10, 0, 10);
 
     // File which will be read
-    TFile *file = new TFile("data/final_output/final_output.root", "read");
+    TFile *file = new TFile(path, "read");
     TTree *hits = (TTree *)file->Get("hits");
 
     // File, where I write the cluster sizes out

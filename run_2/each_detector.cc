@@ -2,14 +2,14 @@
 #include <TTree.h>
 #include <string.h>
 
-void each_detector()
+void each_detector(std::string path)
 {
 
-    //constants
-    double energy_min = 100000; //eV
+    // constants
+    double energy_min = 100000; // eV
 
     // File which will be read
-    TFile *file = new TFile("data/final_output/final_output.root", "read");
+    TFile *file = new TFile(path, "read");
     TTree *hits = (TTree *)file->Get("hits");
 
     // 1d histogram for each detector where the total hits (front + backside) are plottet
@@ -76,128 +76,140 @@ void each_detector()
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min && std::string(particle_name).compare("e-")==0) // only count event if energy is deposited
+                if (edep > energy_min) // only count event if energy is deposited  && std::string(particle_name).compare("e-")==0
                 {
                     // count the event
                     event_size += 1;
-                    h_particles_1d->Fill(particle_name, 1);
 
-                    if (det_id == 0)
+                    if (std::string(particle_name).compare("proton") || std::string(particle_name).compare("deuteron") 
+                        || std::string(particle_name).compare("trition") 
+                        || std::string(particle_name).compare("e-") || std::string(particle_name).compare("e+"))
                     {
-                        event_size_det_1 += 1;
-                        front_size_det_1 += 1;
-                    }
-                    else if (det_id == 1)
-                    {
-                        event_size_det_1 += 1;
-                        back_size_det_1 += 1;
-                    }
-                    else if (det_id == 2)
-                    {
-                        event_size_det_2 += 1;
-                        front_size_det_2 += 1;
-                    }
-                    else if (det_id == 3)
-                    {
-                        event_size_det_2 += 1;
-                        back_size_det_2 += 1;
-                    }
-                    else if (det_id == 4)
-                    {
-                        event_size_det_3 += 1;
-                        front_size_det_3 += 1;
-                    }
-                    else if (det_id == 5)
-                    {
-                        event_size_det_3 += 1;
-                        back_size_det_3 += 1;
-                    }
-                    else if (det_id == 6)
-                    {
-                        event_size_det_4 += 1;
-                        front_size_det_4 += 1;
-                    }
-                    else if (det_id == 7)
-                    {
-                        event_size_det_4 += 1;
-                        back_size_det_4 += 1;
-                    }
-                    i += 1;
-                }
-                else
+                        h_particles_1d->Fill(particle_name, 1);
+                    }else
                 {
-                    i += 1;
+                    h_particles_1d->Fill("other", 1);
                 }
+                
+                
+                
+
+                if (det_id == 0)
+                {
+                    event_size_det_1 += 1;
+                    front_size_det_1 += 1;
+                }
+                else if (det_id == 1)
+                {
+                    event_size_det_1 += 1;
+                    back_size_det_1 += 1;
+                }
+                else if (det_id == 2)
+                {
+                    event_size_det_2 += 1;
+                    front_size_det_2 += 1;
+                }
+                else if (det_id == 3)
+                {
+                    event_size_det_2 += 1;
+                    back_size_det_2 += 1;
+                }
+                else if (det_id == 4)
+                {
+                    event_size_det_3 += 1;
+                    front_size_det_3 += 1;
+                }
+                else if (det_id == 5)
+                {
+                    event_size_det_3 += 1;
+                    back_size_det_3 += 1;
+                }
+                else if (det_id == 6)
+                {
+                    event_size_det_4 += 1;
+                    front_size_det_4 += 1;
+                }
+                else if (det_id == 7)
+                {
+                    event_size_det_4 += 1;
+                    back_size_det_4 += 1;
+                }
+                i += 1;
             }
             else
             {
-                sameEvent = false;
+                i += 1;
             }
         }
-
-        if (event_size > 0)
+        else
         {
-
-            // Fill histogramms only if there is an event to avoid 0 pile
-            if (event_size_det_1 > 0)
-            {
-                h1_1d->Fill(event_size_det_1);
-                h1_2d->Fill(front_size_det_1, back_size_det_1);
-            }
-            else if (event_size_det_2 > 0)
-            {
-                h2_1d->Fill(event_size_det_2);
-                h2_2d->Fill(front_size_det_2, back_size_det_2);
-            }
-            else if (event_size_det_3 > 0)
-            {
-                h3_1d->Fill(event_size_det_3);
-                h3_2d->Fill(front_size_det_3, back_size_det_3);
-            }
-            else if (event_size_det_4 > 0)
-            {
-                h4_1d->Fill(event_size_det_4);
-                h4_2d->Fill(front_size_det_4, back_size_det_4);
-            }
+            sameEvent = false;
         }
     }
 
-    // plotting and saving images with root
-    auto c1 = new TCanvas("detectors", "detectors (e_min= 100keV)");
-    c1->Divide(2, 2);
-    TPad *p1 = (TPad*) (c1->cd(1));
-    p1->SetLogz();
-    h3_2d->Draw("colz");
-    TPad *p2 = (TPad*) (c1->cd(2));
-    p2->SetLogz();
-    h4_2d->Draw("colz");
-    TPad *p3 = (TPad*) (c1->cd(3));
-    p3->SetLogz();
-    h1_2d->Draw("colz");
-    TPad *p4 = (TPad*) (c1->cd(4));
-    p4->SetLogz();
-    h2_2d->Draw("colz");
-    c1->SetLogz();
+    if (event_size > 0)
+    {
 
-    //c1->SaveAs((std::string("2d_hist_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
+        // Fill histogramms only if there is an event to avoid 0 pile
+        if (event_size_det_1 > 0)
+        {
+            h1_1d->Fill(event_size_det_1);
+            h1_2d->Fill(front_size_det_1, back_size_det_1);
+        }
+        else if (event_size_det_2 > 0)
+        {
+            h2_1d->Fill(event_size_det_2);
+            h2_2d->Fill(front_size_det_2, back_size_det_2);
+        }
+        else if (event_size_det_3 > 0)
+        {
+            h3_1d->Fill(event_size_det_3);
+            h3_2d->Fill(front_size_det_3, back_size_det_3);
+        }
+        else if (event_size_det_4 > 0)
+        {
+            h4_1d->Fill(event_size_det_4);
+            h4_2d->Fill(front_size_det_4, back_size_det_4);
+        }
+    }
+}
 
-    auto c2 = new TCanvas("total_detectors", "total detectors (e_min= 100keV)");
-    c2->Divide(2, 2);
-    c2->cd(1);
-    h3_1d->Draw();
-    c2->cd(2);
-    h4_1d->Draw();
-    c2->cd(3);
-    h1_1d->Draw();
-    c2->cd(4);
-    h2_1d->Draw();
+// plotting and saving images with root
+auto c1 = new TCanvas("detectors", "detectors (e_min= 100keV)");
+c1->Divide(2, 2);
+TPad *p1 = (TPad *)(c1->cd(1));
+p1->SetLogz();
+h3_2d->Draw("colz");
+TPad *p2 = (TPad *)(c1->cd(2));
+p2->SetLogz();
+h4_2d->Draw("colz");
+TPad *p3 = (TPad *)(c1->cd(3));
+p3->SetLogz();
+h1_2d->Draw("colz");
+TPad *p4 = (TPad *)(c1->cd(4));
+p4->SetLogz();
+h2_2d->Draw("colz");
+c1->SetLogz();
 
-    // gStyle->SetImageScaling(3); should create a high res image, but doesnt work
-    //c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
+// c1->SaveAs((std::string("2d_hist_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
-    auto c3 = new TCanvas("particles", "particles (e_min= 100keV)");
-    //gStyle->SetOptStat(0); //we need only the name and amount of entries here
-    h_particles_1d->Draw();
+auto c2 = new TCanvas("total_detectors", "total detectors (e_min= 100keV)");
+c2->Divide(2, 2);
+c2->cd(1);
+h3_1d->Draw();
+c2->cd(2);
+h4_1d->Draw();
+c2->cd(3);
+h1_1d->Draw();
+c2->cd(4);
+h2_1d->Draw();
 
-    //c3->SaveAs((std::string("particle_overview_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
+// gStyle->SetImageScaling(3); should create a high res image, but doesnt work
+// c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
+
+auto c3 = new TCanvas("particles", "particles (e_min= 100keV)");
+// gStyle->SetOptStat(0); //we need only the name and amount of entries here
+h_particles_1d->Draw();
+
+// c3->SaveAs((std::string("particle_overview_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 }

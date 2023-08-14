@@ -2,14 +2,14 @@
 #include <TTree.h>
 #include <string.h>
 
-void fivi_relevant()
+void fivi_relevant(std::string path)
 {
 
     //constants
     double energy_min = 100000; //eV
 
     // File which will be read
-    TFile *file = new TFile("data/final_output/final_output.root", "read");
+    TFile *file = new TFile(path, "read");
     TTree *hits = (TTree *)file->Get("hits");
 
     // 2d histogram for each detector where I seperate between front and backside
