@@ -200,7 +200,7 @@ void fivi_relevant()
 
 
     // plotting and saving images with root
-    auto c1 = new TCanvas("c1", "detectors (fivi relevant)(e_min= 100keV)");
+    auto c1 = new TCanvas("detctors_fivi", "detectors (fivi relevant)(e_min= 100keV)");
     c1->Divide(2, 2);
     c1->cd(1);
     h3_2d->Draw("colz");
@@ -213,7 +213,7 @@ void fivi_relevant()
 
     //c1->SaveAs((std::string("2d_hist_detectors_fivi_relevant_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
-    auto c2 = new TCanvas("c2", "total detectors (fivi relevant) (e_min= 100keV)");
+    auto c2 = new TCanvas("total_detectors_fivi", "total detectors (fivi relevant) (e_min= 100keV)");
     c2->Divide(2, 2);
     c2->cd(1);
     h3_1d->Draw();
@@ -227,7 +227,7 @@ void fivi_relevant()
     // gStyle->SetImageScaling(3); should create a high res image, but doesnt work
     //c2->SaveAs((std::string("total_detectors_fivi_relevant_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
-    auto c3 = new TCanvas("c3", "particles (fivi relevant) (e_min= 100keV)");
+    auto c3 = new TCanvas("particles_fivi", "particles (fivi relevant) (e_min= 100keV)");
     h_particles_1d->Draw();
 
     // auto text = new TText();

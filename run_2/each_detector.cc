@@ -163,7 +163,7 @@ void each_detector()
     }
 
     // plotting and saving images with root
-    auto c1 = new TCanvas("c1", "detectors (e_min= 100keV)");
+    auto c1 = new TCanvas("detectors", "detectors (e_min= 100keV)");
     c1->Divide(2, 2);
     TPad *p1 = (TPad*) (c1->cd(1));
     p1->SetLogz();
@@ -181,7 +181,7 @@ void each_detector()
 
     //c1->SaveAs((std::string("2d_hist_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
-    auto c2 = new TCanvas("c2", "total detectors (e_min= 100keV)");
+    auto c2 = new TCanvas("total_detectors", "total detectors (e_min= 100keV)");
     c2->Divide(2, 2);
     c2->cd(1);
     h3_1d->Draw();
@@ -195,7 +195,7 @@ void each_detector()
     // gStyle->SetImageScaling(3); should create a high res image, but doesnt work
     //c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
-    auto c3 = new TCanvas("c3", "particles (e_min= 100keV)");
+    auto c3 = new TCanvas("particles", "particles (e_min= 100keV)");
     //gStyle->SetOptStat(0); //we need only the name and amount of entries here
     h_particles_1d->Draw();
 

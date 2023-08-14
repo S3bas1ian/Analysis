@@ -267,13 +267,13 @@ void count_rate(std::string path, Int_t det)
 			// std::cout << std::endl;
 		}
 	
-	auto c1 = new TCanvas("c1", "colz");
+	auto c1 = new TCanvas("delta_time_colz", "colz");
 	hist.SetXTitle("#Delta t [ms]");
 	hist.SetYTitle("strip");
 	hist.DrawCopy("ColZ");
 	//c1->SaveAs("count_rate_colz.png");
 
-	auto c2 = new TCanvas("c2", "candley1");
+	auto c2 = new TCanvas("delta_time_candley1", "candley1");
 	hist.DrawCopy("candley1");
 	//c2->SaveAs("count_rate_candley.png");
 

@@ -96,7 +96,7 @@ void each_side()
     // outputFile->Write();
     // outputFile->Close();
 
-    auto c1 = new TCanvas("c1", "hits per side");
+    auto c1 = new TCanvas("hits_per_side", "hits per side");
     c1->Divide(2, 1);
     c1->cd(1);
 
@@ -107,7 +107,7 @@ void each_side()
 
     //c1->SaveAs("hits_per_side.png");
 
-    auto c2 = new TCanvas("c2", "total hits");
+    auto c2 = new TCanvas("total_hits", "total hits");
 
     h3->Draw();
 
