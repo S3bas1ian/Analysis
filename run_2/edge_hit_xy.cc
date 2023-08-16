@@ -138,11 +138,11 @@ void edge_hit_xy(std::string path, std::string particle)
                 x2.push_back(x);
                 y2.push_back(y);
             } else if((det_id==4 && back_size_det_3 == 0) || (det_id==5 && front_size_det_3 == 0)){
-                x2.push_back(x);
-                y2.push_back(y);
+                x3.push_back(x);
+                y3.push_back(y);
             }else if((det_id==6 && back_size_det_4 == 0) || (det_id==7 && front_size_det_4 == 0)){
-                x2.push_back(x);
-                y2.push_back(y);
+                x4.push_back(x);
+                y4.push_back(y);
             }
 
         }
@@ -185,7 +185,7 @@ void edge_hit_xy(std::string path, std::string particle)
         y4.resize(0);
     }
 
-    auto c2 = new TCanvas((std::string("edge_hitsXY_particle==") + particle).c_str(), (std::string("edge hits for ") + particle + std::string(" (e_min= 100keV)")).c_str());
+    auto c2 = new TCanvas((std::string("edge_hitsXY_particle==") + particle).c_str(), (std::string("edge hits (XY)for ") + particle + std::string(" (e_min= 100keV)")).c_str());
     c2->Divide(2, 2);
     c2->cd(1);
     h3_2d->Draw();
