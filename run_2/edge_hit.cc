@@ -76,7 +76,7 @@ void edge_hit(std::string path, std::string particle)
         hits->GetEntry(i);
         int currEvent = event_number;
         bool sameEvent = true;
-        std::vector<int> strips;
+        std::vector<int> strips1, strips2, strips3, strips4;
 
         while (sameEvent && i < size) // loop through one full event, increase i while doing so
         {
@@ -133,9 +133,27 @@ void edge_hit(std::string path, std::string particle)
             }
 
             if((det_id==0 && back_size_det_1 == 0) || (det_id==1 && front_size_det_1 == 0)){
-                strips.push_back(strip_id);
+                strips1.push_back(strip_id);
             }else {
-                strips.resize(0);
+                strips1.resize(0);
+            }
+
+            if((det_id==2 && back_size_det_2 == 0) || (det_id==3 && front_size_det_2 == 0)){
+                strips2.push_back(strip_id);
+            }else {
+                strips2.resize(0);
+            }
+
+            if((det_id==4 && back_size_det_3 == 0) || (det_id==5 && front_size_det_3 == 0)){
+                strips3.push_back(strip_id);
+            }else {
+                strips3.resize(0);
+            }
+
+            if((det_id==6 && back_size_det_4 == 0) || (det_id==7 && front_size_det_4 == 0)){
+                strips4.push_back(strip_id);
+            }else {
+                strips4.resize(0);
             }
 
         }
@@ -143,21 +161,45 @@ void edge_hit(std::string path, std::string particle)
         // check if "one-hitter"
         if ((front_size_det_1 > 0 && back_size_det_1 == 0) || (back_size_det_1 > 0 && front_size_det_1 == 0))
         {
-            for(int s:strips){
+            for(int s:strips1){
                 h1_1d->Fill(s);
             }
         }
-        strips.resize(0);
+
+        if ((front_size_det_2 > 0 && back_size_det_2 == 0) || (back_size_det_2 > 0 && front_size_det_2 == 0))
+        {
+            for(int s:strips2){
+                h2_1d->Fill(s);
+            }
+        }
+
+        if ((front_size_det_3 > 0 && back_size_det_3 == 0) || (back_size_det_3 > 0 && front_size_det_3 == 0))
+        {
+            for(int s:strips3){
+                h3_1d->Fill(s);
+            }
+        }
+
+        if ((front_size_det_4 > 0 && back_size_det_4 == 0) || (back_size_det_4 > 0 && front_size_det_4 == 0))
+        {
+            for(int s:strips4){
+                h4_1d->Fill(s);
+            }
+        }
+        strips1.resize(0);
+        strips2.resize(0);
+        strips3.resize(0);
+        strips4.resize(0);
     }
 
     auto c2 = new TCanvas((std::string("edge_hits_particle==") + particle).c_str(), (std::string("edge hits for ") + particle + std::string(" (e_min= 100keV)")).c_str());
-    // c2->Divide(2, 2);
-    // c2->cd(1);
-    // h3_1d->Draw();
-    // c2->cd(2);
-    // h4_1d->Draw();
-    // c2->cd(3);
+    c2->Divide(2, 2);
+    c2->cd(1);
+    h3_1d->Draw();
+    c2->cd(2);
+    h4_1d->Draw();
+    c2->cd(3);
     h1_1d->Draw();
-    // c2->cd(4);
-    // h2_1d->Draw();
+    c2->cd(4);
+    h2_1d->Draw();
 }
