@@ -11,7 +11,7 @@ void edge_hit(std::string path, std::string particle)
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
-    auto h1_1d = new TH1I("edges_det_0", "edges detector 0; N_{Counts}; #", 1024, 0, 1023);
+    auto h1_1d = new TH1I("edges_det_0", "edges detector 0;strip}; #", 1024, 0, 1023);
     // auto h2_1d = new TH1I("edges_det_1", "edges detector 1; N_{Counts}; #", 2, 0, 1);
     // auto h3_1d = new TH1I("edges_det_2", "edges detector 2; N_{Counts}; #", 2, 0, 1);
     // auto h4_1d = new TH1I("edges_det_3", "edges detector 3; N_{Counts}; #", 2, 0, 1);
@@ -147,9 +147,10 @@ void edge_hit(std::string path, std::string particle)
                 h1_1d->Fill(s);
             }
         }
+        strips.resize(0);
     }
 
-    auto c2 = new TCanvas((std::string("edge_hits_particle==") + particle).c_str(), (std::string("edge hits for ") + particle + std::string(" (e_min= 100keV")).c_str());
+    auto c2 = new TCanvas((std::string("edge_hits_particle==") + particle).c_str(), (std::string("edge hits for ") + particle + std::string(" (e_min= 100keV)")).c_str());
     // c2->Divide(2, 2);
     // c2->cd(1);
     // h3_1d->Draw();
