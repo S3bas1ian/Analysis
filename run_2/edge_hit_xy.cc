@@ -2,7 +2,7 @@
 #include <TTree.h>
 #include <string.h>
 
-void edge_hit_strip(std::string path, std::string particle)
+void edge_hit_xy(std::string path, std::string particle)
 {
 
     // constants
@@ -11,22 +11,25 @@ void edge_hit_strip(std::string path, std::string particle)
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
-    auto h1_1d = new TH1I("edges_det_0", "edges detector 0;strip}; #", 1024, 0, 1023);
-    auto h2_1d = new TH1I("edges_det_1", "edges detector 1; strips; #", 1024, 0, 1023);
-    auto h3_1d = new TH1I("edges_det_2", "edges detector 2; strips; #", 1024, 0, 1023);
-    auto h4_1d = new TH1I("edges_det_3", "edges detector 3; strips; #", 1024, 0, 1023);
+    auto h1_2d = new TH2D("edges_det_0", "edges detector 0;x; y", 1000, -35, 35, 1000, -35, 35);
+    auto h2_2d = new TH2D("edges_det_1", "edges detector 1; x; y", 1000, -35, 35, 1000, -35, 35);
+    auto h3_2d = new TH2D("edges_det_2", "edges detector 2; x; y", 1000, -35, 35, 1000, -35, 35);
+    auto h4_2d = new TH2D("edges_det_3", "edges detector 3; x; y", 1000, -35, 35, 1000, -35, 35);
 
     char particle_name[128];
     Int_t event_number;
     Int_t det_id;
     Int_t strip_id;
     Double_t edep;
+    Double_t x, y;
 
     hits->SetBranchAddress("name", &particle_name);
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
     hits->SetBranchAddress("Strip_ID", &strip_id);
     hits->SetBranchAddress("edep", &edep);
+    hits->SetBranchAddress("detX", &x);
+    hits->SetBranchAddress("detY", &y);
 
     // preload stuff to speed things up
     hits->LoadBaskets();
@@ -67,12 +70,12 @@ void edge_hit_strip(std::string path, std::string particle)
         back_size_det_2 = 0;
         back_size_det_3 = 0;
         back_size_det_4 = 0;
-        event_size = 0;
 
         hits->GetEntry(i);
         int currEvent = event_number;
         bool sameEvent = true;
-        std::vector<int> strips1, strips2, strips3, strips4;
+        std::vector<double> x1, x2, x3, x4;
+        std::vector<double> y1, y2, y3, y4;
 
         while (sameEvent && i < size) // loop through one full event, increase i while doing so
         {
@@ -129,13 +132,17 @@ void edge_hit_strip(std::string path, std::string particle)
             }
 
             if((det_id==0 && back_size_det_1 == 0) || (det_id==1 && front_size_det_1 == 0)){
-                strips1.push_back(strip_id);
+                x1.push_back(x);
+                y1.push_back(y);
             } else if((det_id==2 && back_size_det_2 == 0) || (det_id==3 && front_size_det_2 == 0)){
-                strips2.push_back(strip_id);
+                x2.push_back(x);
+                y2.push_back(y);
             } else if((det_id==4 && back_size_det_3 == 0) || (det_id==5 && front_size_det_3 == 0)){
-                strips3.push_back(strip_id);
+                x2.push_back(x);
+                y2.push_back(y);
             }else if((det_id==6 && back_size_det_4 == 0) || (det_id==7 && front_size_det_4 == 0)){
-                strips4.push_back(strip_id);
+                x2.push_back(x);
+                y2.push_back(y);
             }
 
         }
@@ -143,35 +150,39 @@ void edge_hit_strip(std::string path, std::string particle)
         // check if "one-hitter"
         if ((front_size_det_1 > 0 && back_size_det_1 == 0) || (back_size_det_1 > 0 && front_size_det_1 == 0))
         {
-            for(int s:strips1){
-                h1_1d->Fill(s);
+            for(int i = 0; i< x1.size(); i++){
+                h1_2d->Fill(x1[i], y1[i]);
             }
         }
 
         if ((front_size_det_2 > 0 && back_size_det_2 == 0) || (back_size_det_2 > 0 && front_size_det_2 == 0))
         {
-            for(int s:strips2){
-                h2_1d->Fill(s);
+            for(int i = 0; i< x1.size(); i++){
+                h2_2d->Fill(x1[i], y1[i]);
             }
         }
 
         if ((front_size_det_3 > 0 && back_size_det_3 == 0) || (back_size_det_3 > 0 && front_size_det_3 == 0))
         {
-            for(int s:strips3){
-                h3_1d->Fill(s);
+            for(int i = 0; i< x1.size(); i++){
+                h3_2d->Fill(x1[i], y1[i]);
             }
         }
 
         if ((front_size_det_4 > 0 && back_size_det_4 == 0) || (back_size_det_4 > 0 && front_size_det_4 == 0))
         {
-            for(int s:strips4){
-                h4_1d->Fill(s);
+            for(int i = 0; i< x1.size(); i++){
+                h4_2d->Fill(x1[i], y1[i]);
             }
         }
-        strips1.resize(0);
-        strips2.resize(0);
-        strips3.resize(0);
-        strips4.resize(0);
+        x1.resize(0);
+        y1.resize(0);
+        x2.resize(0);
+        y2.resize(0);
+        x3.resize(0);
+        y3.resize(0);
+        x4.resize(0);
+        y4.resize(0);
     }
 
     auto c2 = new TCanvas((std::string("edge_hits_particle==") + particle).c_str(), (std::string("edge hits for ") + particle + std::string(" (e_min= 100keV)")).c_str());
