@@ -2,7 +2,7 @@
 #include <TTree.h>
 #include <string.h>
 
-void edge_hit(std::string path, std::string particle)
+void edge_hit_strip(std::string path, std::string particle)
 {
 
     // constants
