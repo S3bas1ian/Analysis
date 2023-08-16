@@ -134,26 +134,12 @@ void edge_hit(std::string path, std::string particle)
 
             if((det_id==0 && back_size_det_1 == 0) || (det_id==1 && front_size_det_1 == 0)){
                 strips1.push_back(strip_id);
-            }else {
-                strips1.resize(0);
-            }
-
-            if((det_id==2 && back_size_det_2 == 0) || (det_id==3 && front_size_det_2 == 0)){
+            } else if((det_id==2 && back_size_det_2 == 0) || (det_id==3 && front_size_det_2 == 0)){
                 strips2.push_back(strip_id);
-            }else {
-                strips2.resize(0);
-            }
-
-            if((det_id==4 && back_size_det_3 == 0) || (det_id==5 && front_size_det_3 == 0)){
+            } else if((det_id==4 && back_size_det_3 == 0) || (det_id==5 && front_size_det_3 == 0)){
                 strips3.push_back(strip_id);
-            }else {
-                strips3.resize(0);
-            }
-
-            if((det_id==6 && back_size_det_4 == 0) || (det_id==7 && front_size_det_4 == 0)){
+            }else if((det_id==6 && back_size_det_4 == 0) || (det_id==7 && front_size_det_4 == 0)){
                 strips4.push_back(strip_id);
-            }else {
-                strips4.resize(0);
             }
 
         }
