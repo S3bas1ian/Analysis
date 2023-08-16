@@ -157,22 +157,22 @@ void edge_hit_xy(std::string path, std::string particle)
 
         if ((front_size_det_2 > 0 && back_size_det_2 == 0) || (back_size_det_2 > 0 && front_size_det_2 == 0))
         {
-            for(int i = 0; i< x1.size(); i++){
-                h2_2d->Fill(x1[i], y1[i]);
+            for(int i = 0; i< x2.size(); i++){
+                h2_2d->Fill(x2[i], y2[i]);
             }
         }
 
         if ((front_size_det_3 > 0 && back_size_det_3 == 0) || (back_size_det_3 > 0 && front_size_det_3 == 0))
         {
-            for(int i = 0; i< x1.size(); i++){
-                h3_2d->Fill(x1[i], y1[i]);
+            for(int i = 0; i< x3.size(); i++){
+                h3_2d->Fill(x3[i], y3[i]);
             }
         }
 
         if ((front_size_det_4 > 0 && back_size_det_4 == 0) || (back_size_det_4 > 0 && front_size_det_4 == 0))
         {
-            for(int i = 0; i< x1.size(); i++){
-                h4_2d->Fill(x1[i], y1[i]);
+            for(int i = 0; i< x4.size(); i++){
+                h4_2d->Fill(x4[i], y4[i]);
             }
         }
         x1.resize(0);
