@@ -20,14 +20,13 @@ void edge_hit_strip(std::string path, std::string particle)
     Int_t event_number;
     Int_t det_id;
     Int_t strip_id;
-    Double_t edep, energy;
+    Double_t edep;
 
     hits->SetBranchAddress("name", &particle_name);
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
     hits->SetBranchAddress("Strip_ID", &strip_id);
     hits->SetBranchAddress("edep", &edep);
-    hits->SetBranchAddress("energy", &energy);
 
     // preload stuff to speed things up
     hits->LoadBaskets();
@@ -83,7 +82,7 @@ void edge_hit_strip(std::string path, std::string particle)
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min && energy>energy_min && std::string(particle_name).compare(particle) == 0) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
+                if (edep > energy_min && std::string(particle_name).compare(particle) == 0) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
                 {
                     if (det_id == 0)
                     {

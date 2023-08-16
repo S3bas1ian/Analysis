@@ -20,7 +20,7 @@ void edge_hit_xy(std::string path, std::string particle)
     Int_t event_number;
     Int_t det_id;
     Int_t strip_id;
-    Double_t edep;
+    Double_t edep, energy;
     Double_t x, y;
 
     hits->SetBranchAddress("name", &particle_name);
@@ -30,6 +30,8 @@ void edge_hit_xy(std::string path, std::string particle)
     hits->SetBranchAddress("edep", &edep);
     hits->SetBranchAddress("x", &x);
     hits->SetBranchAddress("y", &y);
+    hits->SetBranchAddress("energy", &energy);
+
 
     // preload stuff to speed things up
     hits->LoadBaskets();
@@ -85,7 +87,7 @@ void edge_hit_xy(std::string path, std::string particle)
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min && std::string(particle_name).compare(particle) == 0) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
+                if (edep > energy_min && energy>energy_min && std::string(particle_name).compare(particle) == 0) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
                 {
                     if (det_id == 0)
                     {
