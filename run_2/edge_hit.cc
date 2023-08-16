@@ -12,9 +12,9 @@ void edge_hit(std::string path, std::string particle)
     TTree *hits = (TTree *)file->Get("hits");
 
     auto h1_1d = new TH1I("edges_det_0", "edges detector 0;strip}; #", 1024, 0, 1023);
-    // auto h2_1d = new TH1I("edges_det_1", "edges detector 1; N_{Counts}; #", 2, 0, 1);
-    // auto h3_1d = new TH1I("edges_det_2", "edges detector 2; N_{Counts}; #", 2, 0, 1);
-    // auto h4_1d = new TH1I("edges_det_3", "edges detector 3; N_{Counts}; #", 2, 0, 1);
+    auto h2_1d = new TH1I("edges_det_1", "edges detector 1; N_{Counts}; #", 2, 0, 1);
+    auto h3_1d = new TH1I("edges_det_2", "edges detector 2; N_{Counts}; #", 2, 0, 1);
+    auto h4_1d = new TH1I("edges_det_3", "edges detector 3; N_{Counts}; #", 2, 0, 1);
 
     char particle_name[128];
     Int_t event_number;
