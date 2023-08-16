@@ -188,11 +188,11 @@ void edge_hit_xy(std::string path, std::string particle)
     auto c2 = new TCanvas((std::string("edge_hits_particle==") + particle).c_str(), (std::string("edge hits for ") + particle + std::string(" (e_min= 100keV)")).c_str());
     c2->Divide(2, 2);
     c2->cd(1);
-    h3_1d->Draw();
+    h3_2d->Draw();
     c2->cd(2);
-    h4_1d->Draw();
+    h4_2d->Draw();
     c2->cd(3);
-    h1_1d->Draw();
+    h1_2d->Draw();
     c2->cd(4);
-    h2_1d->Draw();
+    h2_2d->Draw();
 }
