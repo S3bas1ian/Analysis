@@ -134,14 +134,14 @@ void edge_hit(std::string path, std::string particle)
 
             if((det_id==0 && back_size_det_1 == 0) || (det_id==1 && front_size_det_1 == 0)){
                 strips.push_back(strip_id);
-            }else if (strips.size()>0){
+            }else {
                 strips.resize(0);
             }
 
         }
 
         // check if "one-hitter"
-        if ((det_id==0 && back_size_det_1 == 0) || (det_id==1 && front_size_det_1 == 0))
+        if ((front_size_det_1 > 0 && back_size_det_1 == 0) || (back_size_det_1 > 0 && front_size_det_1 == 0))
         {
             for(int s:strips){
                 h1_1d->Fill(s);
