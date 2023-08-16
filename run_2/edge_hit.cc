@@ -5,6 +5,9 @@
 void edge_hit(std::string path, std::string particle, int s)
 {
 
+    // constants
+    double energy_min = 100000; // eV
+
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
