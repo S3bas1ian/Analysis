@@ -149,7 +149,7 @@ void edge_hit(std::string path, std::string particle)
         }
     }
 
-    auto c2 = new TCanvas((std::string("edge_hits_particle==") + particle).c_str(), (std::string("edge hits for ") + particle + std::string(" (e_min= 100keV, strips=") + std::string(s)).c_str());
+    auto c2 = new TCanvas((std::string("edge_hits_particle==") + particle).c_str(), (std::string("edge hits for ") + particle + std::string(" (e_min= 100keV")).c_str());
     // c2->Divide(2, 2);
     // c2->cd(1);
     // h3_1d->Draw();
