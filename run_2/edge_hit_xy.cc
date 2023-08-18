@@ -136,16 +136,16 @@ void edge_hit_xy(std::string path, std::string particle)
             }
 
             if((det_id==0 && back_size_det_1 == 0) || (det_id==1 && front_size_det_1 == 0)){
-                x1.push_back(x*TMath::Cos(TMath::Pi()/4) + z* TMath::Sin(TMath::Pi()/4));
+                x1.push_back(x*TMath::Cos(TMath::Pi()/4) - z* TMath::Sin(TMath::Pi()/4));
                 y1.push_back(y);
             } else if((det_id==2 && back_size_det_2 == 0) || (det_id==3 && front_size_det_2 == 0)){
-                x2.push_back(x*TMath::Cos(TMath::Pi()/4) + z* TMath::Sin(TMath::Pi()/4));
+                x2.push_back(x*TMath::Cos(TMath::Pi()/4) - z* TMath::Sin(TMath::Pi()/4));
                 y2.push_back(y);
             } else if((det_id==4 && back_size_det_3 == 0) || (det_id==5 && front_size_det_3 == 0)){
-                x3.push_back(x*TMath::Cos(-TMath::Pi()/4) + z* TMath::Sin(-TMath::Pi()/4));
+                x3.push_back(x*TMath::Cos(-TMath::Pi()/4) - z* TMath::Sin(-TMath::Pi()/4));
                 y3.push_back(y);
             }else if((det_id==6 && back_size_det_4 == 0) || (det_id==7 && front_size_det_4 == 0)){
-                x4.push_back(x*TMath::Cos(-TMath::Pi()/4) + z* TMath::Sin(-TMath::Pi()/4));
+                x4.push_back(x*TMath::Cos(-TMath::Pi()/4) - z* TMath::Sin(-TMath::Pi()/4));
                 y4.push_back(y);
             }
 
