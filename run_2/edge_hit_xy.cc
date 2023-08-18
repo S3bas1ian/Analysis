@@ -1,6 +1,7 @@
 #include <TFile.h>
 #include <TTree.h>
 #include <string.h>
+#include <TMath.h>
 
 void edge_hit_xy(std::string path, std::string particle)
 {
@@ -11,17 +12,17 @@ void edge_hit_xy(std::string path, std::string particle)
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
-    auto h1_2d = new TH2D("edges_det_0", "edges detector 0; x; y", 1000, 95, 145, 1000, -35, 35);
-    auto h2_2d = new TH2D("edges_det_1", "edges detector 1; x; y", 1000, 185, 235, 1000, -35, 35);
-    auto h3_2d = new TH2D("edges_det_2", "edges detector 2; x; y", 1000, -95, -145, 1000, -35, 35);
-    auto h4_2d = new TH2D("edges_det_3", "edges detector 3; x; y", 1000, -180, -230, 1000, -35, 35);
+    auto h1_2d = new TH2D("edges_det_0", "edges detector 0; x; y", 1000, -35, 35, 1000, -35, 35);
+    auto h2_2d = new TH2D("edges_det_1", "edges detector 1; x; y", 1000, -35, 35, 1000, -35, 35);
+    auto h3_2d = new TH2D("edges_det_2", "edges detector 2; x; y", 1000, -35, 35, 1000, -35, 35);
+    auto h4_2d = new TH2D("edges_det_3", "edges detector 3; x; y", 1000, -35, 35, 1000, -35, 35);
 
     char particle_name[128];
     Int_t event_number;
     Int_t det_id;
     Int_t strip_id;
     Double_t edep, energy;
-    Double_t x, y;
+    Double_t x, y, z;
 
     hits->SetBranchAddress("name", &particle_name);
     hits->SetBranchAddress("event", &event_number);
@@ -30,6 +31,7 @@ void edge_hit_xy(std::string path, std::string particle)
     hits->SetBranchAddress("edep", &edep);
     hits->SetBranchAddress("x", &x);
     hits->SetBranchAddress("y", &y);
+    hits->SetBranchAddress("z", &z);
     hits->SetBranchAddress("energy", &energy);
 
 
@@ -135,16 +137,16 @@ void edge_hit_xy(std::string path, std::string particle)
 
             if((det_id==0 && back_size_det_1 == 0) || (det_id==1 && front_size_det_1 == 0)){
                 x1.push_back(x);
-                y1.push_back(y);
+                y1.push_back(y*TMath::Cos(TMath::Pi()/4) + z* TMath::Sin(TMath::Pi()/4));
             } else if((det_id==2 && back_size_det_2 == 0) || (det_id==3 && front_size_det_2 == 0)){
                 x2.push_back(x);
-                y2.push_back(y);
+                y2.push_back(y*TMath::Cos(TMath::Pi()/4) + z* TMath::Sin(TMath::Pi()/4));
             } else if((det_id==4 && back_size_det_3 == 0) || (det_id==5 && front_size_det_3 == 0)){
                 x3.push_back(x);
-                y3.push_back(y);
+                y3.push_back(y*TMath::Cos(TMath::Pi()/4) + z* TMath::Sin(TMath::Pi()/4));
             }else if((det_id==6 && back_size_det_4 == 0) || (det_id==7 && front_size_det_4 == 0)){
                 x4.push_back(x);
-                y4.push_back(y);
+                y4.push_back(y*TMath::Cos(TMath::Pi()/4) + z* TMath::Sin(TMath::Pi()/4));
             }
 
         }
