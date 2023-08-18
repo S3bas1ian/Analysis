@@ -11,10 +11,10 @@ void edge_hit_strip(std::string path, std::string particle)
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
-    auto h1_1d = new TH1I("edges_det_0", "edges detector 0; strip; #", 1024, 0, 1023);
-    auto h2_1d = new TH1I("edges_det_1", "edges detector 1; strip; #", 1024, 0, 1023);
-    auto h3_1d = new TH1I("edges_det_2", "edges detector 2; strip; #", 1024, 0, 1023);
-    auto h4_1d = new TH1I("edges_det_3", "edges detector 3; strip; #", 1024, 0, 1023);
+    auto h1_1d = new TH1I("edges_det_0", "edges detector 0; strip; #", 1024, 0, 1024);
+    auto h2_1d = new TH1I("edges_det_1", "edges detector 1; strip; #", 1024, 0, 1024);
+    auto h3_1d = new TH1I("edges_det_2", "edges detector 2; strip; #", 1024, 0, 1024);
+    auto h4_1d = new TH1I("edges_det_3", "edges detector 3; strip; #", 1024, 0, 1024);
 
     char particle_name[128];
     Int_t event_number;
