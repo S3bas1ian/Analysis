@@ -143,10 +143,10 @@ void edge_hit_xy(std::string path, std::string particle)
                 y2.push_back(y*TMath::Cos(TMath::Pi()/4) + z* TMath::Sin(TMath::Pi()/4));
             } else if((det_id==4 && back_size_det_3 == 0) || (det_id==5 && front_size_det_3 == 0)){
                 x3.push_back(x);
-                y3.push_back(y*TMath::Cos(TMath::Pi()/4) + z* TMath::Sin(TMath::Pi()/4));
+                y3.push_back(y*TMath::Cos(-TMath::Pi()/4) + z* TMath::Sin(-TMath::Pi()/4));
             }else if((det_id==6 && back_size_det_4 == 0) || (det_id==7 && front_size_det_4 == 0)){
                 x4.push_back(x);
-                y4.push_back(y*TMath::Cos(TMath::Pi()/4) + z* TMath::Sin(TMath::Pi()/4));
+                y4.push_back(y*TMath::Cos(-TMath::Pi()/4) + z* TMath::Sin(-TMath::Pi()/4));
             }
 
         }
