@@ -78,13 +78,7 @@ public:
         producedTree->SetBranchAddress("pz", &produced_pz_);
         cout << "produced branches done" << endl;
 
-        // preloads 2gb to increase speed
-        //takes a lot of time but speeds things up in the long run
-        //ToDo: Verify the second line :D
-        //hitsTree->LoadBaskets();
-        cout << "hits Tree baskets loaded" << endl;
-        //producedTree->LoadBaskets();
-        cout << "produced Tree baskets loaded" << endl;
+        
         size_p = producedTree->GetEntries();
         cout << "calculated size of produced" << endl;
     }
@@ -120,15 +114,12 @@ public:
 
     Long64_t getEndIndex(int event, Long64_t startIndex)
     {
-        cout << "entered getEndIndex" << endl;
         Long64_t i = startIndex;
         while (i < this->size_p)
         {
-            cout << "entered while loop in getEndIndex" << endl;
             producedTree->GetEntry(i);
             if (produced_event_number_ != event)
             {
-                cout << "found end index" << endl;
                 return i;
             }
             i++;
@@ -162,11 +153,9 @@ public:
         Long64_t p = startIndex;
         while (p < endIndex)
         {
-            cout << "entered while loop findProduucedIndex" << endl;
             getEntryProduced(p);
             if (produced_event_number_ == event && produced_track_number_ == track)
             {
-                cout << "found produced index" << endl;
                 return p;
             }
             else
@@ -182,17 +171,14 @@ public:
 void merge_hits_produced(std::string inputPath, std::string outputPath)
 {
     TreeWraper wrapper = TreeWraper(inputPath, outputPath);
-    cout << "finished wrapper" << endl; 
     Long64_t h = 0; // iterater index for hits branch
     Long64_t size_h = 200;//wrapper->getEntriesHits();
     wrapper.getEntryHits(h);
     Long64_t startIndex = 0;
     Long64_t endIndex = wrapper.getEndIndex(wrapper.getHitsEventNumber(), startIndex);
-    cout << "first time endIndex" << endl;
 
     while (h < size_h)
     {
-        cout << "entered loop at h= " << h << endl;
         wrapper.getEntryHits(h);
         int currEvent = wrapper.getHitsEventNumber();
         bool sameEvent = true;
@@ -200,7 +186,6 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
         while (sameEvent && h < size_h)
         {
             wrapper.getEntryHits(h);
-            cout << "in second while loop" << endl;
 
             if (currEvent == wrapper.getHitsEventNumber())
             {
