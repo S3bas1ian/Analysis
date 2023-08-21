@@ -45,8 +45,10 @@ public:
     */
         inFile = std::make_unique<TFile>(inputPath.c_str(), "READ");
         outFile = std::make_unique<TFile>(outputPath.c_str(), "RECREATE");
+        cout << "treewrapper: files done" << endl;
         hitsTree = (TTree *)(inFile->Get("hits"));
         producedTree = (TTree *)(inFile->Get("produced"));
+        cout << "treewrapper: ttrees done" << endl;
 
 
         // set Branch for hits Tree
@@ -60,6 +62,7 @@ public:
         hitsTree->SetBranchAddress("x", &hits_x_);
         hitsTree->SetBranchAddress("y", &hits_y_);
         hitsTree->SetBranchAddress("z", &hits_z_);
+        cout << "hits branches done" << endl;
 
         // set Branch for produced tree
         producedTree->SetBranchAddress("name", &produced_particle_name_);
@@ -73,15 +76,20 @@ public:
         producedTree->SetBranchAddress("px", &produced_px_);
         producedTree->SetBranchAddress("py", &produced_py_);
         producedTree->SetBranchAddress("pz", &produced_pz_);
+        cout << "produced branches done" << endl;
 
         // preloads 2gb to increase speed
         hitsTree->LoadBaskets();
+        cout << "hits Tree baskets loaded" << endl;
         producedTree->LoadBaskets();
+        cout << "produced Tree baskets loaded" << endl;
         size_p = producedTree->GetEntries();
+        cout << "calculated size of produced" << endl;
     }
 
     ~TreeWraper()
     {
+        cout << "destructor tree wrapper" << endl;
         if (inFile)
         {
             inFile->Close();
@@ -110,9 +118,11 @@ public:
 
     Long64_t getEndIndex(int event, Long64_t startIndex)
     {
+        cout << "entered getEndIndex" << endl;
         Long64_t i = startIndex;
         while (i < this->size_p)
         {
+            cout << "entered while loop in getEndIndex" << endl;
             producedTree->GetEntry(i);
             if (produced_event_number_ != event)
             {
@@ -150,6 +160,7 @@ public:
         Long64_t p = startIndex;
         while (p < endIndex)
         {
+            cout << "entered while loop findProduucedIndex" << endl;
             getEntryProduced(p);
             if (produced_event_number_ == event && produced_track_number_ == track)
             {
