@@ -1,3 +1,8 @@
+/*
+creates a histogramm with hits per event for each detector and
+one for each side (front and back side) of each detector. Does
+not seperate between different detectors or trackers.
+*/
 #include <TFile.h>
 #include <TTree.h>
 

@@ -1,3 +1,9 @@
+/*
+creates 2d histograms for cluster size for each detector and 
+1d histograms for each detector (front + backside). This is used 
+for cluster size
+*/
+
 #include <TFile.h>
 #include <TTree.h>
 #include <string.h>
