@@ -190,9 +190,7 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
                                                         startIndex,
                                                         endIndex);
                 wrapper.getEntryProduced(p);
-                std::cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " 
-                    << wrapper.getHitsTrackNumber() << "  Produced [", "]: "
-                    << wrapper.getProducedEventNumber() << "  " << wrapper.getProducedTrackNumber() << "\n";
+                std::cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " << wrapper.getHitsTrackNumber() << "  Produced [", "]: " << wrapper.getProducedEventNumber() << "  " << wrapper.getProducedTrackNumber() << "\n";
 
                 h++;
             }
