@@ -35,6 +35,8 @@ private:
     Double_t produced_px_, produced_py_, produced_pz_;
 
 public:
+    Long64_t size_p;
+
     TreeWraper(std::string inputPath, std::string outputPath)
     {
         /*
@@ -46,7 +48,6 @@ public:
         hitsTree = (TTree *)(inFile->Get("hits"));
         producedTree = (TTree *)(inFile->Get("produced"));
 
-        Long64_t size_p;
 
         // set Branch for hits Tree
         hitsTree->SetBranchAddress("name", &hits_particle_name_);
