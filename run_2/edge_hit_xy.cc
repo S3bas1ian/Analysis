@@ -89,7 +89,7 @@ void edge_hit_xy(std::string path, std::string particle)
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min && energy>energy_min && std::string(particle_name).compare(particle) == 0) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
+                if (edep > energy_min && std::string(particle_name).compare(particle) == 0) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0 
                 {
                     if (det_id == 0)
                     {
