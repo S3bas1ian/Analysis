@@ -79,9 +79,11 @@ public:
         cout << "produced branches done" << endl;
 
         // preloads 2gb to increase speed
-        hitsTree->LoadBaskets();
+        //takes a lot of time but speeds things up in the long run
+        //ToDo: Verify the second line :D
+        //hitsTree->LoadBaskets();
         cout << "hits Tree baskets loaded" << endl;
-        producedTree->LoadBaskets();
+        //producedTree->LoadBaskets();
         cout << "produced Tree baskets loaded" << endl;
         size_p = producedTree->GetEntries();
         cout << "calculated size of produced" << endl;
