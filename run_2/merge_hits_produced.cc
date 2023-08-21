@@ -140,7 +140,7 @@ public:
 
     Int_t getProducedTrackNumber()
     {
-        return hits_track_number_;
+        return produced_track_number_;
     }
 
     Long64_t findProducedIndex(Int_t event, Int_t track, Long64_t startIndex, Long64_t endIndex)
@@ -159,7 +159,7 @@ public:
             }
         }
         cerr << "Error finding particle at index " << p << endl;
-        return NULL;
+        abort();
     }
 };
 
@@ -192,7 +192,7 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
                 wrapper.getEntryProduced(p);
                 std::cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " 
                     << wrapper.getHitsTrackNumber() << "  Produced [", "]: "
-                    << wrapper.getProducedEventNumber() << "  " << wrapper.getProducedTrackNumber() << '\n';
+                    << wrapper.getProducedEventNumber() << "  " << wrapper.getProducedTrackNumber() << "\n";
 
                 h++;
             }
