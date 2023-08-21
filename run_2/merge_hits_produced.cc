@@ -158,7 +158,7 @@ public:
                 p++;
             }
         }
-        cout << "Error finding particle at index " << p << endl;
+        cerr << "Error finding particle at index " << p << endl;
         return NULL;
     }
 };
@@ -190,9 +190,9 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
                                                         startIndex,
                                                         endIndex);
                 wrapper.getEntryProduced(p);
-                cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " 
+                std::cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " 
                     << wrapper.getHitsTrackNumber() << "  Produced [", "]: "
-                    << wrapper.getProducedEventNumber() << "  " << wrapper.getProducedTrackNumber() << endl;
+                    << wrapper.getProducedEventNumber() << "  " << wrapper.getProducedTrackNumber() << '\n';
 
                 h++;
             }
