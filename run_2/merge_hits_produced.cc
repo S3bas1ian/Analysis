@@ -42,7 +42,7 @@ public:
     extract the hits and produced trees from the input file
     */
         inFile = std::make_unique<TFile>(inputPath.c_str(), "READ");
-        outFile = new TFile(outputPath.c_str(), "RECREATE");
+        outFile = std::make_unique<TFile>(outputPath.c_str(), "RECREATE");
         hitsTree = (TTree *)(inFile->Get("hits"));
         producedTree = (TTree *)(inFile->Get("produced"));
 
@@ -75,7 +75,7 @@ public:
 
         // preloads 2gb to increase speed
         hitsTree->LoadBaskets();
-        producedTree->LoadBasket();
+        producedTree->LoadBaskets();
         size_p = producedTree->GetEntries();
     }
 
@@ -110,7 +110,7 @@ public:
     Long64_t getEndIndex(int event, Long64_t startIndex)
     {
         Long64_t i = startIndex;
-        while (i < this.size_p)
+        while (i < this->size_p)
         {
             producedTree->GetEntry(i);
             if (produced_event_number_ != event)
@@ -148,7 +148,7 @@ public:
         while (p < endIndex)
         {
             getEntryProduced(p);
-            if (produced_event_number == event && produced_track_number == track)
+            if (produced_event_number_ == event && produced_track_number_ == track)
             {
                 return p;
             }
@@ -164,7 +164,7 @@ public:
 
 void merge_hits_produced(std::string inputPath, std::string outputPath)
 {
-    TreeWraper *wrapper = TreeWraper(inputPath, outputPath);
+    TreeWraper *wrapper = *TreeWraper(inputPath, outputPath);
     Long64_t h = 0; // iterater index for hits branch
     Long64_t size_h = 200;//wrapper->getEntriesHits();
     wrapper->getEntryHits(h);
@@ -191,7 +191,7 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
                 wrapper->getEntryProduced(p);
                 cout << "Hits [event, track]: " << wrapper->getHitsEventNumber() << "  " 
                     << wrapper->getHitsTrackNumber() << "  Produced [", "]: "
-                    << wrapper->getProducedEventNumber << "  " << wrapper->getProducedTrackNumber() << endl;
+                    << wrapper->getProducedEventNumber() << "  " << wrapper->getProducedTrackNumber() << endl;
 
                 h++;
             }
