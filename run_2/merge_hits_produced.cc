@@ -118,6 +118,7 @@ public:
             {
                 return i;
             }
+            i++;
         }
         cout << "Warning: Either end of file or no match found at index " << i << endl;
         return i;
@@ -158,7 +159,7 @@ public:
                 p++;
             }
         }
-        cerr << "Error finding particle at index " << p << endl;
+        std::cerr << "Error finding particle at index " << p << "\n";
         abort();
     }
 };
@@ -190,7 +191,10 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
                                                         startIndex,
                                                         endIndex);
                 wrapper.getEntryProduced(p);
-                std::cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " << wrapper.getHitsTrackNumber() << "  Produced [, ]: " << wrapper.getProducedEventNumber() << "  " << wrapper.getProducedTrackNumber() << "\n";
+                std::cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " 
+                << wrapper.getHitsTrackNumber() << "  Produced [, ]: " 
+                << wrapper.getProducedEventNumber() << "  " 
+                << wrapper.getProducedTrackNumber() << "\n";
 
                 h++;
             }
