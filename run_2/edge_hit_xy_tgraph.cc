@@ -288,11 +288,11 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
 
     auto graph1_phantom = new TGraph(x1_phantom.size(), x1_phantom.data(), y1_phantom.data());
     graph1_phantom->SetTitle("detector 0; x [mm]; y [mm]");
-    auto graph2_phantom = new TGraph(x1_phantom.size(), x2_phantom.data(), y2_phantom.data());
+    auto graph2_phantom = new TGraph(x2_phantom.size(), x2_phantom.data(), y2_phantom.data());
     graph2_phantom->SetTitle("detector 1; x [mm]; y [mm]");
-    auto graph3_phantom = new TGraph(x1_phantom.size(), x3_phantom.data(), y3_phantom.data());
+    auto graph3_phantom = new TGraph(x3_phantom.size(), x3_phantom.data(), y3_phantom.data());
     graph3_phantom->SetTitle("detector 2; x [mm]; y [mm]");
-    auto graph4_phantom = new TGraph(x1_phantom.size(), x4_phantom.data(), y4_phantom.data());
+    auto graph4_phantom = new TGraph(x4_phantom.size(), x4_phantom.data(), y4_phantom.data());
     graph4_phantom->SetTitle("detector 3; x [mm]; y [mm]");
 
     auto c2 = new TCanvas((std::string("edge_hitsXY_colored_particle==") + particle).c_str(), (std::string("edge hits (XY colored) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
