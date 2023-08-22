@@ -94,7 +94,7 @@ public:
         outputTree->Branch("Hit_z", &hits_z_, "hits_z_/D");
 
         outputTree->Branch("Produced_Energy", &produced_energy_, "produced_energy_/D");
-        outputTree->Branch("Produced_time", &hits_produced_time_time_, "produced_time_/D");
+        outputTree->Branch("Produced_time", &produced_time_, "produced_time_/D");
         outputTree->Branch("Produced_x", &produced_x_, "produced_x_/D");
         outputTree->Branch("Produced_y", &produced_y_, "produced_y_/D");
         outputTree->Branch("Produced_z", &produced_z_, "produced_z_/D");
