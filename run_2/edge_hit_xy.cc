@@ -3,7 +3,23 @@
 #include <string.h>
 #include <TMath.h>
 
-bool producedInPhantom(double x, double y, double z);
+//bool producedInPhantom(double x, double y, double z);
+
+//return if given coordinates are in phantom
+bool inPproducedInPhantom(double x, double y, double z){
+    double Phantom_X = 0.0;
+    double Phantom_Y = 0.0;
+    double Phantom_Z = 0.0;
+    double Phantom_DEPTH = 200; //mm
+    double Phantom_RADIUS = 100.; //mm
+
+    if((std::pow((x-Phantom_X), 2) + std::pow((z-Phantom_Z),2) <= std::pow(Phantom_RADIUS, 2)) 
+        && z <= Phantom_DEPTH/2 && z>= -Phantom_DEPTH/2 ){
+            //position is within the Phantom
+            return true;
+        } else {return false;}
+
+}
 
 void edge_hit_xy(std::string path, std::string particle)
 {
@@ -248,18 +264,3 @@ void edge_hit_xy(std::string path, std::string particle)
     prod_h2_1i->Draw();
 }
 
-//return if given coordinates are in phantom
-bool inPproducedInPhantom(double x, double y, double z){
-    double Phantom_X = 0.0;
-    double Phantom_Y = 0.0;
-    double Phantom_Z = 0.0;
-    double Phantom_DEPTH = 200; //mm
-    double Phantom_RADIUS = 100.; //mm
-
-    if((std::pow((x-Phantom_X), 2) + std::pow((z-Phantom_Z),2) <= std::pow(Phantom_RADIUS, 2)) 
-        && z <= Phantom_DEPTH/2 && z>= -Phantom_DEPTH/2 ){
-            //position is within the Phantom
-            return true;
-        } else {return false;}
-
-}
