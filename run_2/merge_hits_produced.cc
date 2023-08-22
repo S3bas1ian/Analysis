@@ -114,6 +114,9 @@ public:
         {
             inFile->Close();
         }
+        if(outFile){
+            outFile->Close();
+        }
     };
 
     Long64_t getEntriesHits()
