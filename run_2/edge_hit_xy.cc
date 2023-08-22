@@ -33,18 +33,18 @@ void edge_hit_xy(std::string path, std::string particle)
     Double_t hits_x, hits_y, hits_z;
     Double_t produced_x, produced_y, produced_z;
 
-    hits->SetBranchAddress("hits_particle_name_", &particle_name);
-    hits->SetBranchAddress("hits_event_number_", &event_number);
-    hits->SetBranchAddress("hits_detId_", &det_id);
-    hits->SetBranchAddress("hits_stripId_", &strip_id);
-    hits->SetBranchAddress("hits_edep_", &edep);
-    hits->SetBranchAddress("hits_x_", &hits_x);
-    hits->SetBranchAddress("hits_y_", &hits_y);
-    hits->SetBranchAddress("hits_z_", &hits_z);
-    hits->SetBranchAddress("hits_energy_", &energy);
-    hits->SetBranchAddress("produced_x_", &produced_x);
-    hits->SetBranchAddress("produced_y_", &produced_y);
-    hits->SetBranchAddress("produced_z_", &produced_z);
+    hits->SetBranchAddress("name", &particle_name);
+    hits->SetBranchAddress("event", &event_number);
+    hits->SetBranchAddress("Det_ID", &det_id);
+    hits->SetBranchAddress("Strip_ID", &strip_id);
+    hits->SetBranchAddress("edep", &edep);
+    hits->SetBranchAddress("Hit_x", &hits_x);
+    hits->SetBranchAddress("Hit_y", &hits_y);
+    hits->SetBranchAddress("Hit_z", &hits_z);
+    hits->SetBranchAddress("Hit_energy", &energy);
+    hits->SetBranchAddress("Produced_x", &produced_x);
+    hits->SetBranchAddress("Produced_y", &produced_y);
+    hits->SetBranchAddress("Produced_z", &produced_z);
 
 
 

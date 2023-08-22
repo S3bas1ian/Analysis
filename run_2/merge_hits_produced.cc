@@ -81,26 +81,26 @@ public:
         producedTree->SetBranchAddress("pz", &produced_pz_);
         cout << "produced branches done" << endl;
 
-        outputTree->Branch("name", &hits_particle_name_, "hits_particle_name_/C");
-        outputTree->Branch("event", &hits_event_number_, "hits_event_number_/I");
-        outputTree->Branch("track", &hits_track_number_, "hits_track_number_/I");
-        outputTree->Branch("Det_ID", &hits_detId_, "hits_detId_/I");
-        outputTree->Branch("Strip_ID", &hits_stripId_, "hits_stripId_/I");
-        outputTree->Branch("edep", &hits_edep_, "hits_edep_/D");
-        outputTree->Branch("Hit_energy", &hits_energy_, "hits_energy_/D");
-        outputTree->Branch("Hit_time", &hits_time_, "hits_time_/D");
-        outputTree->Branch("Hit_x", &hits_x_, "hits_x_/D");
-        outputTree->Branch("Hit_y", &hits_y_, "hits_y_/D");
-        outputTree->Branch("Hit_z", &hits_z_, "hits_z_/D");
+        outputTree->Branch("name", &hits_particle_name_, "name/C");
+        outputTree->Branch("event", &hits_event_number_, "event/I");
+        outputTree->Branch("track", &hits_track_number_, "track/I");
+        outputTree->Branch("Det_ID", &hits_detId_, "Det_ID/I");
+        outputTree->Branch("Strip_ID", &hits_stripId_, "Strip_ID/I");
+        outputTree->Branch("edep", &hits_edep_, "edep/D");
+        outputTree->Branch("Hit_energy", &hits_energy_, "Hit_energy/D");
+        outputTree->Branch("Hit_time", &hits_time_, "Hit_time/D");
+        outputTree->Branch("Hit_x", &hits_x_, "Hit_x/D");
+        outputTree->Branch("Hit_y", &hits_y_, "Hit_y/D");
+        outputTree->Branch("Hit_z", &hits_z_, "Hit_z/D");
 
-        outputTree->Branch("Produced_Energy", &produced_energy_, "produced_energy_/D");
-        outputTree->Branch("Produced_time", &produced_time_, "produced_time_/D");
-        outputTree->Branch("Produced_x", &produced_x_, "produced_x_/D");
-        outputTree->Branch("Produced_y", &produced_y_, "produced_y_/D");
-        outputTree->Branch("Produced_z", &produced_z_, "produced_z_/D");
-        outputTree->Branch("Produced_px", &produced_px_, "produced_px_/D");
-        outputTree->Branch("Produced_py", &produced_py_, "produced_py_/D");
-        outputTree->Branch("Produced_pz", &produced_pz_, "produced_pz_/D");
+        outputTree->Branch("Produced_Energy", &produced_energy_, "Produced_Energy/D");
+        outputTree->Branch("Produced_time", &produced_time_, "Produced_time/D");
+        outputTree->Branch("Produced_x", &produced_x_, "Produced_x/D");
+        outputTree->Branch("Produced_y", &produced_y_, "Produced_y/D");
+        outputTree->Branch("Produced_z", &produced_z_, "Produced_z/D");
+        outputTree->Branch("Produced_px", &produced_px_, "Produced_px/D");
+        outputTree->Branch("Produced_py", &produced_py_, "Produced_py/D");
+        outputTree->Branch("Produced_pz", &produced_pz_, "Produced_pz/D");
 
         
         size_p = producedTree->GetEntries();
