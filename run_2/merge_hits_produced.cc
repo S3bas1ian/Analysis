@@ -17,6 +17,7 @@ private:
 
     TTree *hitsTree;
     TTree *producedTree;
+    TTree *outputTree;
 
     // variables that are needed from the hitsTree
     char hits_particle_name_[128];
@@ -48,6 +49,7 @@ public:
         cout << "treewrapper: files done" << endl;
         hitsTree = (TTree *)(inFile->Get("hits"));
         producedTree = (TTree *)(inFile->Get("produced"));
+        outputTree = new TTree("hits", "hits");
         cout << "treewrapper: ttrees done" << endl;
 
 
@@ -59,6 +61,7 @@ public:
         hitsTree->SetBranchAddress("Strip_ID", &hits_stripId_);
         hitsTree->SetBranchAddress("edep", &hits_edep_);
         hitsTree->SetBranchAddress("energy", &hits_energy_);
+        hitsTree->SetBranchAddress("time", &hits_time_);
         hitsTree->SetBranchAddress("x", &hits_x_);
         hitsTree->SetBranchAddress("y", &hits_y_);
         hitsTree->SetBranchAddress("z", &hits_z_);
@@ -77,6 +80,27 @@ public:
         producedTree->SetBranchAddress("py", &produced_py_);
         producedTree->SetBranchAddress("pz", &produced_pz_);
         cout << "produced branches done" << endl;
+
+        outputTree->Branch("name", &hits_particle_name_, "hits_particle_name_/C");
+        outputTree->Branch("event", &hits_event_number_, "hits_event_number_/I");
+        outputTree->Branch("track", &hits_track_number_, "hits_track_number_/I");
+        outputTree->Branch("Det_ID", &hits_detId_, "hits_detId_/I");
+        outputTree->Branch("Strip_ID", &hits_stripId_, "hits_stripId_/I");
+        outputTree->Branch("edep", &hits_edep_, "hits_edep_/D");
+        outputTree->Branch("Hit_energy", &hits_energy_, "hits_energy_/D");
+        outputTree->Branch("Hit_time", &hits_time_, "hits_time_/D");
+        outputTree->Branch("Hit_x", &hits_x_, "hits_x_/D");
+        outputTree->Branch("Hit_y", &hits_y_, "hits_y_/D");
+        outputTree->Branch("Hit_z", &hits_z_, "hits_z_/D");
+
+        outputTree->Branch("Produced_Energy", &produced_energy_, "produced_energy_/D");
+        outputTree->Branch("Produced_time", &hits_produced_time_time_, "produced_time_/D");
+        outputTree->Branch("Produced_x", &produced_x_, "produced_x_/D");
+        outputTree->Branch("Produced_y", &produced_y_, "produced_y_/D");
+        outputTree->Branch("Produced_z", &produced_z_, "produced_z_/D");
+        outputTree->Branch("Produced_px", &produced_px_, "produced_px_/D");
+        outputTree->Branch("Produced_py", &produced_py_, "produced_py_/D");
+        outputTree->Branch("Produced_pz", &produced_pz_, "produced_pz_/D");
 
         
         size_p = producedTree->GetEntries();
@@ -166,6 +190,14 @@ public:
         std::cerr << "Error finding particle at index " << p << "\n";
         abort();
     }
+
+    void fill(){
+        outputTree->Fill();
+    }
+
+    void write(){
+        outputTree->Write();
+    }
 };
 
 void merge_hits_produced(std::string inputPath, std::string outputPath)
@@ -195,10 +227,11 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
                                                         startIndex,
                                                         endIndex);
                 wrapper.getEntryProduced(p);
-                std::cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " 
-                << wrapper.getHitsTrackNumber() << "  Produced [, ]: " 
-                << wrapper.getProducedEventNumber() << "  " 
-                << wrapper.getProducedTrackNumber() << "\n";
+                wrapper.fill();
+                // std::cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " 
+                // << wrapper.getHitsTrackNumber() << "  Produced [, ]: " 
+                // << wrapper.getProducedEventNumber() << "  " 
+                // << wrapper.getProducedTrackNumber() << "\n";
 
                 h++;
             }
@@ -210,4 +243,5 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
             }
         }
     }
+    wrapper.write();
 }
