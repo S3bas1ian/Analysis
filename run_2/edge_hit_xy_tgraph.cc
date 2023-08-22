@@ -296,16 +296,17 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     graph4_phantom->SetTitle("detector 3; x [mm]; y [mm]");
 
     auto c2 = new TCanvas((std::string("edge_hitsXY_colored_particle==") + particle).c_str(), (std::string("edge hits (XY colored) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
-    c2->SetCanvasSize(1500, 1500);
-    c2->Divide(2, 2);
-    c2->cd(1);
+    // c2->SetCanvasSize(1500, 1500);
+    // c2->Divide(2, 2);
+    // c2->cd(1);
+    graph3_phantom->SetMarkerColor(kRed);
     graph3_phantom->Draw();
-    c2->cd(2);
-    graph4_phantom->Draw();
-    c2->cd(3);
-    graph1_phantom->Draw();
-    c2->cd(4);
-    graph2_phantom->Draw();
+    // c2->cd(2);
+    // graph4_phantom->Draw();
+    // c2->cd(3);
+    // graph1_phantom->Draw();
+    // c2->cd(4);
+    // graph2_phantom->Draw();
 
     // auto c1 = new TCanvas((std::string("origin_XY_particle==") + particle).c_str(), (std::string("origin_XY_emin=100keV_particle==") + particle).c_str());
     // c1->Divide(2, 2);
