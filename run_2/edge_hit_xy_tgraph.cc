@@ -264,7 +264,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
             {
                 if (producedInPhantom(prod_x4[i], prod_y4[i], prod_z4[i]))
                 {
-                    x4_phantom.push_back(x4[i], y4[i]);
+                    x4_phantom.push_back(x4[i]);
                     y4_phantom.push_back(y4[i]);
                 }
                 else
