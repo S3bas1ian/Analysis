@@ -260,6 +260,6 @@ bool inPproducedInPhantom(double x, double y, double z){
         && z <= Phantom_DEPTH/2 && z>= -Phantom_DEPTH/2 ){
             //position is within the Phantom
             return true;
-        } esle {return false;}
+        } else {return false;}
 
 }
