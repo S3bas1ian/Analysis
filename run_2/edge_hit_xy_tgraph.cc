@@ -236,7 +236,6 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
                     y2_outside.push_back(y2[i]);
                 }
             }
-            
         }
 
         if ((front_size_det_3 > 0 && back_size_det_3 == 0) || (back_size_det_3 > 0 && front_size_det_3 == 0))
@@ -254,8 +253,6 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
                     y3_outside.push_back(y3[i]);
                 }
             }
-
-            
         }
 
         if ((front_size_det_4 > 0 && back_size_det_4 == 0) || (back_size_det_4 > 0 && front_size_det_4 == 0))
@@ -273,8 +270,6 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
                     y4_outside.push_back(y4[i]);
                 }
             }
-
-           
         }
         x1.resize(0);
         y1.resize(0);
@@ -297,23 +292,49 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     graph4_phantom->SetTitle("detector 3; x [mm]; y [mm]");
 
     auto c2 = new TCanvas((std::string("edge_hitsXY_colored_particle==") + particle).c_str(), (std::string("edge hits (XY colored) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
-    // c2->SetCanvasSize(1500, 1500);
-    // c2->Divide(2, 2);
-    // c2->cd(1);
-    TMultiGraph *mg = new TMultiGraph();
-    mg->SetTitle("detector 2; x [mm]; y [mm]");
+
+    TMultiGraph *mg1 = new TMultiGraph();
+    mg1->SetTitle("detector 0; x [mm]; y [mm]");
+    graph1_phantom->SetMarkerColor(kBlue);
+    graph1_outside->SetMarkerColor(kRed);
+
+    mg1->Add(graph1_phantom);
+    mg1->Add(graph1_outside);
+
+    TMultiGraph *mg2 = new TMultiGraph();
+    mg2->SetTitle("detector 1; x [mm]; y [mm]");
+    graph2_phantom->SetMarkerColor(kBlue);
+    graph2_outside->SetMarkerColor(kRed);
+
+    mg2->Add(graph2_phantom);
+    mg2->Add(graph2_outside);
+
+    TMultiGraph *mg3 = new TMultiGraph();
+    mg3->SetTitle("detector 2; x [mm]; y [mm]");
     graph3_phantom->SetMarkerColor(kBlue);
     graph3_outside->SetMarkerColor(kRed);
 
-    mg->Add(graph3_phantom);
-    mg->Add(graph3_outside);
-    mg->Draw("AP");
-    // c2->cd(2);
-    // graph4_phantom->Draw();
-    // c2->cd(3);
-    // graph1_phantom->Draw();
-    // c2->cd(4);
-    // graph2_phantom->Draw();
+    mg3->Add(graph3_phantom);
+    mg3->Add(graph3_outside);
+
+    TMultiGraph *mg4 = new TMultiGraph();
+    mg4->SetTitle("detector 3; x [mm]; y [mm]");
+    graph4_phantom->SetMarkerColor(kBlue);
+    graph4_outside->SetMarkerColor(kRed);
+
+    mg4->Add(graph4_phantom);
+    mg4->Add(graph4_outside);
+
+    c2->SetCanvasSize(1500, 1500);
+    c2->Divide(2, 2);
+    c2->cd(1);
+    mg3->Draw("AP");
+    c2->cd(2);
+    mg4->Draw("AP");
+    c2->cd(3);
+    mg1->Draw("AP");
+    c2->cd(4);
+    mg2->Draw("AP");
 
     // auto c1 = new TCanvas((std::string("origin_XY_particle==") + particle).c_str(), (std::string("origin_XY_emin=100keV_particle==") + particle).c_str());
     // c1->Divide(2, 2);
