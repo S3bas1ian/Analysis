@@ -15,6 +15,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
+    //Hits on detector for particles from phantom/not from phantom
     std::vector<double> x1_phantom;
     std::vector<double> y1_phantom;
     std::vector<double> x1_outside;
@@ -34,6 +35,9 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     std::vector<double> y4_phantom;
     std::vector<double> x4_outside;
     std::vector<double> y4_outside;
+
+    //origigin of particles that are not from the phantom
+    std::vector<double> outsider_x, outsider_y, outsider_z;
 
     char particle_name[128];
     Int_t event_number;
@@ -207,6 +211,9 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
                 {
                     x1_outside.push_back(x1[i]);
                     y1_outside.push_back(y1[i]);
+                    outsider_x.push_back(prod_x1[i]);
+                    outsider_y.push_back(prod_y1[i]);
+                    outsider_z.push_back(prod_z1[i]);
                 }
             }
         }
@@ -224,6 +231,9 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
                 {
                     x2_outside.push_back(x2[i]);
                     y2_outside.push_back(y2[i]);
+                    outsider_x.push_back(prod_x2[i]);
+                    outsider_y.push_back(prod_y2[i]);
+                    outsider_z.push_back(prod_z2[i]);
                 }
             }
         }
@@ -241,6 +251,9 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
                 {
                     x3_outside.push_back(x3[i]);
                     y3_outside.push_back(y3[i]);
+                    outsider_x.push_back(prod_x3[i]);
+                    outsider_y.push_back(prod_y3[i]);
+                    outsider_z.push_back(prod_z3[i]);
                 }
             }
         }
@@ -258,6 +271,9 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
                 {
                     x4_outside.push_back(x4[i]);
                     y4_outside.push_back(y4[i]);
+                    outsider_x.push_back(prod_x4[i]);
+                    outsider_y.push_back(prod_y4[i]);
+                    outsider_z.push_back(prod_z4[i]);
                 }
             }
         }
@@ -271,6 +287,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
         y4.resize(0);
     }
 
+    //plotting hits on detector
     auto graph1_phantom = new TGraph(x1_phantom.size(), x1_phantom.data(), y1_phantom.data());
     auto graph1_outside = new TGraph(x1_outside.size(), x1_outside.data(), y1_outside.data());
 
@@ -283,7 +300,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     auto graph4_phantom = new TGraph(x4_phantom.size(), x4_phantom.data(), y4_phantom.data());
     auto graph4_outside = new TGraph(x4_outside.size(), x4_outside.data(), y4_outside.data());
 
-    auto c2 = new TCanvas((std::string("edge_hitsXY_colored_particle==") + particle).c_str(), (std::string("edge hits (XY colored) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
+    auto c1 = new TCanvas((std::string("edge_hitsXY_colored_particle==") + particle).c_str(), (std::string("edge hits (XY colored) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
 
     TMultiGraph *mg1 = new TMultiGraph();
     mg1->SetTitle("detector 0; x [mm]; y [mm]");
@@ -291,7 +308,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     graph1_outside->SetMarkerColor(kRed);
 
     mg1->Add(graph1_phantom);
-    //mg1->Add(graph1_outside);
+    mg1->Add(graph1_outside);
 
     TMultiGraph *mg2 = new TMultiGraph();
     mg2->SetTitle("detector 1; x [mm]; y [mm]");
@@ -299,7 +316,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     graph2_outside->SetMarkerColor(kRed);
 
     mg2->Add(graph2_phantom);
-    //mg2->Add(graph2_outside);
+    mg2->Add(graph2_outside);
 
     TMultiGraph *mg3 = new TMultiGraph();
     mg3->SetTitle("detector 2; x [mm]; y [mm]");
@@ -307,7 +324,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     graph3_outside->SetMarkerColor(kRed);
 
     mg3->Add(graph3_phantom);
-    //mg3->Add(graph3_outside);
+    mg3->Add(graph3_outside);
 
     TMultiGraph *mg4 = new TMultiGraph();
     mg4->SetTitle("detector 3; x [mm]; y [mm]");
@@ -315,18 +332,43 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     graph4_outside->SetMarkerColor(kRed);
 
     mg4->Add(graph4_phantom);
-    //mg4->Add(graph4_outside);
+    mg4->Add(graph4_outside);
 
-    c2->SetCanvasSize(1500, 1500);
-    c2->Divide(2, 2);
-    c2->cd(1);
+    c1->SetCanvasSize(1500, 1500);
+    c1->Divide(2, 2);
+    c1->cd(1);
     mg3->Draw("AP");
-    c2->cd(2);
+    c1->cd(2);
     mg4->Draw("AP");
-    c2->cd(3);
+    c1->cd(3);
     mg1->Draw("AP");
-    c2->cd(4);
+    c1->cd(4);
     mg2->Draw("AP");
+
+
+    //plotting view 100
+    auto c2 = new TCanvas((std::string("position_outsider_100_particle==") + particle).c_str(), 
+                            (std::string("position_outsider_100_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
+    auto outsider_100 = new TGraph(outsider_y.size(), outsider_y.data(), outsider_z.data());
+    outsider_100->SetTitle("view on 100; y [mm]; z [mm]");
+    outsider_100->Draw("AP");
+
+
+    //plotting view 010
+    auto c3 = new TCanvas((std::string("position_outsider_010_particle==") + particle).c_str(), 
+                            (std::string("position_outsider_010_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
+    auto outsider_010 = new TGraph(outsider_x.size(), outsider_x.data(), outsider_z.data());
+    outsider_010->SetTitle("view on 010; x [mm]; z [mm]");
+    outsider_010->Draw("AP");
+
+    //plotting view 001
+    auto c4 = new TCanvas((std::string("position_outsider_001_particle==") + particle).c_str(), 
+                            (std::string("position_outsider_001_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
+    auto outsider_100 = new TGraph(outsider_x.size(), outsider_x.data(), outsider_y.data());
+    outsider_001->SetTitle("view on 001; x [mm]; y [mm]");
+    outsider_001->Draw("AP");
+
+
 }
 
 // return if given coordinates are in phantom
