@@ -364,7 +364,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     //plotting view 001
     auto c4 = new TCanvas((std::string("position_outsider_001_particle==") + particle).c_str(), 
                             (std::string("position_outsider_001_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
-    auto outsider_100 = new TGraph(outsider_x.size(), outsider_x.data(), outsider_y.data());
+    auto outsider_001 = new TGraph(outsider_x.size(), outsider_x.data(), outsider_y.data());
     outsider_001->SetTitle("view on 001; x [mm]; y [mm]");
     outsider_001->Draw("AP");
 
