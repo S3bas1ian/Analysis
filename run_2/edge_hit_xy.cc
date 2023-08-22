@@ -15,11 +15,18 @@ void edge_hit_xy(std::string path, std::string particle)
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
-    TGraph* gr1, gr2, gr3, gr4;
-    gr1 = new TGraph(); gr1->SetTitle("detector 0; x [mm]; y [mm]");
-    gr2 = new TGraph(); gr2->SetTitle("detector 1; x [mm]; y [mm]");
-    gr3 = new TGraph(); gr3->SetTitle("detector 2; x [mm]; y [mm]");
-    gr4 = new TGraph(); gr4->SetTitle("detector 3; x [mm]; y [mm]");
+    TGraph* gr1;
+    TGraph* gr2;
+    TGraph* gr3;
+    TGraph*  gr4;
+    gr1 = new TGraph(); 
+    gr1->SetTitle("detector 0; x [mm]; y [mm]");
+    gr2 = new TGraph(); 
+    gr2->SetTitle("detector 1; x [mm]; y [mm]");
+    gr3 = new TGraph(); 
+    gr3->SetTitle("detector 2; x [mm]; y [mm]");
+    gr4 = new TGraph(); 
+    gr4->SetTitle("detector 3; x [mm]; y [mm]");
 
 
     char particle_name[128];
