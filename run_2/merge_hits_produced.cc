@@ -204,7 +204,7 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
 {
     TreeWraper wrapper = TreeWraper(inputPath, outputPath);
     Long64_t h = 0; // iterater index for hits branch
-    Long64_t size_h = 200;//wrapper->getEntriesHits();
+    Long64_t size_h = wrapper->getEntriesHits();
     wrapper.getEntryHits(h);
     Long64_t startIndex = 0;
     Long64_t endIndex = wrapper.getEndIndex(wrapper.getHitsEventNumber(), startIndex);
