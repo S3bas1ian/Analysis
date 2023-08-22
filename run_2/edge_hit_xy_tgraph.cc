@@ -291,6 +291,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     auto graph2_phantom = new TGraph(x2_phantom.size(), x2_phantom.data(), y2_phantom.data());
     graph2_phantom->SetTitle("detector 1; x [mm]; y [mm]");
     auto graph3_phantom = new TGraph(x3_phantom.size(), x3_phantom.data(), y3_phantom.data());
+    auto graph3_outside = new TGraph(x3_outside.size(), x3_outside.data(), y3_outside.data());
     graph3_phantom->SetTitle("detector 2; x [mm]; y [mm]");
     auto graph4_phantom = new TGraph(x4_phantom.size(), x4_phantom.data(), y4_phantom.data());
     graph4_phantom->SetTitle("detector 3; x [mm]; y [mm]");
@@ -299,8 +300,11 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     // c2->SetCanvasSize(1500, 1500);
     // c2->Divide(2, 2);
     // c2->cd(1);
-    graph3_phantom->SetMarkerColor(kRed);
-    graph3_phantom->Draw();
+    graph3_phantom->SetMarkerColor(kBlue);
+    graph3_phantom->Draw("AP");
+    graph3_outside->SetMarkerColor(kRed);
+    graph3_outside->Draw("AP same")
+
     // c2->cd(2);
     // graph4_phantom->Draw();
     // c2->cd(3);
