@@ -303,7 +303,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     graph3_phantom->SetMarkerColor(kBlue);
     graph3_phantom->Draw("AP");
     graph3_outside->SetMarkerColor(kRed);
-    graph3_outside->Draw("AP same")
+    graph3_outside->Draw("AP same");
 
     // c2->cd(2);
     // graph4_phantom->Draw();
