@@ -3,6 +3,8 @@
 #include <string.h>
 #include <TMath.h>
 
+bool producedInPhantom(double x, double y, double z);
+
 void edge_hit_xy(std::string path, std::string particle)
 {
 
@@ -17,22 +19,33 @@ void edge_hit_xy(std::string path, std::string particle)
     auto h3_2d = new TH2D("edges_det_2", "edges detector 2; x [mm]; y [mm]", 1000, -35, 35, 1000, -35, 35);
     auto h4_2d = new TH2D("edges_det_3", "edges detector 3; x [mm]; y [mm]", 1000, -35, 35, 1000, -35, 35);
 
+    auto prod_h1_1i = new TH1I("produced", "origin detector 0", 2, 0, 2);
+    auto prod_h2_1i = new TH1I("produced", "origin detector 1", 2, 0, 2);
+    auto prod_h3_1i = new TH1I("produced", "origin detector 2", 2, 0, 2);
+    auto prod_h4_1i = new TH1I("produced", "origin detector 3", 2, 0, 2);
+
+
     char particle_name[128];
     Int_t event_number;
     Int_t det_id;
     Int_t strip_id;
     Double_t edep, energy;
-    Double_t x, y, z;
+    Double_t hits_x, hits_y, hits_z;
+    Double_t produced_x, produced_y, produced_z;
 
-    hits->SetBranchAddress("name", &particle_name);
-    hits->SetBranchAddress("event", &event_number);
-    hits->SetBranchAddress("Det_ID", &det_id);
-    hits->SetBranchAddress("Strip_ID", &strip_id);
-    hits->SetBranchAddress("edep", &edep);
-    hits->SetBranchAddress("x", &x);
-    hits->SetBranchAddress("y", &y);
-    hits->SetBranchAddress("z", &z);
-    hits->SetBranchAddress("energy", &energy);
+    hits->SetBranchAddress("hits_particle_name_", &particle_name);
+    hits->SetBranchAddress("hits_event_number_", &event_number);
+    hits->SetBranchAddress("hits_detId_", &det_id);
+    hits->SetBranchAddress("hits_stripId_", &strip_id);
+    hits->SetBranchAddress("hits_edep_", &edep);
+    hits->SetBranchAddress("hits_x_", &hits_x);
+    hits->SetBranchAddress("hits_y_", &hits_y);
+    hits->SetBranchAddress("hits_z_", &hits_z);
+    hits->SetBranchAddress("hits_energy_", &energy);
+    hits->SetBranchAddress("produced_x_", &produced_x);
+    hits->SetBranchAddress("produced_y_", &produced_y);
+    hits->SetBranchAddress("produced_z_", &produced_z);
+
 
 
     // preload stuff to speed things up
@@ -157,12 +170,22 @@ void edge_hit_xy(std::string path, std::string particle)
             for(int i = 0; i< x1.size(); i++){
                 h1_2d->Fill(x1[i], y1[i]);
             }
+            if(producedInPhantom(produced_x, produced_y, produced_z)){
+                prod_h1_1i->Fill("origin in Phantom");
+            } else {
+                prod_h1_1i->Fill("origin elsewhere");
+            }
         }
 
         if ((front_size_det_2 > 0 && back_size_det_2 == 0) || (back_size_det_2 > 0 && front_size_det_2 == 0))
         {
             for(int i = 0; i< x2.size(); i++){
                 h2_2d->Fill(x2[i], y2[i]);
+            }
+            if(producedInPhantom(produced_x, produced_y, produced_z)){
+                prod_h2_1i->Fill("origin in Phantom");
+            } else {
+                prod_h2_1i->Fill("origin elsewhere");
             }
         }
 
@@ -171,12 +194,24 @@ void edge_hit_xy(std::string path, std::string particle)
             for(int i = 0; i< x3.size(); i++){
                 h3_2d->Fill(x3[i], y3[i]);
             }
+
+            if(producedInPhantom(produced_x, produced_y, produced_z)){
+                prod_h3_1i->Fill("origin in Phantom");
+            } else {
+                prod_h3_1i->Fill("origin elsewhere");
+            }
         }
 
         if ((front_size_det_4 > 0 && back_size_det_4 == 0) || (back_size_det_4 > 0 && front_size_det_4 == 0))
         {
             for(int i = 0; i< x4.size(); i++){
                 h4_2d->Fill(x4[i], y4[i]);
+            }
+
+            if(producedInPhantom(produced_x, produced_y, produced_z)){
+                prod_h4_1i->Fill("origin in Phantom");
+            } else {
+                prod_h4_1i->Fill("origin elsewhere");
             }
         }
         x1.resize(0);
@@ -200,4 +235,31 @@ void edge_hit_xy(std::string path, std::string particle)
     h1_2d->Draw();
     c2->cd(4);
     h2_2d->Draw();
+
+    auto c1 = new TCanvas((std::string("origin_XY_particle==") + particle).c_str(), (std::string("origin_XY_emin=100keV_particle==") + particle).c_str());
+    c1->Divide(2, 2);
+    c1->cd(1);
+    prod_h3_1i->Draw();
+    c1->cd(2);
+    prod_h4_1i->Draw();
+    c1->cd(3);
+    prod_h1_1i->Draw();
+    c1->cd(4);
+    prod_h2_1i->Draw();
+}
+
+//return if given coordinates are in phantom
+bool inPproducedInPhantom(double x, double y, double z){
+    double Phantom_X = 0.0;
+    double Phantom_Y = 0.0;
+    double Phantom_Z = 0.0;
+    double Phantom_DEPTH = 200; //mm
+    double Phantom_RADIUS = 100.; //mm
+
+    if((std::pow((x-Phantom_X), 2) + std::pow((z-Phantom_Z),2) <= std::pow(Phantom_RADIUS, 2)) 
+        && z <= Phantom_DEPTH/2 && z>= -Phantom_DEPTH/2 ){
+            //position is within the Phantom
+            return true;
+        } esle {return false;}
+
 }
