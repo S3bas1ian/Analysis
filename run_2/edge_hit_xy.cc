@@ -12,10 +12,10 @@ void edge_hit_xy(std::string path, std::string particle)
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
-    auto h1_2d = new TH2D("edges_det_0", "edges detector 0; x; y", 1000, -35, 35, 1000, -35, 35);
-    auto h2_2d = new TH2D("edges_det_1", "edges detector 1; x; y", 1000, -35, 35, 1000, -35, 35);
-    auto h3_2d = new TH2D("edges_det_2", "edges detector 2; x; y", 1000, -35, 35, 1000, -35, 35);
-    auto h4_2d = new TH2D("edges_det_3", "edges detector 3; x; y", 1000, -35, 35, 1000, -35, 35);
+    auto h1_2d = new TH2D("edges_det_0", "edges detector 0; x [mm]; y [mm]", 1000, -35, 35, 1000, -35, 35);
+    auto h2_2d = new TH2D("edges_det_1", "edges detector 1; x [mm]; y [mm]", 1000, -35, 35, 1000, -35, 35);
+    auto h3_2d = new TH2D("edges_det_2", "edges detector 2; x [mm]; y [mm]", 1000, -35, 35, 1000, -35, 35);
+    auto h4_2d = new TH2D("edges_det_3", "edges detector 3; x [mm]; y [mm]", 1000, -35, 35, 1000, -35, 35);
 
     char particle_name[128];
     Int_t event_number;
