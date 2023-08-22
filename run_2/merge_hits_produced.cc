@@ -244,4 +244,5 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
         }
     }
     wrapper.write();
+    std::cout << "Done!" << std::endl;
 }
