@@ -19,10 +19,10 @@ void edge_hit_xy(std::string path, std::string particle)
     auto h3_2d = new TH2D("edges_det_2", "edges detector 2; x [mm]; y [mm]", 1000, -35, 35, 1000, -35, 35);
     auto h4_2d = new TH2D("edges_det_3", "edges detector 3; x [mm]; y [mm]", 1000, -35, 35, 1000, -35, 35);
 
-    auto prod_h1_1i = new TH1I("produced", "origin detector 0", 2, 0, 2);
-    auto prod_h2_1i = new TH1I("produced", "origin detector 1", 2, 0, 2);
-    auto prod_h3_1i = new TH1I("produced", "origin detector 2", 2, 0, 2);
-    auto prod_h4_1i = new TH1I("produced", "origin detector 3", 2, 0, 2);
+    auto prod_h1_1i = new TH1I("produced", "origin detector 0; ; #", 2, 0, 2);
+    auto prod_h2_1i = new TH1I("produced", "origin detector 1; ; #", 2, 0, 2);
+    auto prod_h3_1i = new TH1I("produced", "origin detector 2; ; #", 2, 0, 2);
+    auto prod_h4_1i = new TH1I("produced", "origin detector 3; ; #", 2, 0, 2);
 
 
     char particle_name[128];
@@ -149,17 +149,17 @@ void edge_hit_xy(std::string path, std::string particle)
             }
 
             if((det_id==0 && back_size_det_1 == 0) || (det_id==1 && front_size_det_1 == 0)){
-                x1.push_back(x*TMath::Cos(TMath::Pi()/4) - z* TMath::Sin(TMath::Pi()/4));
-                y1.push_back(y);
+                x1.push_back(hits_x*TMath::Cos(TMath::Pi()/4) - hits_z* TMath::Sin(TMath::Pi()/4));
+                y1.push_back(hits_y);
             } else if((det_id==2 && back_size_det_2 == 0) || (det_id==3 && front_size_det_2 == 0)){
-                x2.push_back(x*TMath::Cos(TMath::Pi()/4) - z* TMath::Sin(TMath::Pi()/4));
-                y2.push_back(y);
+                x2.push_back(hits_x*TMath::Cos(TMath::Pi()/4) - hits_z* TMath::Sin(TMath::Pi()/4));
+                y2.push_back(hits_y);
             } else if((det_id==4 && back_size_det_3 == 0) || (det_id==5 && front_size_det_3 == 0)){
-                x3.push_back(x*TMath::Cos(-TMath::Pi()/4) - z* TMath::Sin(-TMath::Pi()/4));
-                y3.push_back(y);
+                x3.push_back(hits_x*TMath::Cos(-TMath::Pi()/4) - hits_z* TMath::Sin(-TMath::Pi()/4));
+                y3.push_back(hits_y);
             }else if((det_id==6 && back_size_det_4 == 0) || (det_id==7 && front_size_det_4 == 0)){
-                x4.push_back(x*TMath::Cos(-TMath::Pi()/4) - z* TMath::Sin(-TMath::Pi()/4));
-                y4.push_back(y);
+                x4.push_back(hits_x*TMath::Cos(-TMath::Pi()/4) - hits_z* TMath::Sin(-TMath::Pi()/4));
+                y4.push_back(hits_y);
             }
 
         }
@@ -171,9 +171,9 @@ void edge_hit_xy(std::string path, std::string particle)
                 h1_2d->Fill(x1[i], y1[i]);
             }
             if(producedInPhantom(produced_x, produced_y, produced_z)){
-                prod_h1_1i->Fill("origin in Phantom");
+                prod_h1_1i->Fill("origin in Phantom", 1);
             } else {
-                prod_h1_1i->Fill("origin elsewhere");
+                prod_h1_1i->Fill("origin elsewhere", 1);
             }
         }
 
@@ -183,9 +183,9 @@ void edge_hit_xy(std::string path, std::string particle)
                 h2_2d->Fill(x2[i], y2[i]);
             }
             if(producedInPhantom(produced_x, produced_y, produced_z)){
-                prod_h2_1i->Fill("origin in Phantom");
+                prod_h2_1i->Fill("origin in Phantom", 1);
             } else {
-                prod_h2_1i->Fill("origin elsewhere");
+                prod_h2_1i->Fill("origin elsewhere", 1);
             }
         }
 
@@ -196,9 +196,9 @@ void edge_hit_xy(std::string path, std::string particle)
             }
 
             if(producedInPhantom(produced_x, produced_y, produced_z)){
-                prod_h3_1i->Fill("origin in Phantom");
+                prod_h3_1i->Fill("origin in Phantom", 1);
             } else {
-                prod_h3_1i->Fill("origin elsewhere");
+                prod_h3_1i->Fill("origin elsewhere", 1);
             }
         }
 
@@ -209,9 +209,9 @@ void edge_hit_xy(std::string path, std::string particle)
             }
 
             if(producedInPhantom(produced_x, produced_y, produced_z)){
-                prod_h4_1i->Fill("origin in Phantom");
+                prod_h4_1i->Fill("origin in Phantom", 1);
             } else {
-                prod_h4_1i->Fill("origin elsewhere");
+                prod_h4_1i->Fill("origin elsewhere", 1);
             }
         }
         x1.resize(0);
