@@ -155,28 +155,28 @@ void stopping_power(std::string path, std::string particle)
         {
             for (int j = 0; j < E1.size(); j++)
             {
-                hist->Fill(E1[j] / 1e3, dE1[j] / 1e3);
+                hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
             }
         }
         if (front_size_det_2 == 1 && back_size_det_2 == 1)
         {
             for (int j = 0; j < E2.size(); j++)
             {
-                hist->Fill(E2[j] / 1e3, dE2[j] / 1e3);
+                hist->Fill(E2[j] / 1e6, dE2[j] / 1e3);
             }
         }
         if (front_size_det_3 == 1 && back_size_det_3 == 1)
         {
             for (int j = 0; j < E3.size(); j++)
             {
-                hist->Fill(E3[j] / 1e3, dE3[j] / 1e3);
+                hist->Fill(E3[j] / 1e6, dE3[j] / 1e3);
             }
         }
         if (front_size_det_4 == 1 && back_size_det_4 == 1)
         {
             for (int j = 0; j < E4.size(); j++)
             {
-                hist->Fill(E4[j] / 1e3, dE4[j] / 1e3);
+                hist->Fill(E4[j] / 1e6, dE4[j] / 1e3);
             }
         }
     }
@@ -191,7 +191,7 @@ void stopping_power(std::string path, std::string particle)
 
     hist->SetTitle((std::string("Stopping Power for ") + 
                     particle).c_str());
-    hist->SetXTitle("Energy [keV] #upoint 10^{3}");
+    hist->SetXTitle("Energy [MeV]");
     hist->SetYTitle("#Delta E [keV]");
     hist->Draw("colz");
 }
