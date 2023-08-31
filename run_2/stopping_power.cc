@@ -91,6 +91,7 @@ void stopping_power(std::string path, std::string particle)
                     if (det_id == 0)
                     {
                         front_size_det_1 += 1;
+                        cout << "adding: " << energy << "  " << edep << " \n";
                         dE1.push_back(edep);
                         E1.push_back(energy);
                     }
