@@ -182,10 +182,10 @@ void stopping_power(std::string path, std::string particle)
     }
 
     //create canvas with all information
-    auto c1 = new TCanvas((std::string("stopping_power_particle=") +
+    auto c1 = new TCanvas((std::string("stopping_power_1and1_particle=") +
                            particle)
                               .c_str(),
-                          (std::string("stopping_power_particle=") +
+                          (std::string("stopping_power_1and1_particle=") +
                            particle)
                               .c_str());
 
