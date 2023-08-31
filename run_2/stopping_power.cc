@@ -154,7 +154,7 @@ void stopping_power(std::string path, std::string particle)
         if (front_size_det_1 > 0 && back_size_det_1 > 0)
         {
             cout << E1.size() << " \n";
-            for (int j = 0; i < E1.size(); j++)
+            for (int j = 0; j < E1.size(); j++)
             {
                 hist->Fill(E1[j] / 1e3, dE1[j] / 1e3);
                 cout << "filling 1 :" << E1[j] << "  " << dE1[j] << " \n";
@@ -162,21 +162,21 @@ void stopping_power(std::string path, std::string particle)
         }
         if (front_size_det_2 > 0 && back_size_det_2 > 0)
         {
-            for (int j = 0; i < E2.size(); j++)
+            for (int j = 0; j < E2.size(); j++)
             {
                 hist->Fill(E2[j] / 1e3, dE2[j] / 1e3);
             }
         }
         if (front_size_det_3 > 0 && back_size_det_3 > 0)
         {
-            for (int j = 0; i < E3.size(); j++)
+            for (int j = 0; j < E3.size(); j++)
             {
                 hist->Fill(E3[j] / 1e3, dE3[j] / 1e3);
             }
         }
         if (front_size_det_4 > 0 && back_size_det_4 > 0)
         {
-            for (int j = 0; i < E4.size(); j++)
+            for (int j = 0; j < E4.size(); j++)
             {
                 hist->Fill(E4[j] / 1e3, dE4[j] / 1e3);
             }
