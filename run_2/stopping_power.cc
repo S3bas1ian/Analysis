@@ -151,28 +151,28 @@ void stopping_power(std::string path, std::string particle)
         }
 
         //add stopping power only if we have no "one side hitters"
-        if (front_size_det_1 > 0 && back_size_det_1 > 0)
+        if (front_size_det_1 == 1 && back_size_det_1 == 1)
         {
             for (int j = 0; j < E1.size(); j++)
             {
                 hist->Fill(E1[j] / 1e3, dE1[j] / 1e3);
             }
         }
-        if (front_size_det_2 > 0 && back_size_det_2 > 0)
+        if (front_size_det_2 == 1 && back_size_det_2 == 1)
         {
             for (int j = 0; j < E2.size(); j++)
             {
                 hist->Fill(E2[j] / 1e3, dE2[j] / 1e3);
             }
         }
-        if (front_size_det_3 > 0 && back_size_det_3 > 0)
+        if (front_size_det_3 == 1 && back_size_det_3 == 1)
         {
             for (int j = 0; j < E3.size(); j++)
             {
                 hist->Fill(E3[j] / 1e3, dE3[j] / 1e3);
             }
         }
-        if (front_size_det_4 > 0 && back_size_det_4 > 0)
+        if (front_size_det_4 == 1 && back_size_det_4 == 1)
         {
             for (int j = 0; j < E4.size(); j++)
             {
@@ -182,10 +182,10 @@ void stopping_power(std::string path, std::string particle)
     }
 
     //create canvas with all information
-    auto c1 = new TCanvas((std::string("stopping_power_particle=") +
+    auto c1 = new TCanvas((std::string("stopping_power_1and1_particle=") +
                            particle)
                               .c_str(),
-                          (std::string("stopping_power_particle=") +
+                          (std::string("stopping_power_1and1_particle=") +
                            particle)
                               .c_str());
 
