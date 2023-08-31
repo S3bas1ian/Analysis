@@ -92,7 +92,6 @@ void stopping_power(std::string path, std::string particle)
                     if (det_id == 0)
                     {
                         front_size_det_1 += 1;
-                        cout << "adding: " << energy << "  " << edep << " \n";
                         dE1.push_back(edep);
                         E1.push_back(energy);
                     }
@@ -154,7 +153,6 @@ void stopping_power(std::string path, std::string particle)
         //add stopping power only if we have no "one side hitters"
         if (front_size_det_1 > 0 && back_size_det_1 > 0)
         {
-            cout << E1[0] << "  " << dE1[0] << "\n" ;
             for (int j = 0; i < E1.size(); j++)
             {
                 hist->Fill(E1[j] / 1e3, dE1[j] / 1e3);
@@ -162,7 +160,6 @@ void stopping_power(std::string path, std::string particle)
         }
         if (front_size_det_2 > 0 && back_size_det_2 > 0)
         {
-            cout << E2[0] << "  " << dE2[0] << "\n" ;
             for (int j = 0; i < E2.size(); j++)
             {
                 hist->Fill(E2[j] / 1e3, dE2[j] / 1e3);
@@ -170,8 +167,6 @@ void stopping_power(std::string path, std::string particle)
         }
         if (front_size_det_3 > 0 && back_size_det_3 > 0)
         {
-            cout << E3[0] << "  " << dE3[0] << "\n" ;
-
             for (int j = 0; i < E3.size(); j++)
             {
                 hist->Fill(E3[j] / 1e3, dE3[j] / 1e3);
@@ -179,7 +174,6 @@ void stopping_power(std::string path, std::string particle)
         }
         if (front_size_det_4 > 0 && back_size_det_4 > 0)
         {
-            cout << E4[0] << "  " << dE4[0] << "\n" ;
             for (int j = 0; i < E4.size(); j++)
             {
                 hist->Fill(E4[j] / 1e3, dE4[j] / 1e3);
