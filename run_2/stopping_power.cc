@@ -193,5 +193,5 @@ void stopping_power(std::string path, std::string particle)
                     particle).c_str());
     hist->SetXTitle("Energy [keV]");
     hist->SetYTitle("# Delta E [keV]");
-    hist->Draw();
+    hist->Draw("colz");
 }
