@@ -13,7 +13,7 @@ void stopping_power(std::string path, std::string particle)
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
     TH2D *hist = new TH2D("stopping power", "stopping power",
-                          1500, 0, 330e3, 1500, 0, 1600);
+                          1000, 0, 330, 1600, 0, 1600);
 
     //needed variables from the tree
     char particle_name[128];
