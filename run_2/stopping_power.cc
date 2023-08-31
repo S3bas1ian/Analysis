@@ -26,6 +26,7 @@ void stopping_power(std::string path, std::string particle)
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
     hits->SetBranchAddress("edep", &edep);
+    hits->SetBranchAddress("Hit_energy", &energy);
 
     //needed for the loop through the tree
     int i = 0;
