@@ -13,7 +13,7 @@ void stopping_power(std::string path, std::string particle)
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
     TH2D *hist = new TH2D("stopping power", "stopping power",
-                          1000, 0, 300e3, 1000, 0, 1500);
+                          1500, 0, 330e3, 1500, 0, 1600);
 
     //needed variables from the tree
     char particle_name[128];
@@ -151,28 +151,28 @@ void stopping_power(std::string path, std::string particle)
         }
 
         //add stopping power only if we have no "one side hitters"
-        if (front_size_det_1 > 0 && back_size_det_1 > 0)
+        if (front_size_det_1 == 1 && back_size_det_1 == 1)
         {
             for (int j = 0; j < E1.size(); j++)
             {
                 hist->Fill(E1[j] / 1e3, dE1[j] / 1e3);
             }
         }
-        if (front_size_det_2 > 0 && back_size_det_2 > 0)
+        if (front_size_det_2 == 1 && back_size_det_2 == 1)
         {
             for (int j = 0; j < E2.size(); j++)
             {
                 hist->Fill(E2[j] / 1e3, dE2[j] / 1e3);
             }
         }
-        if (front_size_det_3 > 0 && back_size_det_3 > 0)
+        if (front_size_det_3 == 1 && back_size_det_3 == 1)
         {
             for (int j = 0; j < E3.size(); j++)
             {
                 hist->Fill(E3[j] / 1e3, dE3[j] / 1e3);
             }
         }
-        if (front_size_det_4 > 0 && back_size_det_4 > 0)
+        if (front_size_det_4 == 1 && back_size_det_4 == 1)
         {
             for (int j = 0; j < E4.size(); j++)
             {
