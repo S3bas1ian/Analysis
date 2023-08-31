@@ -86,8 +86,7 @@ void stopping_power(std::string path, std::string particle)
             if (event_number == currEvent)
             {
 
-                if (std::string(particle_name).compare(particle) == 0 
-                || std::string("all").compare(particle) == 0)
+                if (std::string(particle_name).compare(particle) == 0 )
                 {
                     if (det_id == 0)
                     {
