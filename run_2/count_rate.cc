@@ -243,7 +243,7 @@ void count_rate(std::string path, Int_t det)
 	Int_t detectors[] = {0, 1, 6, 7};
 	Int_t strips[] = {0, 1, 2, 200, 555, 700, 1021, 1022, 1023};
 
-	Double_t psPerEvent = 1e4; // unit ps
+	Double_t psPerEvent = 1e4; // unit ps 10^9 particles/s
 
 	TreeWrapper input = TreeWrapper(path);
 
@@ -267,13 +267,15 @@ void count_rate(std::string path, Int_t det)
 			// std::cout << std::endl;
 		}
 	
-	auto c1 = new TCanvas("delta_time_colz", "colz");
+	auto c1 = new TCanvas((std::string("delta_time_colz_det")+std::string(det)).c_str(), 
+					(std::string("delta_time_colz_det")+std::string(det)).c_str());
 	hist.SetXTitle("#Delta t [ms]");
 	hist.SetYTitle("strip");
 	hist.DrawCopy("ColZ");
 	//c1->SaveAs("count_rate_colz.png");
 
-	auto c2 = new TCanvas("delta_time_candley1", "candley1");
+	auto c2 = new TCanvas((std::string("delta_time_candley1_det")+std::string(det)).c_str(), 
+					(std::string("delta_time_candley1_det")+std::string(det)).c_str());
 	hist.DrawCopy("candley1");
 	//c2->SaveAs("count_rate_candley.png");
 
