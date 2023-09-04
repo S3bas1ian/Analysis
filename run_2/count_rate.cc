@@ -267,8 +267,8 @@ void count_rate(std::string path, Int_t det)
 			// std::cout << std::endl;
 		}
 	
-	auto c1 = new TCanvas((std::string("delta_time_colz_det")+std::string(det)).c_str(), 
-					(std::string("delta_time_colz_det")+std::string(det)).c_str());
+	auto c1 = new TCanvas((std::string("delta_time_colz_det")+std::to_string(det)).c_str(), 
+					(std::string("delta_time_colz_det")+std::to_string(det)).c_str());
 	hist.SetXTitle("#Delta t [ms]");
 	hist.SetYTitle("strip");
 	hist.DrawCopy("ColZ");
