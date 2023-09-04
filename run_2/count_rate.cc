@@ -274,8 +274,8 @@ void count_rate(std::string path, Int_t det)
 	hist.DrawCopy("ColZ");
 	//c1->SaveAs("count_rate_colz.png");
 
-	auto c2 = new TCanvas((std::string("delta_time_candley1_det")+std::string(det)).c_str(), 
-					(std::string("delta_time_candley1_det")+std::string(det)).c_str());
+	auto c2 = new TCanvas((std::string("delta_time_candley1_det")+std::to_string(det)).c_str(), 
+					(std::string("delta_time_candley1_det")+std::to_string(det)).c_str());
 	hist.DrawCopy("candley1");
 	//c2->SaveAs("count_rate_candley.png");
 
