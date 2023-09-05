@@ -87,12 +87,12 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
         histos.push_back(std::make_shared<TH2D>((std::string("delta time ") + 
                 std::to_string(d)).c_str(), 
                 (std::string("#Delta t for detector ") + 
-                std::to_string(d)).c_str(), 1000, 0, 2, 512, 0, 1025));
+                std::to_string(d)).c_str(), 1000, 0, 2, 1024, 0, 1025));
 
         histos[d]->SetXTitle("#Delta t [ms]");
         histos[d]->SetYTitle("strip");
 
-        for(int s = 0; s<1024; s++){
+        for(int s = 0; s<1024; s+=2){   //plot only every second strip for resolution reasons
             int delta_time_size = delta_time[d][s].size();
             for(int j = 0; j<delta_time_size; j++){
                 histos[d]->Fill(delta_time[d][s][j]/1e9, s);
