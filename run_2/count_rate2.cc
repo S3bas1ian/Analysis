@@ -110,7 +110,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
     std::vector<TCanvas*> canvases;
     for(int i = 0; i<4; i++){
         canvases.push_back(new TCanvas((std::string("delta_time_detector_") 
-            + std::to_string(i*2) + std::string("_") + std::to_string(i*2) 
+            + std::to_string(i*2) + std::string("_") + std::to_string(i*2+1) 
             + std::string("_") + draw_opt).c_str(), 
             (std::string("delta_time_detector_") + std::to_string(i*2) 
             + std::string("_") + std::to_string(i*2) + std::string("_") 
