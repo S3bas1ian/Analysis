@@ -76,6 +76,6 @@ void count_rate2(std::string path, std::string particle)
 
     auto stop = std::chrono::system_clock::now();
     cout << "running through whole file took: " << 
-            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " ms \n";
+            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
 }
