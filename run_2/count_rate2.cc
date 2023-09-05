@@ -82,7 +82,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
 
     start = std::chrono::system_clock::now();
     //creating and filling the histograms
-    std::vector<*TH2D> histos;
+    std::vector<TH2D> histos;
     for(int d = 0; d<8; d++){
         histos.push_back(new TH2D((std::string("delta time ") + 
                 std::to_string(d)).c_str(), 
@@ -107,7 +107,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
 
     start = std::chrono::system_clock::now();
     //creating and filling the canvases
-    std::vector<shared_ptr<TCanvas>> canvases;
+    std::vector<TCanvas> canvases;
     for(int i = 0; i<4; i++){
         canvases.push_back(new TCanvas((std::string("delta_time_detector_") 
             + std::to_string(i*2) + std::string("_") + std::to_string(i*2) 
