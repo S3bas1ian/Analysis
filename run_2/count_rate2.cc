@@ -80,6 +80,10 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
             std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
 
+    /* from here on no more calculations are done.
+    Only plotting*/
+
+
 
     start = std::chrono::system_clock::now();
     //creating and filling the histograms
@@ -88,7 +92,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
         histos.push_back(new TH2D((std::string("delta time ") + 
                 std::to_string(d)).c_str(), 
                 (std::string("Detector ") + 
-                std::to_string(d)).c_str(), 1000, 0, 1.5, 1024, 0, 1025));
+                std::to_string(d)).c_str(), 1000, 0, 1, 1024, 0, 1025));
 
         histos[d]->SetXTitle("#Delta t [ms]");
         histos[d]->SetYTitle("strip");
@@ -119,8 +123,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
             + draw_opt).c_str()));
 
 
+        //split each canvas in 2 to display front and rear side
         canvases[i]->Divide(2, 1);
-        //canvases[i]->SetCanvasSize(1500, 1000);
         canvases[i]->cd(1);
         histos[i*2]->Draw(draw_opt.c_str());
         canvases[i]->cd(2);
