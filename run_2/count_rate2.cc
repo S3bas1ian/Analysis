@@ -5,7 +5,7 @@
 
 // calculates delta time
 
-void count_rate2(std::string path, std::string particle)
+void count_rate2(std::string path, std::string particle, std::string draw_opt)
 {
     auto start = std::chrono::system_clock::now();
     //constants
@@ -75,7 +75,57 @@ void count_rate2(std::string path, std::string particle)
     }
 
     auto stop = std::chrono::system_clock::now();
-    cout << "running through whole file took: " << 
+    cout << "calculating the delta time took took: " << 
             std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
+
+
+    start = std::chrono::system_clock::now();
+    //creating and filling the histograms
+    std::vector<shared_ptr<TH2D>> histos;
+    for(int d = 0; d<8; d++){
+        histos.push_back(new TH2D((std::string("delta time ") + 
+                std::string(d)).c_str(), 
+                (std::string("#Delta t for detector ") + 
+                std::string(d)).c_str(), 1000, 0, 2, 1024, 0, 1025));
+
+        histos[d]->SetXTitle("#Delta t [ms]");
+        histos[d]->SetYTitle("strip");
+
+        for(int s = 0; s<1024; s++){
+            int delta_time_size = delta_time[d][s].size();
+            for(int j = 0; j<delta_time_size; j++){
+                histos[d]->Fill(delta_time/1e9, s);
+            }
+        }
+    }
+
+    stop = std::chrono::system_clock::now();
+    cout << "creating and filling histograms took: " << 
+            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
+
+
+    start = std::chrono::system_clock::now();
+    //creating and filling the canvases
+    std::vector<shared_ptr<TCanvas>> canvases;
+    for(int i = 0; i<4; i++){
+        canvases.push_back(new TCanvas((std::string("delta_time_detector_") 
+            + std::string(i*2) + std::string("_") + std::string(i*2) 
+            + std::string("_") + draw_opt).c_str(), 
+            (std::string("delta_time_detector_") + std::string(i*2) 
+            + std::string("_") + std::string(i*2) + std::string("_") 
+            + draw_opt).c_str()));
+
+
+        canvases[i]->Divide(2, 1);
+        canvases[i]->SetCanvasSize(1500, 900);
+        canvases[i]->cd(1);
+        histos[i*2]->Draw(draw_opt.c_str());
+        canvases[i]->cd(2);
+        histos[i*2 + 1]->Draw(draw_opt.c_str());
+    }
+
+    stop = std::chrono::system_clock::now();
+    cout << "creating and filling canvases took: " << 
+            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 }
