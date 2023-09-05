@@ -7,7 +7,7 @@
 
 void count_rate2(std::string path, std::string particle)
 {
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::system_clock::now();
     //constants
     Double_t psPerEvent = 1e4; // 10^9 particles/s in ps
 
@@ -74,8 +74,8 @@ void count_rate2(std::string path, std::string particle)
         }
     }
 
-    auto stop = std::chrono::high_resolution_clock::now();
+    auto stop = std::chrono::system_clock::now();
     cout << "running through whole file took: " << 
-            std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " ms \n";
+            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " ms \n";
 
 }
