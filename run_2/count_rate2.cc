@@ -82,12 +82,12 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
 
     start = std::chrono::system_clock::now();
     //creating and filling the histograms
-    std::vector<shared_ptr<TH2D>> histos;
+    std::vector<*TH2D> histos;
     for(int d = 0; d<8; d++){
         histos.push_back(new TH2D((std::string("delta time ") + 
-                std::string(d)).c_str(), 
+                std::to_string(d)).c_str(), 
                 (std::string("#Delta t for detector ") + 
-                std::string(d)).c_str(), 1000, 0, 2, 1024, 0, 1025));
+                std::to_string(d)).c_str(), 1000, 0, 2, 1024, 0, 1025));
 
         histos[d]->SetXTitle("#Delta t [ms]");
         histos[d]->SetYTitle("strip");
@@ -95,7 +95,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
         for(int s = 0; s<1024; s++){
             int delta_time_size = delta_time[d][s].size();
             for(int j = 0; j<delta_time_size; j++){
-                histos[d]->Fill(delta_time/1e9, s);
+                histos[d]->Fill(delta_time[d][s][j]/1e9, s);
             }
         }
     }
@@ -110,10 +110,10 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
     std::vector<shared_ptr<TCanvas>> canvases;
     for(int i = 0; i<4; i++){
         canvases.push_back(new TCanvas((std::string("delta_time_detector_") 
-            + std::string(i*2) + std::string("_") + std::string(i*2) 
+            + std::to_string(i*2) + std::string("_") + std::to_string(i*2) 
             + std::string("_") + draw_opt).c_str(), 
-            (std::string("delta_time_detector_") + std::string(i*2) 
-            + std::string("_") + std::string(i*2) + std::string("_") 
+            (std::string("delta_time_detector_") + std::to_string(i*2) 
+            + std::string("_") + std::to_string(i*2) + std::string("_") 
             + draw_opt).c_str()));
 
 
