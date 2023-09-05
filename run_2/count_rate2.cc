@@ -31,7 +31,7 @@ void count_rate2(std::string path, std::string particle)
     auto stop = std::chrono::high_resolution_clock::now();
 
     cout << "setup of var and connecting tree took: " << 
-            std::chrono::duration_cast<microseconds>(stop - start) << " ms \n";
+            std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << " ms \n";
 
 
 
@@ -51,7 +51,7 @@ void count_rate2(std::string path, std::string particle)
     stop = std::chrono::high_resolution_clock::now();
 
     cout << "creation of timestamps took: " << 
-            std::chrono::duration_cast<microseconds>(stop - start) << " ms \n";
+            std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << " ms \n";
 
 
     start = std::chrono::high_resolution_clock::now();
@@ -69,7 +69,7 @@ void count_rate2(std::string path, std::string particle)
 
     stop = std::chrono::high_resolution_clock::now();
     cout << "filling timestamps took: " << 
-            std::chrono::duration_cast<microseconds>(stop - start) << " ms \n";
+            std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << " ms \n";
 
 
     start = std::chrono::high_resolution_clock::now();
@@ -85,7 +85,7 @@ void count_rate2(std::string path, std::string particle)
 
     stop = std::chrono::high_resolution_clock::now();
     cout << "creating delta time took: " << 
-            std::chrono::duration_cast<microseconds>(stop - start) << " ms \n";
+            std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << " ms \n";
 
 
     start = std::chrono::high_resolution_clock::now();
@@ -100,13 +100,13 @@ void count_rate2(std::string path, std::string particle)
             //loop through times of one specific strip and calculate the 
             //delta times. Fill the delta_time matrix with those
             for(int i = 1; i<timestamps[d][s].size() ; i++){
-                delta_time[d][s].push_back(timestamps[d][s][i] - timestamps[d][s][i-1])
+                delta_time[d][s].push_back(timestamps[d][s][i] - timestamps[d][s][i-1]);
             }
         }
     }
 
     stop = std::chrono::high_resolution_clock::now();
     cout << "sorting timestamps and filling delta time took: " << 
-            std::chrono::duration_cast<microseconds>(stop - start) << " ms \n";
+            std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << " ms \n";
 
 }
