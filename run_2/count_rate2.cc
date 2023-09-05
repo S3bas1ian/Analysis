@@ -27,15 +27,6 @@ void count_rate2(std::string path, std::string particle)
     hits->SetBranchAddress("Det_ID", &det_id);
     hits->SetBranchAddress("Strip_ID", &strip_id);
     hits->SetBranchAddress("Hit_time", &time);
-
-    auto stop = std::chrono::high_resolution_clock::now();
-
-    cout << "setup of var and connecting tree took: " << 
-            std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " ms \n";
-
-
-
-    start = std::chrono::high_resolution_clock::now();
     
 
     //timestamps[detector][strip][entry] as matrix
@@ -48,14 +39,6 @@ void count_rate2(std::string path, std::string particle)
         timestamps[i].resize(1024); //1024 strips
     }
 
-    stop = std::chrono::high_resolution_clock::now();
-
-    cout << "creation of timestamps took: " << 
-            std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " ms \n";
-
-
-    start = std::chrono::high_resolution_clock::now();
-
     Long64_t size = hits->GetEntries(); //size of entries
 
     //loop through root file and fill timestamp matrix
@@ -67,13 +50,6 @@ void count_rate2(std::string path, std::string particle)
             }
     }
 
-    stop = std::chrono::high_resolution_clock::now();
-    cout << "filling timestamps took: " << 
-            std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " ms \n";
-
-
-    start = std::chrono::high_resolution_clock::now();
-
     //delta time matrix
     std::vector<std::vector<std::vector<Double_t>>> delta_time;
 
@@ -82,13 +58,6 @@ void count_rate2(std::string path, std::string particle)
     for(int i=0; i<8; i++){
         delta_time[i].resize(1024); //1024 strips
     }
-
-    stop = std::chrono::high_resolution_clock::now();
-    cout << "creating delta time took: " << 
-            std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " ms \n";
-
-
-    start = std::chrono::high_resolution_clock::now();
 
     //loop through timestamp matric and sort entries
     for(int d = 0; d<8; d++){
@@ -105,8 +74,8 @@ void count_rate2(std::string path, std::string particle)
         }
     }
 
-    stop = std::chrono::high_resolution_clock::now();
-    cout << "sorting timestamps and filling delta time took: " << 
+    auto stop = std::chrono::high_resolution_clock::now();
+    cout << "running through whole file took: " << 
             std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " ms \n";
 
 }
