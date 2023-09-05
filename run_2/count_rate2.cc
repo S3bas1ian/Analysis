@@ -93,7 +93,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
         histos[d]->SetXTitle("#Delta t [ms]");
         histos[d]->SetYTitle("strip");
 
-        for(int s = 0; s<1024; s+=2){   //plot only every second strip for resolution reasons
+        for(int s = 0; s<1024; s+=4){   //plot only every 4th strip for resolution reasons
             int delta_time_size = delta_time[d][s].size();
             for(int j = 0; j<delta_time_size; j++){
                 histos[d]->Fill(delta_time[d][s][j]/1e9, s);
