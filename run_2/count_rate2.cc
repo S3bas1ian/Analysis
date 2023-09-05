@@ -118,7 +118,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
 
 
         canvases[i]->Divide(2, 1);
-        canvases[i]->SetCanvasSize(1500, 900);
+        //canvases[i]->SetCanvasSize(1500, 1000);
         canvases[i]->cd(1);
         histos[i*2]->Draw(draw_opt.c_str());
         canvases[i]->cd(2);
