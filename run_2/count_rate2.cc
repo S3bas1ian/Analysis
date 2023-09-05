@@ -2,6 +2,7 @@
 #include <TTree.h>
 #include <string.h>
 #include <chrono>
+#include <TH2D.h>
 
 // calculates delta time
 
@@ -82,7 +83,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
 
     start = std::chrono::system_clock::now();
     //creating and filling the histograms
-    std::vector<std::shared_pointer<TH2D>> histos;
+    std::vector<std::shared_ptr<TH2D>> histos;
     for(int d = 0; d<8; d++){
         histos.push_back(std::make_shared<TH2D>((std::string("delta time ") + 
                 std::to_string(d)).c_str(), 
@@ -107,7 +108,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
 
     start = std::chrono::system_clock::now();
     //creating and filling the canvases
-    std::vector<std::shared_pointer<TCanvas>> canvases;
+    std::vector<std::shared_ptr<TCanvas>> canvases;
     for(int i = 0; i<4; i++){
         canvases.push_back(std::make_shared<TCanvas>((std::string("delta_time_detector_") 
             + std::to_string(i*2) + std::string("_") + std::to_string(i*2+1) 
