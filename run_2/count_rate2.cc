@@ -131,7 +131,15 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
         histos[i*2 + 1]->Draw(draw_opt.c_str());
     }
 
+
     stop = std::chrono::system_clock::now();
     cout << "creating and filling canvases took: " << 
             std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
+
+
+    /*ToDo:
+    -print average, stdv, median of delta time/count rate for each detector
+    -create plot (TGraph) containig the average delta with error bars vs strip
+     and the amount of particles that hit that strip as a second function*/
+
 }
