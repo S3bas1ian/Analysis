@@ -202,6 +202,6 @@ std::vector<Double_t> getStats(std::vector<Double_t> & dt){
         output.push_back(max);
         return output;
     }else {
-        std::vector<Double_t> o = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+        std::vector<Double_t> o = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     }
 }
