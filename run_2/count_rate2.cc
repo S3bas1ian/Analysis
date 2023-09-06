@@ -198,12 +198,11 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
                                             (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str()));
 
             // split each canvas in 2 to display front and rear side
-            // canvases2[i]->Divide(2, 1);
-            // canvases2[i]->cd(1);
-            gr_errors[i*2]->Draw("AL");
-            cout << "gr errors drawn \n";
-            // canvases2[i]->cd(2);
-            // gr_errors[i * 2 + 1]->Draw("A");
+            canvases2[i]->Divide(1, 2);
+            canvases2[i]->cd(1);
+            gr_errors[i*2]->Draw("L");
+            canvases2[i]->cd(2);
+            gr_errors[i * 2 + 1]->Draw("L");
             //canvases2[i]->BuildLegend();
         }
     }
