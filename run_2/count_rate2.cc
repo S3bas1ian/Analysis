@@ -89,16 +89,24 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
     std::vector<std::vector<std::vector<Double_t>>> stats;
     //create correct dimension (8 detectors x 1024 strips)
     stats.resize(8);    //8 detectors
+    cout << "-----AVERAGE DELTA TIME DETECTORS----- \n";
     for(int d=0; d<8; d++){
         stats[d].resize(1024); //1024 strips
-        Double_t sum_mean = 0;
+        Double_t sum_mean = 0.0;
+        Double_t sum_stdv = 0.0;
+        Double_t sum_median = 0.0;
         for(int s = 0; s < 1024; s++){
             stats[d][s] = getStats(delta_time[d][s]);
             sum_mean += stats[d][s][0];
+            sum_stdv += stats[d][s][1];
+            sum_median += stats[d][s][2];
         }
-        cout << "average delta time for detector " << d 
-                << " is " <<sum_mean/(1024e9) << " ms \n";
+        cout << "detector=" << d 
+                << "    average delta time=" <<sum_mean/(1024e9) 
+                << "ms    average stdv=" << sum_stdv/(1024e9) 
+                <<"ms    average median=" << sum_median/(1024e9) << "ms \n";
     }
+    cout << "-------------------------------------- \n";
 
     stop = std::chrono::system_clock::now();
     cout << "calculating stats took: " << 
