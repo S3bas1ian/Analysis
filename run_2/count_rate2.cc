@@ -169,6 +169,40 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         cout << "creating and filling canvases took: " << 
                 std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
+
+        //draw the average time with errorbars and the total hits
+        std::vector<TGraphErrors*> gr_errors;
+        for(int d = 0; d<8; d++){
+            std::vector<Double_t> mean, stdv;
+            std::vector<int> strip;
+            for(int s = 0; s<1024; s++){
+                strip.push_back(s);
+                mean.push_back(stats[d][s][0]);
+                stdv.push_back(stats[d][s][1]);
+            }
+            gr_errors.push_back(new TGraphErrors(&strip[0], &mean[0], &stdv[0]));
+            gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") + 
+                                    std::to_string(d)).c_str());
+        }
+
+        std::vector<TCanvas*> canvases2;
+        for(int i = 0; i<4; i++){
+            canvases2.push_back(new TCanvas((std::string("average per strip detector") 
+                + std::to_string(i*2) + std::string("_") + std::to_string(i*2+1) 
+                + std::string("_")).c_str(), 
+                (std::string("average_per_strip_") + std::to_string(i*2) 
+                + std::string("_") + std::to_string(i*2+1) + std::string("_") 
+                ).c_str()));
+
+
+            //split each canvas in 2 to display front and rear side
+            canvases2[i]->Divide(2, 1);
+            canvases2[i]->cd(1);
+            gr_errors[i*2]->Draw("A");
+            canvases2[i]->cd(2);
+            gr_errors[i*2 + 1]->Draw("A");
+            canvases2->BuildLegend();
+
     }
     /*ToDo:
     -print average, stdv, median of delta time/count rate for each detector
