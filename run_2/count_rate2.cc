@@ -208,6 +208,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         }
 
         std::vector<TCanvas *> canvases2;
+        std::vector<TLegend*> legends;
         for (int i = 0; i < 4; i++)
         {
             canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str(),
@@ -222,6 +223,11 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             tpads[i*4 + 1]->cd();
             graphs[i*2]->Draw("ALY+");
 
+            legends.push_back(new TLegend(0.1, 0.4, 0.48, 0.4));
+            legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "le");
+            legends[i]->AddEntry(graphs[i*2], "hits per strip", "l");
+            legends[i]->Draw();
+
             canvases2[i]->cd(2);
             tpads[i*4+2]->Draw();
             tpads[i*4+2]->cd();
@@ -229,15 +235,6 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             tpads[i*4+3]->Draw();
             tpads[i*4 + 3]->cd();
             graphs[i*2 + 1]->Draw("ALY+");
-            tpads[i*4+3]->BuildLegend();
-
-
-
-
-            // multi_graphs[i*2]->Draw("AL");
-            // canvases2[i]->cd(2);
-            // multi_graphs[i * 2 + 1]->Draw("AL");
-            //canvases2[i]->BuildLegend();
         }
     }
 }
