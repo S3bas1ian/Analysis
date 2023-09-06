@@ -204,7 +204,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             graphs[d]->SetMarkerColor(kRed);
             graphs[d]->SetLineColor(kRed);
             graphs[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; hits")).c_str());
-            graphs[d]->SetName("hits per strip")
+            graphs[d]->SetName("hits per strip");
         }
 
         std::vector<TCanvas *> canvases2;
