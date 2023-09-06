@@ -191,9 +191,13 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         }
 
         std::vector<TCanvas *> canvases2;
-        for (int i = 0; i < 4; i++)
-        auto test = new TGraph(3, { 1.0, 2.0 , 3.0}, {3.1, 4.5, 6.6}, {0.1, 0.2, 0.3});
+        Double_t x[3] = { 1.0, 2.0 , 3.0};
+        Double_t y[3] = {3.1, 4.5, 6.6};
+        Double_t ey[3] = {0.1, 0.2, 0.3};
+        auto test = new TGraph(3, x, y, ey);
         test->SetName("test");
+
+        for (int i = 0; i < 4; i++)
         {
             canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str(),
                                             (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str()));
