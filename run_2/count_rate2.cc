@@ -228,10 +228,17 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             tpads[i*4 + 1]->cd();
             graphs[i*2]->Draw("ALY+");
 
-            legends.push_back(new TLegend(0.1,0.8,0.25,0.9));
-            legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "le");
-            legends[i]->AddEntry(graphs[i*2], "hits per strip", "l");
-            legends[i]->Draw();
+            if(i<2){
+                legends.push_back(new TLegend(0.75,0.77,0.9,0.9));
+                legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "le");
+                legends[i]->AddEntry(graphs[i*2], "hits per strip", "l");
+                legends[i]->Draw();
+            }else {
+                legends.push_back(new TLegend(0.1,0.77,0.25,0.9));
+                legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "le");
+                legends[i]->AddEntry(graphs[i*2], "hits per strip", "l");
+                legends[i]->Draw();
+            }
 
             canvases2[i]->cd(2);
             tpads[i*4+2]->Draw();
