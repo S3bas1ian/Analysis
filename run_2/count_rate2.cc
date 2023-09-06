@@ -4,6 +4,8 @@
 #include <chrono>
 #include <TH2D.h>
 
+std::vector<Double_t> getStats();
+
 // calculates delta time
 
 void count_rate2(std::string path, std::string particle, std::string draw_opt)
@@ -76,7 +78,26 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
     }
 
     auto stop = std::chrono::system_clock::now();
-    cout << "calculating the delta time took took: " << 
+    cout << "calculating the delta time took: " << 
+            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
+
+
+
+    start = std::chrono::system_clock::now();
+    //calculating stats and filling the matrix with them
+
+    std::vector<std::vector<std::vector<Double_t>>> stats;
+    //create correct dimension (8 detectors x 1024 strips)
+    stats.resize(8);    //8 detectors
+    for(int d=0; d<8; d++){
+        stats[i].resize(1024); //1024 strips
+        for(int s = 0; s < 1024; s++){
+            stats[d][s] = getStats(delta_time[d][s]);
+        }
+    }
+
+    stop = std::chrono::system_clock::now();
+    cout << "calculating stats took: " << 
             std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
 
@@ -142,4 +163,45 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
     -create plot (TGraph) containig the average delta with error bars vs strip
      and the amount of particles that hit that strip as a second function*/
 
+}
+
+//output is structured following {mean, stdv, median, low_quarter, 
+//                                high_quarter, minimum, maximum}
+std::vector<Double_t> getStats(std::vector<Double_t> & dt){
+    if(dt.size() > 0){
+        std::vector<Double_t> output;
+        // Declare the iterators in a slightly more concise way
+        Double_t sum = std::accumulate(dt.begin(), dt.end(), 0.0);
+
+        Double_t mean = sum / dt.size();
+
+        // Can use accumulate here again if you want to be fancy
+        Double_t stdev = TMath::Sqrt(
+            std::accumulate(
+                dt.begin(),
+                dt.end(),
+                0.0,
+                [mean](Double_t sum, Double_t elem)
+                { return sum + (elem - mean) * (elem - mean); }) /
+            dt.size());
+
+        Double_t min = dt[dt:begin()];
+        Double_t max = dt[dt.end()];
+
+        int s = dt.size();
+        Double_t median = dt[s/2];
+        Double_t l_quarter = dt[s/4];
+        Double_t h_quarter = dt[3*s/4];
+
+        output.push_back(mean);
+        output.push_back(stdev);
+        output.push_back(median);
+        output.push_back(l_quarter);
+        output.push_back(h_quarter);
+        output.push_back(min);
+        output.push_back(max);
+        return output;
+    }else {
+        std::vector<Double_t> o = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+    }
 }
