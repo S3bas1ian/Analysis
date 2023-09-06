@@ -4,14 +4,14 @@
 #include <chrono>
 #include <TH2D.h>
 
-std::vector<Double_t> getStats(std::vector<Double_t> & dt);
+std::vector<Double_t> getStats(std::vector<Double_t> &dt);
 
 // calculates delta time
 
 void count_rate2(std::string path, std::string particle, std::string draw_opt, bool draw)
 {
     auto start = std::chrono::system_clock::now();
-    //constants
+    // constants
     Double_t psPerEvent = 1e4; // 10^9 particles/s in ps
 
     // root file and trees
@@ -30,191 +30,193 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
     hits->SetBranchAddress("Det_ID", &det_id);
     hits->SetBranchAddress("Strip_ID", &strip_id);
     hits->SetBranchAddress("Hit_time", &time);
-    
 
-    //timestamps[detector][strip][entry] as matrix
-    //Needed when looping only once through all entries from root file
-    std::vector<std::vector<std::vector<Double_t>>> timestamps;
+    // timestamps[detector][strip][entry] as matrix
+    // Needed when looping only once through all entries from root file
+    std::vector<std::vector<std::vector<Double_t> > > timestamps;
 
-    //create correct dimension (8 detectors x 1024 strips)
-    timestamps.resize(8);    //8 detectors
-    for(int i=0; i<8; i++){
-        timestamps[i].resize(1024); //1024 strips
+    // create correct dimension (8 detectors x 1024 strips)
+    timestamps.resize(8); // 8 detectors
+    for (int i = 0; i < 8; i++)
+    {
+        timestamps[i].resize(1024); // 1024 strips
     }
 
-    Long64_t size = hits->GetEntries(); //size of entries
+    Long64_t size = hits->GetEntries(); // size of entries
 
-    //loop through root file and fill timestamp matrix
-    for(Long64_t i = 0; i<size; i++){
+    // loop through root file and fill timestamp matrix
+    for (Long64_t i = 0; i < size; i++)
+    {
         hits->GetEntry(i);
-        if(particle.compare(std::string(particle_name)) == 0 
-            || particle.compare(std::string("all")) == 0){
-                timestamps[det_id][strip_id].push_back(psPerEvent * event_number + time);
-            }
+        if (particle.compare(std::string(particle_name)) == 0 
+            || particle.compare(std::string("all")) == 0)
+        {
+            timestamps[det_id][strip_id].push_back(psPerEvent * event_number + time);
+        }
     }
 
-    //delta time matrix
-    std::vector<std::vector<std::vector<Double_t>>> delta_time;
+    // delta time matrix
+    std::vector<std::vector<std::vector<Double_t> > > delta_time;
 
-    //create correct dimension (8 detectors x 1024 strips)
-    delta_time.resize(8);    //8 detectors
-    for(int i=0; i<8; i++){
-        delta_time[i].resize(1024); //1024 strips
+    // create correct dimension (8 detectors x 1024 strips)
+    delta_time.resize(8); // 8 detectors
+    for (int i = 0; i < 8; i++)
+    {
+        delta_time[i].resize(1024); // 1024 strips
     }
 
-    //loop through timestamp matric and sort entries
-    for(int d = 0; d<8; d++){
-        //detector loop
-        for(int s = 0; s<1024; s++){
-            //strip loop
+    // loop through timestamp matric and sort entries
+    for (int d = 0; d < 8; d++)
+    {
+        // detector loop
+        for (int s = 0; s < 1024; s++)
+        {
+            // strip loop
             std::sort(timestamps[d][s].begin(), timestamps[d][s].end());
 
-            //loop through times of one specific strip and calculate the 
-            //delta times. Fill the delta_time matrix with those
-            for(int i = 1; i<timestamps[d][s].size() ; i++){
-                delta_time[d][s].push_back(timestamps[d][s][i] - timestamps[d][s][i-1]);
+            // loop through times of one specific strip and calculate the
+            // delta times. Fill the delta_time matrix with those
+            for (int i = 1; i < timestamps[d][s].size(); i++)
+            {
+                delta_time[d][s].push_back(timestamps[d][s][i] - timestamps[d][s][i - 1]);
             }
         }
     }
 
     auto stop = std::chrono::system_clock::now();
-    cout << "calculating the delta time took: " << 
-            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
-
-
+    cout << "calculating the delta time took: " 
+        << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() 
+        << " s \n";
 
     start = std::chrono::system_clock::now();
-    //calculating stats and filling the matrix with them
+    // calculating stats and filling the matrix with them
 
-    std::vector<std::vector<std::vector<Double_t>>> stats;
-    //create correct dimension (8 detectors x 1024 strips)
-    stats.resize(8);    //8 detectors
+    std::vector<std::vector<std::vector<Double_t> > > stats;
+    // create correct dimension (8 detectors x 1024 strips)
+    stats.resize(8); // 8 detectors
     cout << "-----AVERAGE DELTA TIME DETECTORS----- \n";
-    for(int d=0; d<8; d++){
-        stats[d].resize(1024); //1024 strips
+    for (int d = 0; d < 8; d++)
+    {
+        stats[d].resize(1024); // 1024 strips
         Double_t sum_mean = 0.0;
         Double_t sum_stdv = 0.0;
         Double_t sum_median = 0.0;
-        for(int s = 0; s < 1024; s++){
+        for (int s = 0; s < 1024; s++)
+        {
             stats[d][s] = getStats(delta_time[d][s]);
             sum_mean += stats[d][s][0];
             sum_stdv += stats[d][s][1];
             sum_median += stats[d][s][2];
         }
-        cout << "detector=" << d 
-                << "    average delta time=" <<sum_mean/(1024e9) 
-                << "ms    average stdv=" << sum_stdv/(1024e9) 
-                <<"ms    average median=" << sum_median/(1024e9) << "ms \n";
+        cout << "detector=" << d
+             << "    average delta time=" << sum_mean / (1024e9)
+             << "ms    average stdv=" << sum_stdv / (1024e9)
+             << "ms    average median=" << sum_median / (1024e9) << "ms \n";
     }
     cout << "-------------------------------------- \n";
 
     stop = std::chrono::system_clock::now();
-    cout << "calculating stats took: " << 
-            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
+    cout << "calculating stats took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
-
-
-    if(draw){
+    if (draw)
+    {
         /* from here on no more calculations are done.
         Only plotting*/
 
         start = std::chrono::system_clock::now();
-        //creating and filling the histograms
-        std::vector<TH2D*> histos;
-        for(int d = 0; d<8; d++){
-            histos.push_back(new TH2D((std::string("delta time ") + 
-                    std::to_string(d)).c_str(), 
-                    (std::string("Detector ") + 
-                    std::to_string(d)).c_str(), 1000, 0, 1, 1024, 0, 1025));
+        // creating and filling the histograms
+        std::vector<TH2D *> histos;
+        for (int d = 0; d < 8; d++)
+        {
+            histos.push_back(new TH2D((std::string("delta time ") +
+                                       std::to_string(d))
+                                          .c_str(),
+                                      (std::string("Detector ") +
+                                       std::to_string(d))
+                                          .c_str(),
+                                      1000, 0, 1, 1024, 0, 1025));
 
             histos[d]->SetXTitle("#Delta t [ms]");
             histos[d]->SetYTitle("strip");
             gStyle->SetOptStat(0);
 
-            for(int s = 0; s<1024; s+=4){   //plot only every 4th strip for resolution reasons
+            for (int s = 0; s < 1024; s += 4)
+            { // plot only every 4th strip for resolution reasons
                 int delta_time_size = delta_time[d][s].size();
-                for(int j = 0; j<delta_time_size; j++){
-                    histos[d]->Fill(delta_time[d][s][j]/1e9, s);
+                for (int j = 0; j < delta_time_size; j++)
+                {
+                    histos[d]->Fill(delta_time[d][s][j] / 1e9, s);
                 }
             }
         }
 
         stop = std::chrono::system_clock::now();
-        cout << "creating and filling histograms took: " << 
-                std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
-
+        cout << "creating and filling histograms took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
         start = std::chrono::system_clock::now();
-        //creating and filling the canvases
-        std::vector<TCanvas*> canvases;
-        for(int i = 0; i<4; i++){
-            canvases.push_back(new TCanvas((std::string("delta_time_detector_") 
-                + std::to_string(i*2) + std::string("_") + std::to_string(i*2+1) 
-                + std::string("_") + draw_opt).c_str(), 
-                (std::string("delta_time_detector_") + std::to_string(i*2) 
-                + std::string("_") + std::to_string(i*2+1) + std::string("_") 
-                + draw_opt).c_str()));
+        // creating and filling the canvases
+        std::vector<TCanvas *> canvases;
+        for (int i = 0; i < 4; i++)
+        {
+            canvases.push_back(new TCanvas((std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + draw_opt).c_str(),
+                                           (std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + draw_opt).c_str()));
 
-
-            //split each canvas in 2 to display front and rear side
+            // split each canvas in 2 to display front and rear side
             canvases[i]->Divide(2, 1);
             canvases[i]->cd(1);
-            histos[i*2]->Draw(draw_opt.c_str());
+            histos[i * 2]->Draw(draw_opt.c_str());
             canvases[i]->cd(2);
-            histos[i*2 + 1]->Draw(draw_opt.c_str());
+            histos[i * 2 + 1]->Draw(draw_opt.c_str());
         }
 
-
         stop = std::chrono::system_clock::now();
-        cout << "creating and filling canvases took: " << 
-                std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
+        cout << "creating and filling canvases took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
-
-        //draw the average time with errorbars and the total hits
-        std::vector<TGraphErrors*> gr_errors;
-        for(int d = 0; d<8; d++){
+        // draw the average time with errorbars and the total hits
+        std::vector<TGraphErrors *> gr_errors;
+        for (int d = 0; d < 8; d++)
+        {
             std::vector<Double_t> mean, stdv;
             std::vector<int> strip;
-            for(int s = 0; s<1024; s++){
+            for (int s = 0; s < 1024; s++)
+            {
                 strip.push_back(s);
                 mean.push_back(stats[d][s][0]);
                 stdv.push_back(stats[d][s][1]);
             }
-            gr_errors.push_back(new TGraphErrors(&strip[0], &mean[0], &stdv[0]));
-            gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") + 
-                                    std::to_string(d)).c_str());
+            gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], &stdv[0]));
+            gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
+                                   std::to_string(d))
+                                      .c_str());
         }
 
-        std::vector<TCanvas*> canvases2;
-        for(int i = 0; i<4; i++){
-            canvases2.push_back(new TCanvas((std::string("average per strip detector") 
-                + std::to_string(i*2) + std::string("_") + std::to_string(i*2+1) 
-                + std::string("_")).c_str(), 
-                (std::string("average_per_strip_") + std::to_string(i*2) 
-                + std::string("_") + std::to_string(i*2+1) + std::string("_") 
-                ).c_str()));
+        std::vector<TCanvas *> canvases2;
+        for (int i = 0; i < 4; i++)
+        {
+            canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str(),
+                                            (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str()));
 
-
-            //split each canvas in 2 to display front and rear side
+            // split each canvas in 2 to display front and rear side
             canvases2[i]->Divide(2, 1);
             canvases2[i]->cd(1);
-            gr_errors[i*2]->Draw("A");
+            gr_errors[i * 2]->Draw("A");
             canvases2[i]->cd(2);
-            gr_errors[i*2 + 1]->Draw("A");
-            canvases2->BuildLegend();
-
+            gr_errors[i * 2 + 1]->Draw("A");
+            canvases2[i]->BuildLegend();
+        }
+        /*ToDo:
+        -print average, stdv, median of delta time/count rate for each detector
+        -create plot (TGraph) containig the average delta with error bars vs strip
+         and the amount of particles that hit that strip as a second function*/
     }
-    /*ToDo:
-    -print average, stdv, median of delta time/count rate for each detector
-    -create plot (TGraph) containig the average delta with error bars vs strip
-     and the amount of particles that hit that strip as a second function*/
-
 }
 
-//output is structured following {mean, stdv, median, low_quarter, 
-//                                high_quarter, minimum, maximum}
-std::vector<Double_t> getStats(std::vector<Double_t> & dt){
-    if(dt.size() > 0){
+// output is structured following {mean, stdv, median, low_quarter,
+//                                 high_quarter, minimum, maximum}
+std::vector<Double_t> getStats(std::vector<Double_t> &dt)
+{
+    if (dt.size() > 0)
+    {
         std::vector<Double_t> output;
         // Declare the iterators in a slightly more concise way
         Double_t sum = std::accumulate(dt.begin(), dt.end(), 0.0);
@@ -235,9 +237,9 @@ std::vector<Double_t> getStats(std::vector<Double_t> & dt){
         Double_t max = dt[dt.size() - 1];
 
         int s = dt.size();
-        Double_t median = dt[s/2];
-        Double_t l_quarter = dt[s/4];
-        Double_t h_quarter = dt[3*s/4];
+        Double_t median = dt[s / 2];
+        Double_t l_quarter = dt[s / 4];
+        Double_t h_quarter = dt[3 * s / 4];
 
         output.push_back(mean);
         output.push_back(stdev);
@@ -247,7 +249,9 @@ std::vector<Double_t> getStats(std::vector<Double_t> & dt){
         output.push_back(min);
         output.push_back(max);
         return output;
-    }else {
+    }
+    else
+    {
         std::vector<Double_t> o = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
         return o;
     }
