@@ -179,6 +179,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         std::vector<TGraphErrors*> gr_errors;
         std::vector<TGraph*> graphs;
         std::vector<TMultiGraph*> multi_graphs;
+        std::vector<TPad*> tpads;
+
         for (int d = 0; d < 8; d++)
         {
             std::vector<Double_t> strip, mean, stdv, hits;
@@ -190,6 +192,10 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
                 stdv.push_back(stats[d][s][1]/1e9);
                 hits.push_back(timestamps[d][s].size());
             }
+            tpads.push_back(new TPad((std::string("pad") + std::to_string(d*2)).c_str(), "", 0, 0, 1, 1));
+            tpads.push_back(new TPad((std::string("pad") + std::to_string(d*2+1)).c_str(), "", 0, 0, 1, 1));
+            tpads[d*2+1]->SetFillStyle(4000);   //makes layer transparent
+            tpads[d*2+1]->SetFrameFillStyle(0);
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
             gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
                                    std::to_string(d))
@@ -211,13 +217,27 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         {
             canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str(),
                                             (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str()));
-
             // split each canvas in 2 to display front and rear side
             canvases2[i]->Divide(1, 2);
             canvases2[i]->cd(1);
-            multi_graphs[i*2]->Draw("ALY+");
+            tpads[i*4]->Draw();
+            tpads[i*4]->cd();
+            gr_errors[i*2]->Draw("AL");
+            tpads[i*4+1]->Draw();
+            tpads[i*4 + 1]->cd();
+            graphs[i*2]->Draw("ALY+");
+
             canvases2[i]->cd(2);
-            multi_graphs[i * 2 + 1]->Draw("ALY+");
+            tpads[i*4+2]->Draw();
+            tpads[i*4+2]->cd();
+            gr_errors[i*2+1]->Draw("AL");
+            tpads[i*4+3]->Draw();
+            tpads[i*4 + 3]->cd();
+            graphs[i*2 + 1]->Draw("ALY+");
+
+            // multi_graphs[i*2]->Draw("AL");
+            // canvases2[i]->cd(2);
+            // multi_graphs[i * 2 + 1]->Draw("AL");
             //canvases2[i]->BuildLegend();
         }
     }
