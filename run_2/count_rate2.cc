@@ -8,7 +8,7 @@ std::vector<Double_t> getStats(std::vector<Double_t> & dt);
 
 // calculates delta time
 
-void count_rate2(std::string path, std::string particle, std::string draw_opt)
+void count_rate2(std::string path, std::string particle, std::string draw_opt, bool draw)
 {
     auto start = std::chrono::system_clock::now();
     //constants
@@ -106,62 +106,62 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
 
 
 
+    if(draw){
+        /* from here on no more calculations are done.
+        Only plotting*/
 
-    /* from here on no more calculations are done.
-    Only plotting*/
+        start = std::chrono::system_clock::now();
+        //creating and filling the histograms
+        std::vector<TH2D*> histos;
+        for(int d = 0; d<8; d++){
+            histos.push_back(new TH2D((std::string("delta time ") + 
+                    std::to_string(d)).c_str(), 
+                    (std::string("Detector ") + 
+                    std::to_string(d)).c_str(), 1000, 0, 1, 1024, 0, 1025));
 
-    start = std::chrono::system_clock::now();
-    //creating and filling the histograms
-    std::vector<TH2D*> histos;
-    for(int d = 0; d<8; d++){
-        histos.push_back(new TH2D((std::string("delta time ") + 
-                std::to_string(d)).c_str(), 
-                (std::string("Detector ") + 
-                std::to_string(d)).c_str(), 1000, 0, 1, 1024, 0, 1025));
+            histos[d]->SetXTitle("#Delta t [ms]");
+            histos[d]->SetYTitle("strip");
+            gStyle->SetOptStat(0);
 
-        histos[d]->SetXTitle("#Delta t [ms]");
-        histos[d]->SetYTitle("strip");
-        gStyle->SetOptStat(0);
-
-        for(int s = 0; s<1024; s+=4){   //plot only every 4th strip for resolution reasons
-            int delta_time_size = delta_time[d][s].size();
-            for(int j = 0; j<delta_time_size; j++){
-                histos[d]->Fill(delta_time[d][s][j]/1e9, s);
+            for(int s = 0; s<1024; s+=4){   //plot only every 4th strip for resolution reasons
+                int delta_time_size = delta_time[d][s].size();
+                for(int j = 0; j<delta_time_size; j++){
+                    histos[d]->Fill(delta_time[d][s][j]/1e9, s);
+                }
             }
         }
+
+        stop = std::chrono::system_clock::now();
+        cout << "creating and filling histograms took: " << 
+                std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
+
+
+        start = std::chrono::system_clock::now();
+        //creating and filling the canvases
+        std::vector<TCanvas*> canvases;
+        for(int i = 0; i<4; i++){
+            canvases.push_back(new TCanvas((std::string("delta_time_detector_") 
+                + std::to_string(i*2) + std::string("_") + std::to_string(i*2+1) 
+                + std::string("_") + draw_opt).c_str(), 
+                (std::string("delta_time_detector_") + std::to_string(i*2) 
+                + std::string("_") + std::to_string(i*2+1) + std::string("_") 
+                + draw_opt).c_str()));
+
+
+            //split each canvas in 2 to display front and rear side
+            canvases[i]->Divide(2, 1);
+            canvases[i]->cd(1);
+            histos[i*2]->Draw(draw_opt.c_str());
+            canvases[i]->cd(2);
+            histos[i*2 + 1]->Draw(draw_opt.c_str());
+        }
+
+
+        stop = std::chrono::system_clock::now();
+        cout << "creating and filling canvases took: " << 
+                std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
+
     }
-
-    stop = std::chrono::system_clock::now();
-    cout << "creating and filling histograms took: " << 
-            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
-
-
-    start = std::chrono::system_clock::now();
-    //creating and filling the canvases
-    std::vector<TCanvas*> canvases;
-    for(int i = 0; i<4; i++){
-        canvases.push_back(new TCanvas((std::string("delta_time_detector_") 
-            + std::to_string(i*2) + std::string("_") + std::to_string(i*2+1) 
-            + std::string("_") + draw_opt).c_str(), 
-            (std::string("delta_time_detector_") + std::to_string(i*2) 
-            + std::string("_") + std::to_string(i*2+1) + std::string("_") 
-            + draw_opt).c_str()));
-
-
-        //split each canvas in 2 to display front and rear side
-        canvases[i]->Divide(2, 1);
-        canvases[i]->cd(1);
-        histos[i*2]->Draw(draw_opt.c_str());
-        canvases[i]->cd(2);
-        histos[i*2 + 1]->Draw(draw_opt.c_str());
-    }
-
-
-    stop = std::chrono::system_clock::now();
-    cout << "creating and filling canvases took: " << 
-            std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
-
-
     /*ToDo:
     -print average, stdv, median of delta time/count rate for each detector
     -create plot (TGraph) containig the average delta with error bars vs strip
