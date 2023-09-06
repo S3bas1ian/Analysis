@@ -180,23 +180,18 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             for (int s = 0; s < 1024; s++)
             {
                 strip.push_back(static_cast<double>(s));
-                mean.push_back(stats[d][s][0]);
-                stdv.push_back(stats[d][s][1]);
+                mean.push_back(stats[d][s][0]/1e9);
+                stdv.push_back(stats[d][s][1]/1e9);
             }
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
             cout << "gr errors with " << mean[0] << " entries \n";
             gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
                                    std::to_string(d))
                                       .c_str());
+            gr_errors[d]->SetTitle("average delta time vs strip; strip; delta time [ms]");
         }
 
         std::vector<TCanvas *> canvases2;
-        std::vector<Double_t> x = {1.0, 2.0 , 3.0};
-        std::vector<Double_t> y = {3.1, 4.5, 6.6};
-        std::vector<Double_t> ey = {0.1, 0.2, 0.3};
-        auto test = new TGraphErrors(3, &x[0], &y[0], 0, &ey[0]);
-        test->SetName("test");
-
         for (int i = 0; i < 4; i++)
         {
             canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str(),
@@ -205,7 +200,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             // split each canvas in 2 to display front and rear side
             // canvases2[i]->Divide(2, 1);
             // canvases2[i]->cd(1);
-            gr_errors[i*2]->Draw();
+            gr_errors[i*2]->Draw("AL");
             cout << "gr errors drawn \n";
             // canvases2[i]->cd(2);
             // gr_errors[i * 2 + 1]->Draw("A");
