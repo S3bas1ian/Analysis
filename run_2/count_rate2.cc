@@ -191,10 +191,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         }
 
         std::vector<TCanvas *> canvases2;
-        Double_t x[3] = { 1.0, 2.0 , 3.0};
-        Double_t y[3] = {3.1, 4.5, 6.6};
-        Double_t ey[3] = {0.1, 0.2, 0.3};
-        auto test = new TGraphErrors(3, x, y, ey);
+        auto test = new TGraphErrors(3, { 1.0, 2.0 , 3.0}, {3.1, 4.5, 6.6}, {0.1, 0.2, 0.3});
         test->SetName("test");
 
         for (int i = 0; i < 4; i++)
@@ -205,7 +202,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             // split each canvas in 2 to display front and rear side
             // canvases2[i]->Divide(2, 1);
             // canvases2[i]->cd(1);
-            test->Draw("A");
+            test->Draw();
             cout << "gr errors drawn \n";
             // canvases2[i]->cd(2);
             // gr_errors[i * 2 + 1]->Draw("A");
