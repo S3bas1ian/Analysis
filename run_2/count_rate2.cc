@@ -172,23 +172,38 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         stop = std::chrono::system_clock::now();
         cout << "creating and filling canvases took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
+
+
+
         // draw the average time with errorbars and the total hits
-        std::vector<TGraphErrors *> gr_errors;
+        std::vector<TGraphErrors*> gr_errors;
+        std::vector<TGraph*> graphs;
+        std::vector<TMultiGraph*> multi_graphs;
         for (int d = 0; d < 8; d++)
         {
             std::vector<Double_t> strip, mean, stdv;
+            std::vector<Int_t> hits;
+
+            cout << strip.size() << endl;
             for (int s = 0; s < 1024; s++)
             {
                 strip.push_back(static_cast<double>(s));
                 mean.push_back(stats[d][s][0]/1e9);
                 stdv.push_back(stats[d][s][1]/1e9);
+                hits.push_back(time_stamps[d][s].size());
             }
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
-            cout << "gr errors with " << mean[0] << " entries \n";
             gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
                                    std::to_string(d))
                                       .c_str());
-            gr_errors[d]->SetTitle((std::string("average #Delta t for detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
+            gr_errors[d]->SetMarkerColor(kBlue);
+            graphs.push_back(new TGraph(hits.size(), &strip[0], &hits[0]));
+            graphs[d]->SetMarkerColor(kRed);
+            graphs[d]->SetName("hits per strip");
+            multi_graphs.push_back(new TMultiGraph());
+            multi_graphs[d]->Add(gr_errors[d]);
+            multi_graphs[d]->Add(graphs[d]);
+            multi_graphs[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]/hits")).c_str());
         }
 
         std::vector<TCanvas *> canvases2;
@@ -200,10 +215,10 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             // split each canvas in 2 to display front and rear side
             canvases2[i]->Divide(1, 2);
             canvases2[i]->cd(1);
-            gr_errors[i*2]->Draw("AL");
+            multi_graphs[i*2]->Draw("AL");
             canvases2[i]->cd(2);
-            gr_errors[i * 2 + 1]->Draw("AL");
-            canvases2[i]->BuildLegend();
+            multi_graphs[i * 2 + 1]->Draw("AL");
+            //canvases2[i]->BuildLegend();
         }
     }
 }
