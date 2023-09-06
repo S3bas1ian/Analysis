@@ -188,7 +188,9 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
                                    std::to_string(d))
                                       .c_str());
-            gr_errors[d]->SetTitle("average delta time vs strip; strip; delta time [ms]");
+            gr_errors[d]->SetTitle((std::string("average #Delta t for detector ") + std::to_string(d)).c_str());
+            gr_errors[d]->SetXTitle("strip");
+            gr_errors[d]->SetYTitle("#Delta t [ms]");
         }
 
         std::vector<TCanvas *> canvases2;
@@ -203,7 +205,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             gr_errors[i*2]->Draw("AL");
             canvases2[i]->cd(2);
             gr_errors[i * 2 + 1]->Draw("AL");
-            //canvases2[i]->BuildLegend();
+            canvases2[i]->BuildLegend();
         }
     }
 }
