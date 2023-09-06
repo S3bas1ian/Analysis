@@ -189,7 +189,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
                 strip.push_back(static_cast<double>(s));
                 mean.push_back(stats[d][s][0]/1e9);
                 stdv.push_back(stats[d][s][1]/1e9);
-                hits.push_back(time_stamps[d][s].size());
+                hits.push_back(timestamps[d][s].size());
             }
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
             gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
