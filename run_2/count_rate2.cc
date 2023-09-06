@@ -184,6 +184,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
                 stdv.push_back(stats[d][s][1]);
             }
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], &stdv[0]));
+            cout << "gr errors with " << strip.size() << " entries \n";
             gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
                                    std::to_string(d))
                                       .c_str());
@@ -199,14 +200,11 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             // canvases2[i]->Divide(2, 1);
             // canvases2[i]->cd(1);
             gr_errors[i * 2]->Draw("A");
+            cout << "gr errors drawn \n";
             // canvases2[i]->cd(2);
             // gr_errors[i * 2 + 1]->Draw("A");
             //canvases2[i]->BuildLegend();
         }
-        /*ToDo:
-        -print average, stdv, median of delta time/count rate for each detector
-        -create plot (TGraph) containig the average delta with error bars vs strip
-         and the amount of particles that hit that strip as a second function*/
     }
 }
 
