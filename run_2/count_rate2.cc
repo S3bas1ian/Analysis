@@ -92,7 +92,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
     for(int d=0; d<8; d++){
         stats[d].resize(1024); //1024 strips
         for(int s = 0; s < 1024; s++){
-            stats[d][s] = getStats(&delta_time[d][s]);
+            stats[d][s] = getStats(delta_time[d][s]);
         }
     }
 
