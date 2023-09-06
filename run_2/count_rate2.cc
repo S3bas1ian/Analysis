@@ -181,8 +181,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         std::vector<TMultiGraph*> multi_graphs;
         for (int d = 0; d < 8; d++)
         {
-            std::vector<Double_t> strip, mean, stdv;
-            std::vector<Int_t> hits;
+            std::vector<Double_t> strip, mean, stdv, hits;
 
             cout << strip.size() << endl;
             for (int s = 0; s < 1024; s++)
