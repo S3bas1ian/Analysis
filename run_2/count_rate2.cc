@@ -198,8 +198,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
             gr_errors[d]->SetName("#Delta t per strip");
             gr_errors[d]->SetMarkerStyle(22);
-            gr_errors[d]->SetMarkerColor(6);
-            gr_errors[d]->SetMarkerSize(2);
+            gr_errors[d]->SetMarkerColor(kBlue);
+            gr_errors[d]->SetMarkerSize(1.5);
             gr_errors[d]->SetLineColor(kBlue);
             gr_errors[d]->GetYaxis()->SetLabelColor(kBlue, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kBlue);
@@ -225,7 +225,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             canvases2[i]->cd(1);
             tpads[i*4]->Draw();
             tpads[i*4]->cd();
-            gr_errors[i*2]->Draw("AL");
+            gr_errors[i*2]->Draw("ALP");
             tpads[i*4+1]->Draw();
             tpads[i*4 + 1]->cd();
             graphs[i*2]->Draw("ALY+");
@@ -245,7 +245,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             canvases2[i]->cd(2);
             tpads[i*4+2]->Draw();
             tpads[i*4+2]->cd();
-            gr_errors[i*2+1]->Draw("AL");
+            gr_errors[i*2+1]->Draw("ALP");
             tpads[i*4+3]->Draw();
             tpads[i*4 + 3]->cd();
             graphs[i*2 + 1]->Draw("ALY+");
