@@ -203,5 +203,6 @@ std::vector<Double_t> getStats(std::vector<Double_t> & dt){
         return output;
     }else {
         std::vector<Double_t> o = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+        return o;
     }
 }
