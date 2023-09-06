@@ -188,9 +188,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
                                    std::to_string(d))
                                       .c_str());
-            gr_errors[d]->SetTitle((std::string("average #Delta t for detector ") + std::to_string(d)).c_str());
-            gr_errors[d]->SetXTitle("strip");
-            gr_errors[d]->SetYTitle("#Delta t [ms]");
+            gr_errors[d]->SetTitle((std::string("average #Delta t for detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
         }
 
         std::vector<TCanvas *> canvases2;
