@@ -197,8 +197,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             tpads[d*2+1]->SetFrameFillStyle(0);
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
             gr_errors[d]->SetName("#Delta t per strip");
-            gr_errors[d]->SetMarkerColor(kBlue);
             gr_errors[d]->SetMarkerStyle(22);
+            gr_errors[d]->SetMarkerColor(kBlue);
             gr_errors[d]->SetLineColor(kBlue);
             gr_errors[d]->GetYaxis()->SetLabelColor(kBlue, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kBlue);
@@ -231,12 +231,12 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
 
             if(i<2){
                 legends.push_back(new TLegend(0.75,0.77,0.9,0.9));
-                legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "le");
+                legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "lep");
                 legends[i]->AddEntry(graphs[i*2], "hits per strip", "l");
                 legends[i]->Draw();
             }else {
                 legends.push_back(new TLegend(0.1,0.77,0.25,0.9));
-                legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "le");
+                legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "lep");
                 legends[i]->AddEntry(graphs[i*2], "hits per strip", "l");
                 legends[i]->Draw();
             }
