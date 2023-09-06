@@ -4,7 +4,7 @@
 #include <chrono>
 #include <TH2D.h>
 
-std::vector<Double_t> getStats();
+std::vector<Double_t> getStats(std::vector<Double_t> & dt);
 
 // calculates delta time
 
@@ -90,9 +90,9 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
     //create correct dimension (8 detectors x 1024 strips)
     stats.resize(8);    //8 detectors
     for(int d=0; d<8; d++){
-        stats[i].resize(1024); //1024 strips
+        stats[d].resize(1024); //1024 strips
         for(int s = 0; s < 1024; s++){
-            stats[d][s] = getStats(delta_time[d][s]);
+            stats[d][s] = getStats(&delta_time[d][s]);
         }
     }
 
@@ -185,8 +185,8 @@ std::vector<Double_t> getStats(std::vector<Double_t> & dt){
                 { return sum + (elem - mean) * (elem - mean); }) /
             dt.size());
 
-        Double_t min = dt[dt:begin()];
-        Double_t max = dt[dt.end()];
+        Double_t min = dt[0];
+        Double_t max = dt[dt.size() - 1];
 
         int s = dt.size();
         Double_t median = dt[s/2];
