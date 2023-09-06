@@ -199,10 +199,15 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             gr_errors[d]->SetName("#Delta t per strip");
             gr_errors[d]->SetMarkerColor(kBlue);
             gr_errors[d]->SetLineColor(kBlue);
+            gr_errors[d]->GetYaxis()->SetLabelColor(kBlue, 1);
+            gr_errors[d]->GetYaxis()->SetTitleColor(kBlue);
             gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
             graphs.push_back(new TGraph(hits.size(), &strip[0], &hits[0]));
             graphs[d]->SetMarkerColor(kRed);
             graphs[d]->SetLineColor(kRed);
+            graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
+            graphs[d]->GetYaxis()->SetTitleOffset(0.6);
+            graphs[d]->GetYaxis()->SetTitleColor(kRed);
             graphs[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; hits")).c_str());
             graphs[d]->SetName("hits per strip");
         }
