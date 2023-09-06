@@ -176,11 +176,10 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         std::vector<TGraphErrors *> gr_errors;
         for (int d = 0; d < 8; d++)
         {
-            std::vector<Double_t> mean, stdv;
-            std::vector<int> strip;
+            std::vector<Double_t> strip, mean, stdv;
             for (int s = 0; s < 1024; s++)
             {
-                strip.push_back(s);
+                strip.push_back(std::static_cast<double>(s));
                 mean.push_back(stats[d][s][0]);
                 stdv.push_back(stats[d][s][1]);
             }
