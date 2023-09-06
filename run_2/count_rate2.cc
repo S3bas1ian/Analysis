@@ -91,9 +91,13 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
     stats.resize(8);    //8 detectors
     for(int d=0; d<8; d++){
         stats[d].resize(1024); //1024 strips
+        Double_t sum_mean = 0;
         for(int s = 0; s < 1024; s++){
             stats[d][s] = getStats(delta_time[d][s]);
+            sum_mean += stats[d][s][0];
         }
+        cout << "average delta time for detector " << d 
+                << " is " <<sum_mean/(1024e9) << " ms \n";
     }
 
     stop = std::chrono::system_clock::now();
@@ -101,10 +105,10 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt)
             std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
 
+
+
     /* from here on no more calculations are done.
     Only plotting*/
-
-
 
     start = std::chrono::system_clock::now();
     //creating and filling the histograms
