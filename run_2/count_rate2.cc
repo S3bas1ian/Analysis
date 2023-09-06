@@ -183,7 +183,6 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         {
             std::vector<Double_t> strip, mean, stdv, hits;
 
-            cout << strip.size() << endl;
             for (int s = 0; s < 1024; s++)
             {
                 strip.push_back(static_cast<double>(s));
@@ -196,8 +195,10 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
                                    std::to_string(d))
                                       .c_str());
             gr_errors[d]->SetMarkerColor(kBlue);
+            gr_errors[d]->SetLineColor(kBlue);
             graphs.push_back(new TGraph(hits.size(), &strip[0], &hits[0]));
             graphs[d]->SetMarkerColor(kRed);
+            graphs[d]->SetLineColor(kRed);
             graphs[d]->SetName("hits per strip");
             multi_graphs.push_back(new TMultiGraph());
             multi_graphs[d]->Add(gr_errors[d]);
@@ -214,9 +215,9 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             // split each canvas in 2 to display front and rear side
             canvases2[i]->Divide(1, 2);
             canvases2[i]->cd(1);
-            multi_graphs[i*2]->Draw("AL");
+            multi_graphs[i*2]->Draw("ALY+");
             canvases2[i]->cd(2);
-            multi_graphs[i * 2 + 1]->Draw("AL");
+            multi_graphs[i * 2 + 1]->Draw("ALY+");
             //canvases2[i]->BuildLegend();
         }
     }
