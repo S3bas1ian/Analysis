@@ -192,6 +192,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
 
         std::vector<TCanvas *> canvases2;
         for (int i = 0; i < 4; i++)
+        auto test = new TGraph(3, { 1.0, 2.0 , 3.0}, {3.1, 4.5, 6.6}, {0.1, 0.2, 0.3});
+        test->SetName("test");
         {
             canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str(),
                                             (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_")).c_str()));
@@ -199,7 +201,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             // split each canvas in 2 to display front and rear side
             // canvases2[i]->Divide(2, 1);
             // canvases2[i]->cd(1);
-            gr_errors[i * 2]->Draw("A");
+            test->Draw("A");
             cout << "gr errors drawn \n";
             // canvases2[i]->cd(2);
             // gr_errors[i * 2 + 1]->Draw("A");
