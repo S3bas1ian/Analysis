@@ -196,9 +196,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             tpads[d*2+1]->SetFillStyle(4000);   //makes layer transparent
             tpads[d*2+1]->SetFrameFillStyle(0);
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
-            gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
-                                   std::to_string(d))
-                                      .c_str());
+            gr_errors[d]->SetName("#Delta t per strip");
             gr_errors[d]->SetMarkerColor(kBlue);
             gr_errors[d]->SetLineColor(kBlue);
             gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
@@ -206,6 +204,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             graphs[d]->SetMarkerColor(kRed);
             graphs[d]->SetLineColor(kRed);
             graphs[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; hits")).c_str());
+            graphs[d]->SetName("hits per strip")
         }
 
         std::vector<TCanvas *> canvases2;
@@ -230,6 +229,10 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             tpads[i*4+3]->Draw();
             tpads[i*4 + 3]->cd();
             graphs[i*2 + 1]->Draw("ALY+");
+            tpads[i*4+3]->BuildLegend();
+
+
+
 
             // multi_graphs[i*2]->Draw("AL");
             // canvases2[i]->cd(2);
