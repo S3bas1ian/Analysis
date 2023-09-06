@@ -183,8 +183,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
                 mean.push_back(stats[d][s][0]);
                 stdv.push_back(stats[d][s][1]);
             }
-            gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], &stdv[0]));
-            cout << "gr errors with " << strip.size() << " entries \n";
+            gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
+            cout << "gr errors with " << mean[0] << " entries \n";
             gr_errors[d]->SetName((std::string("mean +- 1 stdv detector ") +
                                    std::to_string(d))
                                       .c_str());
@@ -205,7 +205,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             // split each canvas in 2 to display front and rear side
             // canvases2[i]->Divide(2, 1);
             // canvases2[i]->cd(1);
-            test->Draw();
+            gr_errors[i*2]->Draw();
             cout << "gr errors drawn \n";
             // canvases2[i]->cd(2);
             // gr_errors[i * 2 + 1]->Draw("A");
