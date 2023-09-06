@@ -178,7 +178,6 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         // draw the average time with errorbars and the total hits
         std::vector<TGraphErrors*> gr_errors;
         std::vector<TGraph*> graphs;
-        std::vector<TMultiGraph*> multi_graphs;
         std::vector<TPad*> tpads;
 
         for (int d = 0; d < 8; d++)
@@ -202,14 +201,11 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
                                       .c_str());
             gr_errors[d]->SetMarkerColor(kBlue);
             gr_errors[d]->SetLineColor(kBlue);
+            gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
             graphs.push_back(new TGraph(hits.size(), &strip[0], &hits[0]));
             graphs[d]->SetMarkerColor(kRed);
             graphs[d]->SetLineColor(kRed);
-            graphs[d]->SetName("hits per strip");
-            multi_graphs.push_back(new TMultiGraph());
-            multi_graphs[d]->Add(gr_errors[d]);
-            multi_graphs[d]->Add(graphs[d]);
-            multi_graphs[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]/hits")).c_str());
+            graphs[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; hits")).c_str());
         }
 
         std::vector<TCanvas *> canvases2;
