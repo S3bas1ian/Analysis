@@ -200,9 +200,9 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             // split each canvas in 2 to display front and rear side
             canvases2[i]->Divide(1, 2);
             canvases2[i]->cd(1);
-            gr_errors[i*2]->Draw("L");
+            gr_errors[i*2]->Draw("AL");
             canvases2[i]->cd(2);
-            gr_errors[i * 2 + 1]->Draw("L");
+            gr_errors[i * 2 + 1]->Draw("AL");
             //canvases2[i]->BuildLegend();
         }
     }
