@@ -199,6 +199,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             gr_errors[d]->SetName("#Delta t per strip");
             gr_errors[d]->SetMarkerStyle(22);
             gr_errors[d]->SetMarkerColor(kBlue);
+            gr_errors[d]->SetMarkerSize(1.5);
             gr_errors[d]->SetLineColor(kBlue);
             gr_errors[d]->GetYaxis()->SetLabelColor(kBlue, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kBlue);
