@@ -212,7 +212,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             graphs.push_back(new TGraph(hits.size(), &strip[0], &hits[0]));
             graphs[d]->SetMarkerColor(kRed);
             graphs[d]->SetLineColor(kRed);
-            graphs[d]->SetLineWidth(2);
+            graphs[d]->SetLineWidth(1.3);
             graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
             graphs[d]->GetYaxis()->SetTitleOffset(0.6);
             graphs[d]->GetYaxis()->SetTitleColor(kRed);
