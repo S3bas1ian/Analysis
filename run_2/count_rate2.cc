@@ -183,7 +183,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         for (int d = 0; d < 8; d++)
         {
             std::vector<Double_t> strip, mean, stdv, hits;
-
+            //create vectors with the content to pass to the graphs
             for (int s = 0; s < 1024; s++)
             {
                 strip.push_back(static_cast<double>(s));
@@ -191,19 +191,24 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
                 stdv.push_back(stats[d][s][1]/1e9);
                 hits.push_back(timestamps[d][s].size());
             }
+            //to plot different yaxis you need to overlay two different tpads
             tpads.push_back(new TPad((std::string("pad") + std::to_string(d*2)).c_str(), "", 0, 0, 1, 1));
             tpads.push_back(new TPad((std::string("pad") + std::to_string(d*2+1)).c_str(), "", 0, 0, 1, 1));
             tpads[d*2+1]->SetFillStyle(4000);   //makes layer transparent
             tpads[d*2+1]->SetFrameFillStyle(0);
+
+            //gr_errors     contains average delta time with one stdv error
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
             gr_errors[d]->SetName("#Delta t per strip");
-            gr_errors[d]->SetMarkerStyle(22);
-            gr_errors[d]->SetMarkerColor(7);
+            gr_errors[d]->SetMarkerStyle(2);
+            gr_errors[d]->SetMarkerColor(kBlue);
             gr_errors[d]->SetMarkerSize(1.2);
             gr_errors[d]->SetLineColor(kBlue);
             gr_errors[d]->GetYaxis()->SetLabelColor(kBlue, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kBlue);
             gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
+
+            //graphs        contains the hits per strip
             graphs.push_back(new TGraph(hits.size(), &strip[0], &hits[0]));
             graphs[d]->SetMarkerColor(kRed);
             graphs[d]->SetLineColor(kRed);
