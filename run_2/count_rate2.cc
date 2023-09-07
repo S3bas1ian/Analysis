@@ -91,24 +91,24 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
     start = std::chrono::system_clock::now();
     // calculating stats and filling the matrix with them
 
-    //std::vector<std::vector<std::vector<Double_t> > > stats;
+    std::vector<std::vector<std::vector<Double_t> > > stats;
     // create correct dimension (8 detectors x 1024 strips)
-    //stats.resize(8); // 8 detectors
+    stats.resize(8); // 8 detectors
     cout << "-----AVERAGE DELTA TIME DETECTORS----- \n";
     for (int d = 0; d < 8; d++)
     {
-        // stats[d].resize(1024); // 1024 strips
-        // Double_t sum_mean = 0.0;
-        // Double_t sum_stdv = 0.0;
-        // Double_t sum_median = 0.0;
+        stats[d].resize(1024); // 1024 strips
+        Double_t sum_mean = 0.0;
+        Double_t sum_stdv = 0.0;
+        Double_t sum_median = 0.0;
         std::vector<Double_t> detector, detector_delta;
         for (int s = 0; s < 1024; s++)
         {
-            // stats[d][s] = getStats(delta_time[d][s]);
+            stats[d][s] = getStats(delta_time[d][s]);
             detector.insert(detector.end(), timestamps[d][s].begin(), timestamps[d][s].end());
-            // sum_mean += stats[d][s][0];
-            // sum_stdv += stats[d][s][1];
-            // sum_median += stats[d][s][2];
+            sum_mean += stats[d][s][0];
+            sum_stdv += stats[d][s][1];
+            sum_median += stats[d][s][2];
         }
         std::sort(detector.begin(), detector.end());
         for(Long64_t i = 1; i < detector.size(); i++){
