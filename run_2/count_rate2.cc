@@ -114,6 +114,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         for(Long64_t i = 1; i < detector.size(); i++){
             detector_delta.push_back(detector[i]- detector[i - 1]);
         }
+        // std::sort(detector_delta.begin(), detector_delta.end());
         auto s = getStats(detector_delta);
         cout << "detector=" << d
              << "    average delta time=" << s[0]/1e3
@@ -280,6 +281,7 @@ std::vector<Double_t> getStats(std::vector<Double_t> &dt)
 {
     if (dt.size() > 0)
     {
+        std::sort(dt.begin(), dt.end());
         std::vector<Double_t> output;
         // Declare the iterators in a slightly more concise way
         Double_t sum = std::accumulate(dt.begin(), dt.end(), 0.0);
