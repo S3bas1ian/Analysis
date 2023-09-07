@@ -216,7 +216,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             //gr_errors     contains average delta time with one stdv error
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
             gr_errors[d]->SetName("#Delta t per strip");
-            gr_errors[d]->SetMarkerStyle(2);
+            gr_errors[d]->SetMarkerStyle(4);
             gr_errors[d]->SetMarkerColor(kBlue);
             gr_errors[d]->SetMarkerSize(1.2);
             gr_errors[d]->SetLineColor(kBlue);
