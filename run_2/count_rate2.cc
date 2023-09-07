@@ -116,9 +116,9 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         }
         auto s = getStats(detector_delta);
         cout << "detector=" << d
-             << "    average delta time=" << s[0]/1e9
-             << "ms    average stdv=" << s[1]/1e9
-             << "ms    average median=" << s[2]/1e9 << "ms \n";
+             << "    average delta time=" << s[0]/1e3
+             << "ns    stdv=" << s[1]/1e3
+             << "ns    median=" << s[2]/1e3 << "ns \n";
     }
     cout << "-------------------------------------- \n";
 
