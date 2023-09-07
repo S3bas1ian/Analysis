@@ -102,7 +102,6 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         Double_t sum_stdv = 0.0;
         Double_t sum_median = 0.0;
         std::vector<Double_t> detector, detector_delta;
-        cout << detector.size() << "\n";
         for (int s = 0; s < 1024; s++)
         {
             stats[d][s] = getStats(delta_time[d][s]);
