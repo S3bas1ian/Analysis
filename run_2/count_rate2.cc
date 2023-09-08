@@ -220,8 +220,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             gr_errors[d]->SetMarkerColorAlpha(kAzure-2, 0.7);
             gr_errors[d]->SetMarkerSize(1.2);
             gr_errors[d]->SetLineColorAlpha(kAzure-4, 0.1);
-            gr_errors[d]->GetYaxis()->SetLabelColor(kAzure-4, 1);
-            gr_errors[d]->GetYaxis()->SetTitleColor(kAzure-4);
+            gr_errors[d]->GetYaxis()->SetLabelColor(kAzure-2, 1);
+            gr_errors[d]->GetYaxis()->SetTitleColor(kAzure-2);
             gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
 
             //graphs        contains the hits per strip
