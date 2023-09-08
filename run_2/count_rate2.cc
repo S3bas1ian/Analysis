@@ -101,6 +101,9 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         Double_t sum_mean = 0.0;
         Double_t sum_stdv = 0.0;
         Double_t sum_median = 0.0;
+        Double_t sum_lq = 0.0;
+        Double_t sum_hq = 0.0;
+
         std::vector<Double_t> detector, detector_delta;
         for (int s = 0; s < 1024; s++)
         {
@@ -109,6 +112,9 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             sum_mean += stats[d][s][0];
             sum_stdv += stats[d][s][1];
             sum_median += stats[d][s][2];
+            sum_lq += stats[d][s][3];
+            sum_hq += stats[d][s][4];
+
         }
         std::sort(detector.begin(), detector.end());
         for(Long64_t i = 1; i < detector.size(); i++){
@@ -130,7 +136,9 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
              << " average strip= " << sum_mean/(1024e9) 
              << " ms    average stdv= " << sum_stdv/(1024e9)
              << " ms    average median= " << sum_median/(1024e9)
-             << " \n";
+             << " ms    average low qu= " << sum_lq/(1024e9)
+             << " ms    average high qu= " << sum_hq/(1024e9)
+             << " ms \n";
 
         cout << " _______________________ \n";
     }
