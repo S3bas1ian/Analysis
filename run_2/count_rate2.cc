@@ -125,6 +125,14 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
              << "ns    min=" << s[5]/1e3
              << "ns    max=" << s[6]/1e3 
              << "ns    hits=" << detector.size() << "\n";
+
+        cout << "detector= " << d 
+             << " average strip= " << sum_mean/(1024e9) 
+             << " ms    average stdv= " << sum_stdv/(1024e9)
+             << " ms    average median= " << sum_median/(1024e9)
+             << " \n";
+
+        cout << " _______________________ \n";
     }
     cout << "-------------------------------------- \n";
 
