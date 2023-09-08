@@ -217,9 +217,9 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
             gr_errors[d]->SetName("#Delta t per strip");
             gr_errors[d]->SetMarkerStyle(4);
-            gr_errors[d]->SetMarkerColor(kBlue);
+            gr_errors[d]->SetMarkerColorAlpha(kBlue, 0.5);
             gr_errors[d]->SetMarkerSize(1.2);
-            gr_errors[d]->SetLineColor(kBlue);
+            gr_errors[d]->SetLineColorAlpha(kBlue, 0.5);
             gr_errors[d]->GetYaxis()->SetLabelColor(kBlue, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kBlue);
             gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
