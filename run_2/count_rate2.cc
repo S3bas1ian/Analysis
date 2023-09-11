@@ -14,7 +14,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     // constants
     Double_t psPerEvent = 1e4; // 10^9 particles/s in ps
     std::string str_energy = std::to_string(e/1000);
-    std::replace(str_energy.begin(), str_energy.end(), ".", "i");
+    std::replace(str_energy.begin(), str_energy.end(), '.', 'i');
 
     // root file and trees
     TFile *file = new TFile(path.c_str(), "read");
