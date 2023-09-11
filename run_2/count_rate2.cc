@@ -98,7 +98,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     stats.resize(8); // 8 detectors
     cout << "-----AVERAGE DELTA TIME DETECTORS----- \n \n";
     cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ns] \n";
-    cout << "[ms] \n";
+    cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ms] \n";
     cout << "----------\n";
     for (int d = 0; d < 8; d++)
     {
@@ -137,13 +137,13 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
             //  << "ns    max=" << s[6]/1e3 
              << "\t" << detector.size() << "\n";
 
-        cout << "detector= " << d 
-             << " average strip= " << sum_mean/(1024e9) 
-             << " ms    average stdv= " << sum_stdv/(1024e9)
-             << " ms    average median= " << sum_median/(1024e9)
-             << " ms    average low qu= " << sum_lq/(1024e9)
-             << " ms    average high qu= " << sum_hq/(1024e9)
-             << " ms \n";
+        cout << d 
+             << "\t" << sum_mean/(1024e9) 
+             << "\t" << sum_stdv/(1024e9)
+             << "\t" << sum_median/(1024e9)
+             << "\t" << sum_lq/(1024e9)
+             << "\t" << sum_hq/(1024e9)
+             << "\n";
 
         cout << " _______________________ \n";
     }
