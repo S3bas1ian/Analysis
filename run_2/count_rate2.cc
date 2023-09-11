@@ -8,7 +8,7 @@ std::vector<Double_t> getStats(std::vector<Double_t> &dt);
 
 // calculates delta time
 
-void count_rate2(std::string path, std::string particle, std::string draw_opt, bool draw)
+void count_rate2(std::string path, std::string particle, Double_t edep, std::string draw_opt, bool draw)
 {
     auto start = std::chrono::system_clock::now();
     // constants
@@ -22,7 +22,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
     char particle_name[128];
     Int_t event_number;
     Int_t det_id, strip_id;
-    Double_t time;
+    Double_t time, edep;
 
     // connect those variables to the tree
     hits->SetBranchAddress("name", &particle_name);
@@ -30,6 +30,7 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
     hits->SetBranchAddress("Det_ID", &det_id);
     hits->SetBranchAddress("Strip_ID", &strip_id);
     hits->SetBranchAddress("Hit_time", &time);
+    hits->SetBranchAddress("edep", &edep);
 
     // timestamps[detector][strip][entry] as matrix
     // Needed when looping only once through all entries from root file
@@ -48,8 +49,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
     for (Long64_t i = 0; i < size; i++)
     {
         hits->GetEntry(i);
-        if (particle.compare(std::string(particle_name)) == 0 
-            || particle.compare(std::string("all")) == 0)
+        if ((particle.compare(std::string(particle_name)) == 0 
+            || particle.compare(std::string("all")) == 0) && this.edep > edep)
         {
             timestamps[det_id][strip_id].push_back(psPerEvent * event_number + time);
         }
@@ -190,8 +191,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         std::vector<TCanvas *> canvases;
         for (int i = 0; i < 4; i++)
         {
-            canvases.push_back(new TCanvas((std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + draw_opt).c_str(),
-                                           (std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + draw_opt).c_str()));
+            canvases.push_back(new TCanvas((std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + std::to_string(edep/1000) + std::string("keV_") + draw_opt).c_str(),
+                                           (std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + std::to_string(edep/1000) + std::string("keV_") + draw_opt).c_str()));
 
             // split each canvas in 2 to display front and rear side
             canvases[i]->Divide(2, 1);
@@ -256,8 +257,8 @@ void count_rate2(std::string path, std::string particle, std::string draw_opt, b
         std::vector<TLegend*> legends;
         for (int i = 0; i < 4; i++)
         {
-            canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle).c_str(),
-                                            (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle).c_str()));
+            canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::to_string(edep/1000) + std::string("keV")).c_str(),
+                                            (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::to_string(edep/1000) + std::string("keV")).c_str()));
             // split each canvas in 2 to display front and rear side
             canvases2[i]->Divide(1, 2);
             canvases2[i]->cd(1);
