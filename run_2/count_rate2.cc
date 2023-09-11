@@ -13,8 +13,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     auto start = std::chrono::system_clock::now();
     // constants
     Double_t psPerEvent = 1e4; // 10^9 particles/s in ps
-    std::string str_energy = std::to_string(e/1000);
-    std::replace(str_energy.begin(), str_energy.end(), '.', 'i');
+    std::string str_energy = std::to_string(e);
 
     // root file and trees
     TFile *file = new TFile(path.c_str(), "read");
@@ -97,7 +96,10 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     std::vector<std::vector<std::vector<Double_t> > > stats;
     // create correct dimension (8 detectors x 1024 strips)
     stats.resize(8); // 8 detectors
-    cout << "-----AVERAGE DELTA TIME DETECTORS----- \n";
+    cout << "-----AVERAGE DELTA TIME DETECTORS----- \n \n";
+    cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ns] \n";
+    cout << "[ms] \n";
+    cout << "----------\n";
     for (int d = 0; d < 8; d++)
     {
         stats[d].resize(1024); // 1024 strips
@@ -125,15 +127,15 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         }
         // std::sort(detector_delta.begin(), detector_delta.end());
         auto s = getStats(detector_delta);
-        cout << "detector=" << d
-             << "    average delta time=" << s[0]/1e3
-             << "ns    stdv=" << s[1]/1e3
-             << "ns    median=" << s[2]/1e3 
-             << "ns    l_q=" << s[3]/1e3
-             << "ns    h_q=" << s[4]/1e3
-             << "ns    min=" << s[5]/1e3
-             << "ns    max=" << s[6]/1e3 
-             << "ns    hits=" << detector.size() << "\n";
+        cout << d
+             << "\t" << s[0]/1e3
+             << "\t" << s[1]/1e3
+             << "\t" << s[2]/1e3 
+             << "\t" << s[3]/1e3
+             << "\t" << s[4]/1e3
+            //  << "ns    min=" << s[5]/1e3
+            //  << "ns    max=" << s[6]/1e3 
+             << "\t" << detector.size() << "\n";
 
         cout << "detector= " << d 
              << " average strip= " << sum_mean/(1024e9) 
@@ -193,8 +195,8 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         std::vector<TCanvas *> canvases;
         for (int i = 0; i < 4; i++)
         {
-            canvases.push_back(new TCanvas((std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("keV_") + draw_opt).c_str(),
-                                           (std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("keV_") + draw_opt).c_str()));
+            canvases.push_back(new TCanvas((std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV_") + draw_opt).c_str(),
+                                           (std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV_") + draw_opt).c_str()));
 
             // split each canvas in 2 to display front and rear side
             canvases[i]->Divide(2, 1);
@@ -259,8 +261,8 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         std::vector<TLegend*> legends;
         for (int i = 0; i < 4; i++)
         {
-            canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("keV")).c_str(),
-                                            (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("keV")).c_str()));
+            canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV")).c_str(),
+                                            (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV")).c_str()));
             // split each canvas in 2 to display front and rear side
             canvases2[i]->Divide(1, 2);
             canvases2[i]->cd(1);
