@@ -14,6 +14,8 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     // constants
     Double_t psPerEvent = 1e4; // 10^9 particles/s in ps
     std::string str_energy = std::to_string(e);
+
+    //variables
     TH1I *hist_particles = new TH1I();
     hist_particles->SetNameTitle("hist_particles", (std::string("particle overview ") + str_energy + std::string(" eV")).c_str());
     hist_particles->SetBinsLength(6);
@@ -168,6 +170,14 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
 
     stop = std::chrono::system_clock::now();
     cout << "calculating stats took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
+
+    int total = 0;
+    for(int i = 0; i<7; i++){
+        total += hist_particles->GetBinContent(i);
+    }
+
+    cout << "protonen: " << hist_particles->GetBinContent(i) << "\n";
+     
 
     // #####################################################################################################################
     if (draw)
