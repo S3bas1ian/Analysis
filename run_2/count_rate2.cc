@@ -14,6 +14,9 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     // constants
     Double_t psPerEvent = 1e4; // 10^9 particles/s in ps
     std::string str_energy = std::to_string(e);
+    TH1I *hist_particles = new TH1I();
+    hist_particles->SetNameTitle("hist_particles", (std::string("particle overview ") + str_energy + std::string(" eV")).c_str());
+    hist_particles->SetBinsLength(6);
 
     // root file and trees
     TFile *file = new TFile(path.c_str(), "read");
@@ -50,10 +53,24 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     for (Long64_t i = 0; i < size; i++)
     {
         hits->GetEntry(i);
-        if ((particle.compare(std::string(particle_name)) == 0 
-            || particle.compare(std::string("all")) == 0) && edep > e)
+        if ((particle.compare(std::string(particle_name)) == 0 || particle.compare(std::string("all")) == 0) 
+            && edep > e)
         {
             timestamps[det_id][strip_id].push_back(psPerEvent * event_number + time);
+            if (std::string(particle_name).compare("proton") == 0 || 
+                std::string(particle_name).compare("deuteron") == 0 || 
+                std::string(particle_name).compare("triton") == 0 || 
+                std::string(particle_name).compare("e-") == 0 || 
+                std::string(particle_name).compare("e+") == 0 ||
+                std::string(particle_name).compare("gamma") == 0)
+                
+            {
+                hist_particles->Fill(particle_name, 1);
+            }
+            else
+            {
+                hist_particles->Fill("other", 1);
+            }
         }
     }
 
@@ -86,9 +103,9 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     }
 
     auto stop = std::chrono::system_clock::now();
-    cout << "calculating the delta time took: " 
-        << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() 
-        << " s \n";
+    cout << "calculating the delta time took: "
+         << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count()
+         << " s \n";
 
     start = std::chrono::system_clock::now();
     // calculating stats and filling the matrix with them
@@ -119,30 +136,30 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
             sum_median += stats[d][s][2];
             sum_lq += stats[d][s][3];
             sum_hq += stats[d][s][4];
-
         }
         std::sort(detector.begin(), detector.end());
-        for(Long64_t i = 1; i < detector.size(); i++){
-            detector_delta.push_back(detector[i]- detector[i - 1]);
+        for (Long64_t i = 1; i < detector.size(); i++)
+        {
+            detector_delta.push_back(detector[i] - detector[i - 1]);
         }
         // std::sort(detector_delta.begin(), detector_delta.end());
         auto s = getStats(detector_delta);
         cout << d
-             << "\t" << s[0]/1e3
-             << "\t" << s[1]/1e3
-             << "\t" << s[2]/1e3 
-             << "\t" << s[3]/1e3
-             << "\t" << s[4]/1e3
-            //  << "ns    min=" << s[5]/1e3
-            //  << "ns    max=" << s[6]/1e3 
+             << "\t" << s[0] / 1e3
+             << "\t" << s[1] / 1e3
+             << "\t" << s[2] / 1e3
+             << "\t" << s[3] / 1e3
+             << "\t" << s[4] / 1e3
+             //  << "ns    min=" << s[5]/1e3
+             //  << "ns    max=" << s[6]/1e3
              << "\t" << detector.size() << "\n";
 
-        cout << d 
-             << "\t" << sum_mean/(1024e9) 
-             << "\t" << sum_stdv/(1024e9)
-             << "\t" << sum_median/(1024e9)
-             << "\t" << sum_lq/(1024e9)
-             << "\t" << sum_hq/(1024e9)
+        cout << d
+             << "\t" << sum_mean / (1024e9)
+             << "\t" << sum_stdv / (1024e9)
+             << "\t" << sum_median / (1024e9)
+             << "\t" << sum_lq / (1024e9)
+             << "\t" << sum_hq / (1024e9)
              << "\n";
 
         cout << " _______________________ \n";
@@ -152,9 +169,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     stop = std::chrono::system_clock::now();
     cout << "calculating stats took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
-
-
-//#####################################################################################################################
+    // #####################################################################################################################
     if (draw)
     {
         /* from here on no more calculations are done.
@@ -209,43 +224,40 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         stop = std::chrono::system_clock::now();
         cout << "creating and filling canvases took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
-
-
-
         // draw the average time with errorbars and the total hits
-        std::vector<TGraphErrors*> gr_errors;
-        std::vector<TGraph*> graphs;
-        std::vector<TPad*> tpads;
+        std::vector<TGraphErrors *> gr_errors;
+        std::vector<TGraph *> graphs;
+        std::vector<TPad *> tpads;
 
         for (int d = 0; d < 8; d++)
         {
             std::vector<Double_t> strip, mean, stdv, hits;
-            //create vectors with the content to pass to the graphs
+            // create vectors with the content to pass to the graphs
             for (int s = 0; s < 1024; s++)
             {
                 strip.push_back(static_cast<double>(s));
-                mean.push_back(stats[d][s][0]/1e9);
-                stdv.push_back(stats[d][s][1]/1e9);
+                mean.push_back(stats[d][s][0] / 1e9);
+                stdv.push_back(stats[d][s][1] / 1e9);
                 hits.push_back(timestamps[d][s].size());
             }
-            //to plot different yaxis you need to overlay two different tpads
-            tpads.push_back(new TPad((std::string("pad") + std::to_string(d*2)).c_str(), "", 0, 0, 1, 1));
-            tpads.push_back(new TPad((std::string("pad") + std::to_string(d*2+1)).c_str(), "", 0, 0, 1, 1));
-            tpads[d*2+1]->SetFillStyle(4000);   //makes layer transparent
-            tpads[d*2+1]->SetFrameFillStyle(0);
+            // to plot different yaxis you need to overlay two different tpads
+            tpads.push_back(new TPad((std::string("pad") + std::to_string(d * 2)).c_str(), "", 0, 0, 1, 1));
+            tpads.push_back(new TPad((std::string("pad") + std::to_string(d * 2 + 1)).c_str(), "", 0, 0, 1, 1));
+            tpads[d * 2 + 1]->SetFillStyle(4000); // makes layer transparent
+            tpads[d * 2 + 1]->SetFrameFillStyle(0);
 
-            //gr_errors     contains average delta time with one stdv error
+            // gr_errors     contains average delta time with one stdv error
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
             gr_errors[d]->SetName("#Delta t per strip");
             gr_errors[d]->SetMarkerStyle(4);
-            gr_errors[d]->SetMarkerColorAlpha(kAzure-2, 0.7);
+            gr_errors[d]->SetMarkerColorAlpha(kAzure - 2, 0.7);
             gr_errors[d]->SetMarkerSize(1.2);
-            gr_errors[d]->SetLineColorAlpha(kAzure-4, 0.1);
-            gr_errors[d]->GetYaxis()->SetLabelColor(kAzure-2, 1);
-            gr_errors[d]->GetYaxis()->SetTitleColor(kAzure-2);
+            gr_errors[d]->SetLineColorAlpha(kAzure - 4, 0.1);
+            gr_errors[d]->GetYaxis()->SetLabelColor(kAzure - 2, 1);
+            gr_errors[d]->GetYaxis()->SetTitleColor(kAzure - 2);
             gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
 
-            //graphs        contains the hits per strip
+            // graphs        contains the hits per strip
             graphs.push_back(new TGraph(hits.size(), &strip[0], &hits[0]));
             graphs[d]->SetMarkerColor(kRed);
             graphs[d]->SetLineColor(kRed);
@@ -258,7 +270,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         }
 
         std::vector<TCanvas *> canvases2;
-        std::vector<TLegend*> legends;
+        std::vector<TLegend *> legends;
         for (int i = 0; i < 4; i++)
         {
             canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV")).c_str(),
@@ -266,33 +278,40 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
             // split each canvas in 2 to display front and rear side
             canvases2[i]->Divide(1, 2);
             canvases2[i]->cd(1);
-            tpads[i*4]->Draw();
-            tpads[i*4]->cd();
-            gr_errors[i*2]->Draw("ALP");
-            tpads[i*4+1]->Draw();
-            tpads[i*4 + 1]->cd();
-            graphs[i*2]->Draw("ALY+");
+            tpads[i * 4]->Draw();
+            tpads[i * 4]->cd();
+            gr_errors[i * 2]->Draw("ALP");
+            tpads[i * 4 + 1]->Draw();
+            tpads[i * 4 + 1]->cd();
+            graphs[i * 2]->Draw("ALY+");
 
-            if(i<2){
-                legends.push_back(new TLegend(0.75,0.77,0.9,0.9));
-                legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "lep");
-                legends[i]->AddEntry(graphs[i*2], "hits per strip", "l");
+            if (i < 2)
+            {
+                legends.push_back(new TLegend(0.75, 0.77, 0.9, 0.9));
+                legends[i]->AddEntry(gr_errors[i * 2], "#Delta t per strip with 1 #sigma", "lep");
+                legends[i]->AddEntry(graphs[i * 2], "hits per strip", "l");
                 legends[i]->Draw();
-            }else {
-                legends.push_back(new TLegend(0.1,0.77,0.25,0.9));
-                legends[i]->AddEntry(gr_errors[i*2], "#Delta t per strip with 1 #sigma", "lep");
-                legends[i]->AddEntry(graphs[i*2], "hits per strip", "l");
+            }
+            else
+            {
+                legends.push_back(new TLegend(0.1, 0.77, 0.25, 0.9));
+                legends[i]->AddEntry(gr_errors[i * 2], "#Delta t per strip with 1 #sigma", "lep");
+                legends[i]->AddEntry(graphs[i * 2], "hits per strip", "l");
                 legends[i]->Draw();
             }
 
             canvases2[i]->cd(2);
-            tpads[i*4+2]->Draw();
-            tpads[i*4+2]->cd();
-            gr_errors[i*2+1]->Draw("ALP");
-            tpads[i*4+3]->Draw();
-            tpads[i*4 + 3]->cd();
-            graphs[i*2 + 1]->Draw("ALY+");
+            tpads[i * 4 + 2]->Draw();
+            tpads[i * 4 + 2]->cd();
+            gr_errors[i * 2 + 1]->Draw("ALP");
+            tpads[i * 4 + 3]->Draw();
+            tpads[i * 4 + 3]->cd();
+            graphs[i * 2 + 1]->Draw("ALY+");
         }
+
+        TCanvas* canvas3 = new TCanvas((std::string("involved particles") + std::string("_") + str_energy + std::string("eV")).c_str(),
+                                            (std::string("involved_particles") + std::string("_") + str_energy + std::string("eV")).c_str()));
+        hist_particles->Draw();
     }
 }
 
