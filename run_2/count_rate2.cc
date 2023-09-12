@@ -310,7 +310,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         }
 
         TCanvas* canvas3 = new TCanvas((std::string("involved particles") + std::string("_") + str_energy + std::string("eV")).c_str(),
-                                            (std::string("involved_particles") + std::string("_") + str_energy + std::string("eV")).c_str()));
+                                            (std::string("involved_particles") + std::string("_") + str_energy + std::string("eV")).c_str());
         hist_particles->Draw();
     }
 }
