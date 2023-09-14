@@ -177,6 +177,12 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     }
 
     cout << "protonen: " << hist_particles->GetBinContent(1)/total << "\n";
+    cout << "electrons: " << hist_particles->GetBinContent(2)/total << "\n";
+    cout << "deuterons: " << hist_particles->GetBinContent(3)/total << "\n";
+    cout << "tritons: " << hist_particles->GetBinContent(4)/total << "\n";
+    cout << "gammas: " << hist_particles->GetBinContent(5)/total << "\n";
+    cout << "positrons: " << hist_particles->GetBinContent(6)/total << "\n";
+    cout << "other: " << hist_particles->GetBinContent(7)/total << "\n";
      
 
     // #####################################################################################################################
