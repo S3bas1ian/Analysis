@@ -176,7 +176,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         total += hist_particles->GetBinContent(i);
     }
 
-    cout << "protonen: " << hist_particles->GetBinContent(1) << "\n";
+    cout << "protonen: " << hist_particles->GetBinContent(1)/total << "\n";
      
 
     // #####################################################################################################################
