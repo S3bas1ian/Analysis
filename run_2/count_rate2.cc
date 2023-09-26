@@ -128,20 +128,19 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     }
 
     std::vector<std::vector<Double_t>> stats_asic1;
-    std::vector<Double_t> stats_asic1;
     stats_asic1.resize(8);
     cout << "---------------------------------------- \n";
     cout << "count rate first asic (128 channels) \n";
     cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ms] \n";
     cout << "---------------------------------------- \n";
     for(int d = 0; d < 8; d++){
-        stats_asic1 = getStats(time_delta_asic1[d]);
+        stats_asic1[d] = getStats(time_delta_asic1[d]);
         cout << d
-             << "\t" << stats_asic1[0]/1e9
-             << "\t" << stats_asic1[1]/1e9
-             << "\t" << stats_asic1[2]/1e9
-             << "\t" << stats_asic1[3]/1e9
-             << "\t" << stats_asic1[4]/1e9
+             << "\t" << stats_asic1[d][0]/1e9
+             << "\t" << stats_asic1[d][1]/1e9
+             << "\t" << stats_asic1[d][2]/1e9
+             << "\t" << stats_asic1[d][3]/1e9
+             << "\t" << stats_asic1[d][4]/1e9
              << "\t" << time_delta_asic1[d].size()
              << "\n";
     }
