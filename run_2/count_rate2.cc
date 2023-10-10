@@ -58,6 +58,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         if ((particle.compare(std::string(particle_name)) == 0 || particle.compare(std::string("all")) == 0) 
             && edep > e)
         {
+            //histogram with involved particles
             timestamps[det_id][strip_id].push_back(psPerEvent * event_number + time);
             if (std::string(particle_name).compare("proton") == 0 || 
                 std::string(particle_name).compare("deuteron") == 0 || 
@@ -86,7 +87,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         delta_time[i].resize(1024); // 1024 strips
     }
 
-    // loop through timestamp matric and sort entries
+    // loop through timestamp matrix and sort entries
     for (int d = 0; d < 8; d++)
     {
         // detector loop
