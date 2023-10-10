@@ -236,15 +236,15 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         std::vector<TH2D *> histos;
         for (int d = 0; d < 8; d++)
         {
-            histos.push_back(new TH2D((std::string("delta time ") +
+            histos.push_back(new TH2D((std::string("count rate ") +
                                        std::to_string(d))
                                           .c_str(),
                                       (std::string("Detector ") +
                                        std::to_string(d))
                                           .c_str(),
-                                      1000, 0, 1, 1024, 0, 1025));
+                                      1000, 1, 10, 1024, 0, 1025));
 
-            histos[d]->SetXTitle("#Delta t [ms]");
+            histos[d]->SetXTitle("#count rate [kHz]");
             histos[d]->SetYTitle("strip");
             gStyle->SetOptStat(0);
 
@@ -253,7 +253,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                 int delta_time_size = delta_time[d][s].size();
                 for (int j = 0; j < delta_time_size; j++)
                 {
-                    histos[d]->Fill(delta_time[d][s][j] / 1e9, s);
+                    histos[d]->Fill(1e9/delta_time[d][s][j], s);
                 }
             }
         }
@@ -266,8 +266,8 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         std::vector<TCanvas *> canvases;
         for (int i = 0; i < 4; i++)
         {
-            canvases.push_back(new TCanvas((std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV_") + draw_opt).c_str(),
-                                           (std::string("delta_time_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV_") + draw_opt).c_str()));
+            canvases.push_back(new TCanvas((std::string("count_rate_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV_") + draw_opt).c_str(),
+                                           (std::string("count_rate_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV_") + draw_opt).c_str()));
 
             // split each canvas in 2 to display front and rear side
             canvases[i]->Divide(2, 1);
@@ -343,14 +343,14 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
 
             if (i < 2)
             {
-                legends.push_back(new TLegend(0.75, 0.77, 0.9, 0.9));
+                legends.push_back(new TLegend(0.45, 0.77, 0.7, 0.9));
                 legends[i]->AddEntry(gr_errors[i * 2], "#Delta t per strip with 1 #sigma", "lep");
                 legends[i]->AddEntry(graphs[i * 2], "hits per strip", "l");
                 legends[i]->Draw();
             }
             else
             {
-                legends.push_back(new TLegend(0.1, 0.77, 0.25, 0.9));
+                legends.push_back(new TLegend(0.45, 0.77, 0.7, 0.9));
                 legends[i]->AddEntry(gr_errors[i * 2], "#Delta t per strip with 1 #sigma", "lep");
                 legends[i]->AddEntry(graphs[i * 2], "hits per strip", "l");
                 legends[i]->Draw();
