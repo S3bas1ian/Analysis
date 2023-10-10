@@ -244,7 +244,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                                           .c_str(),
                                       1000, 1, 10, 1024, 0, 1025));
 
-            histos[d]->SetXTitle("#count rate [kHz]");
+            histos[d]->SetXTitle("count rate [kHz]");
             histos[d]->SetYTitle("strip");
             gStyle->SetOptStat(0);
 
