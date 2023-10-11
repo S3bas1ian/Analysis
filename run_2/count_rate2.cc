@@ -112,26 +112,37 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
 
 
 
-    //calculating delta time for the first asic (first 128) channels
+    //calculating delta time for the asic closest to the beam axis (first or last 128 channels)
     std::vector<std::vector<Double_t>> timestamps_asic1, time_delta_asic1;
     timestamps_asic1.resize(8);
     time_delta_asic1.resize(8);
 
 
     for(int d = 0; d < 8; d++){
-        for(int s = 0; s < 128; s++){
+        if (d < 4){
+            for(int s = 0; s < 128; s++){
             timestamps_asic1[d].insert(timestamps_asic1[d].end(), timestamps[d][s].begin(), timestamps[d][s].end());
         }
         std::sort(timestamps_asic1[d].begin(), timestamps_asic1[d].end());
         for (int i = 1; i < timestamps_asic1[d].size(); i++){
             time_delta_asic1[d].push_back(timestamps_asic1[d][i] - timestamps_asic1[d][i-1]);
         }
+        } else {
+            for(int s = 896; s < 1024; s++){
+            timestamps_asic1[d].insert(timestamps_asic1[d].end(), timestamps[d][s].begin(), timestamps[d][s].end());
+        }
+        std::sort(timestamps_asic1[d].begin(), timestamps_asic1[d].end());
+        for (int i = 1; i < timestamps_asic1[d].size(); i++){
+            time_delta_asic1[d].push_back(timestamps_asic1[d][i] - timestamps_asic1[d][i-1]);
+        }
+        }
+        
     }
 
     std::vector<std::vector<Double_t>> stats_asic1;
     stats_asic1.resize(8);
     cout << "---------------------------------------- \n";
-    cout << "count rate first asic (128 channels) \n";
+    cout << "count rate closest asic (128 channels) \n";
     cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ms] \n";
     cout << "---------------------------------------- \n";
     for(int d = 0; d < 8; d++){
@@ -154,7 +165,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     std::vector<std::vector<std::vector<Double_t> > > stats;
     // create correct dimension (8 detectors x 1024 strips)
     stats.resize(8); // 8 detectors
-    cout << "-----AVERAGE DELTA TIME DETECTORS----- \n \n";
+    cout << "\n \n\n-----AVERAGE DELTA TIME DETECTORS-----\n";
     cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ns] \n";
     cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ms] \n";
     cout << "----------\n";
