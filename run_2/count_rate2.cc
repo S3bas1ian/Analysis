@@ -242,7 +242,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                                       (std::string("Detector ") +
                                        std::to_string(d))
                                           .c_str(),
-                                      1000, 0, 4, 1024, 0, 1025));
+                                      1000, 0, 3, 1024, 0, 1025));
 
             histos[d]->SetXTitle("count rate [kHz]");
             histos[d]->SetYTitle("strip");
@@ -292,8 +292,8 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
             for (int s = 0; s < 1024; s++)
             {
                 strip.push_back(static_cast<double>(s));
-                mean.push_back(stats[d][s][0] / 1e9);
-                stdv.push_back(stats[d][s][1] / 1e9);
+                mean.push_back(1e9 / stats[d][s][0]);
+                stdv.push_back(1e9 / stats[d][s][1]);
                 hits.push_back(timestamps[d][s].size());
             }
             // to plot different yaxis you need to overlay two different tpads
@@ -304,14 +304,14 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
 
             // gr_errors     contains average delta time with one stdv error
             gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
-            gr_errors[d]->SetName("#Delta t per strip");
+            gr_errors[d]->SetName("count rate per strip");
             gr_errors[d]->SetMarkerStyle(4);
             gr_errors[d]->SetMarkerColorAlpha(kAzure - 2, 0.7);
             gr_errors[d]->SetMarkerSize(1.2);
             gr_errors[d]->SetLineColorAlpha(kAzure - 4, 0.1);
             gr_errors[d]->GetYaxis()->SetLabelColor(kAzure - 2, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kAzure - 2);
-            gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; #Delta t [ms]")).c_str());
+            gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; count rate [kHz]")).c_str());
 
             // graphs        contains the hits per strip
             graphs.push_back(new TGraph(hits.size(), &strip[0], &hits[0]));
@@ -329,8 +329,8 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         std::vector<TLegend *> legends;
         for (int i = 0; i < 4; i++)
         {
-            canvases2.push_back(new TCanvas((std::string("average per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV")).c_str(),
-                                            (std::string("average_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV")).c_str()));
+            canvases2.push_back(new TCanvas((std::string("average count rate per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV")).c_str(),
+                                            (std::string("average_cr_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV")).c_str()));
             // split each canvas in 2 to display front and rear side
             canvases2[i]->Divide(1, 2);
             canvases2[i]->cd(1);
@@ -341,20 +341,10 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
             tpads[i * 4 + 1]->cd();
             graphs[i * 2]->Draw("ALY+");
 
-            if (i < 2)
-            {
-                legends.push_back(new TLegend(0.45, 0.77, 0.7, 0.9));
-                legends[i]->AddEntry(gr_errors[i * 2], "#Delta t per strip with 1 #sigma", "lep");
-                legends[i]->AddEntry(graphs[i * 2], "hits per strip", "l");
-                legends[i]->Draw();
-            }
-            else
-            {
-                legends.push_back(new TLegend(0.45, 0.77, 0.7, 0.9));
-                legends[i]->AddEntry(gr_errors[i * 2], "#Delta t per strip with 1 #sigma", "lep");
-                legends[i]->AddEntry(graphs[i * 2], "hits per strip", "l");
-                legends[i]->Draw();
-            }
+            legends.push_back(new TLegend(0.45, 0.77, 0.7, 0.9));
+            legends[i]->AddEntry(gr_errors[i * 2], "count rate per strip with 1 #sigma", "lep");
+            legends[i]->AddEntry(graphs[i * 2], "hits per strip", "l");
+            legends[i]->Draw();
 
             canvases2[i]->cd(2);
             tpads[i * 4 + 2]->Draw();
