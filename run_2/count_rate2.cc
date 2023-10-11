@@ -242,7 +242,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                                       (std::string("Detector ") +
                                        std::to_string(d))
                                           .c_str(),
-                                      1000, 0, 1, 1024, 0, 1025));
+                                      1000, 0, 20, 1024, 0, 1025));
 
             histos[d]->SetXTitle("count rate [kHz]");
             histos[d]->SetYTitle("strip");
@@ -253,7 +253,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                 int delta_time_size = delta_time[d][s].size();
                 for (int j = 0; j < delta_time_size; j++)
                 {
-                    histos[d]->Fill(delta_time[d][s][j] / 1e9, s);
+                    histos[d]->Fill(1e9 / delta_time[d][s][j], s);
                 }
             }
         }
