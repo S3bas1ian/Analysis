@@ -253,7 +253,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                                       (std::string("Detector ") +
                                        std::to_string(d))
                                           .c_str(),
-                                      1000, 0, 10, 1024, 0, 1025));
+                                      1000, 0, 30, 1024, 0, 1025));
 
             histos[d]->SetXTitle("count rate [kHz]");
             histos[d]->SetYTitle("strip");
