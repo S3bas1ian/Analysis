@@ -226,14 +226,15 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         total += hist_particles->GetBinContent(i);
     }
 
+    cout << "Contribution from specific particles to the total count rate in % \n \n";
     if(particle.compare("all")==0){
-        cout << "protonen: \t" << hist_particles->GetBinContent(1)/total << "\n";
-        cout << "electrons: \t" << hist_particles->GetBinContent(2)/total << "\n";
-        cout << "deuterons: \t" << hist_particles->GetBinContent(3)/total << "\n";
-        cout << "tritons: \t" << hist_particles->GetBinContent(4)/total << "\n";
-        cout << "gammas: \t" << hist_particles->GetBinContent(5)/total << "\n";
-        cout << "positrons: \t" << hist_particles->GetBinContent(6)/total << "\n";
-        cout << "other: \t" << hist_particles->GetBinContent(7)/total << "\n";
+        cout << "protonen: \t" << 100*hist_particles->GetBinContent(1)/total << "\n";
+        cout << "electrons: \t" << 100*hist_particles->GetBinContent(2)/total << "\n";
+        cout << "deuterons: \t" << 100*hist_particles->GetBinContent(3)/total << "\n";
+        cout << "tritons: \t" << 100*hist_particles->GetBinContent(4)/total << "\n";
+        cout << "gammas: \t" << 100*hist_particles->GetBinContent(5)/total << "\n";
+        cout << "positrons: \t" << 100*hist_particles->GetBinContent(6)/total << "\n";
+        cout << "other: \t" << 100*hist_particles->GetBinContent(7)/total << "\n";
     } 
 
     // #####################################################################################################################
