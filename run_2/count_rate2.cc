@@ -166,7 +166,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     // create correct dimension (8 detectors x 1024 strips)
     stats.resize(8); // 8 detectors
     cout << "\n \n\n-----AVERAGE DELTA TIME DETECTORS-----\n";
-    cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ns] \n";
+    cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [MHz] \n";
     // cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ms] \n";
     cout << "----------\n";
     for (int d = 0; d < 8; d++)
