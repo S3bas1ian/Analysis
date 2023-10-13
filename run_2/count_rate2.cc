@@ -167,7 +167,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     stats.resize(8); // 8 detectors
     cout << "\n \n\n-----AVERAGE DELTA TIME DETECTORS-----\n";
     cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ns] \n";
-    cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ms] \n";
+    // cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ms] \n";
     cout << "----------\n";
     for (int d = 0; d < 8; d++)
     {
@@ -197,24 +197,24 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         // std::sort(detector_delta.begin(), detector_delta.end());
         auto s = getStats(detector_delta);
         cout << d
-             << "\t" << s[0] / 1e3
-             << "\t" << s[1] / 1e3
-             << "\t" << s[2] / 1e3
-             << "\t" << s[3] / 1e3
-             << "\t" << s[4] / 1e3
+             << "\t" << 1e6/ s[0] 
+             << "\t" << 1e6/ s[1] 
+             << "\t" << 1e6/ s[2]
+             << "\t" << 1e6/ s[3] 
+             << "\t" << 1e6/ s[4] 
              //  << "ns    min=" << s[5]/1e3
              //  << "ns    max=" << s[6]/1e3
              << "\t" << detector.size() << "\n";
 
-        cout << d
-             << "\t" << sum_mean / (1024e9)
-             << "\t" << sum_stdv / (1024e9)
-             << "\t" << sum_median / (1024e9)
-             << "\t" << sum_lq / (1024e9)
-             << "\t" << sum_hq / (1024e9)
-             << "\n";
+        // cout << d
+        //      << "\t" << sum_mean / (1024e9)
+        //      << "\t" << sum_stdv / (1024e9)
+        //      << "\t" << sum_median / (1024e9)
+        //      << "\t" << sum_lq / (1024e9)
+        //      << "\t" << sum_hq / (1024e9)
+        //      << "\n";
 
-        cout << " _______________________ \n";
+        // cout << " _______________________ \n";
     }
     cout << "-------------------------------------- \n";
 
@@ -227,13 +227,13 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     }
 
     if(particle.compare("all")==0){
-        cout << "protonen: " << hist_particles->GetBinContent(1)/total << "\n";
-        cout << "electrons: " << hist_particles->GetBinContent(2)/total << "\n";
-        cout << "deuterons: " << hist_particles->GetBinContent(3)/total << "\n";
-        cout << "tritons: " << hist_particles->GetBinContent(4)/total << "\n";
-        cout << "gammas: " << hist_particles->GetBinContent(5)/total << "\n";
-        cout << "positrons: " << hist_particles->GetBinContent(6)/total << "\n";
-        cout << "other: " << hist_particles->GetBinContent(7)/total << "\n";
+        cout << "protonen: \t" << hist_particles->GetBinContent(1)/total << "\n";
+        cout << "electrons: \t" << hist_particles->GetBinContent(2)/total << "\n";
+        cout << "deuterons: \t" << hist_particles->GetBinContent(3)/total << "\n";
+        cout << "tritons: \t" << hist_particles->GetBinContent(4)/total << "\n";
+        cout << "gammas: \t" << hist_particles->GetBinContent(5)/total << "\n";
+        cout << "positrons: \t" << hist_particles->GetBinContent(6)/total << "\n";
+        cout << "other: \t" << hist_particles->GetBinContent(7)/total << "\n";
     } 
 
     // #####################################################################################################################
