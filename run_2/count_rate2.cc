@@ -316,7 +316,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                 }
 
                 if (std::isinf(mean[s])){
-                    cout << d << "inf" << s << "  " stats[d][s][1] << endl;
+                    cout << d << "inf" << s << "  " << stats[d][s][1] << endl;
                 }
             }
             // to plot different yaxis you need to overlay two different tpads
