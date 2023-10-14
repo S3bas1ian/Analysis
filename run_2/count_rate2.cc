@@ -307,7 +307,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                 
                 if(timestamps[d][s].size() > 2){    //only calc stats if there are at least two events. Otherwise Div by zero
                     if (std::isinf(1e9/ stats[d][s][0]) || std::isinf(1e9/ stats[d][s][1])){
-                    cout << d << "inf" << s << "  " << stats[d][s][0] << " " << stats[d][s][1] << endl;
+                    cout << d << "error" << s << "  " << stats[d][s][0] << " " << stats[d][s][1] << endl;
                 }
                     strip.push_back(static_cast<double>(s));
                     mean.push_back(1e9 / stats[d][s][0]);
@@ -378,15 +378,6 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                                             (std::string("involved_particles") + std::string("_") + str_energy + std::string("eV")).c_str());
         hist_particles->Draw();
     }
-    
-    
-    cout << "------ \n";
-    for(int j = 0; j < timestamps[1][52].size(); j++){
-        cout << timestamps[1][52][j] << endl;
-    }
-
-    std::vector<Double_t> t = {9.21775e11-7.6427e11};
-    cout << 1e9/stats[1][52][0] << endl;
 
 }
 
