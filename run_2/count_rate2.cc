@@ -2,6 +2,7 @@
 #include <TTree.h>
 #include <string.h>
 #include <chrono>
+#include <cmath>
 #include <TH2D.h>
 
 std::vector<Double_t> getStats(std::vector<Double_t> &dt);
@@ -313,6 +314,13 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                     mean.push_back(0);
                     stdv.push_back(0);
                     hits.push_back(0);
+                }
+                if (mean[s] != mean[s] || std::isinf(mean[s])){
+                    cout << "error: " << d "  " << s << endl;
+                }
+
+                if (stdv[s] != stdv[s] || std::isinf(stdv[s])){
+                    cout << "error: " << d "  " << s << endl;
                 }
             }
             // to plot different yaxis you need to overlay two different tpads
