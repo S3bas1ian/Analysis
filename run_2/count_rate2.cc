@@ -316,11 +316,11 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                     hits.push_back(0);
                 }
                 if (mean[s] != mean[s] || std::isinf(mean[s])){
-                    cout << "error: " << d << "  " << s << endl;
+                    cout << "error: " << d << " NaN " << s << endl;
                 }
 
                 if (stdv[s] != stdv[s] || std::isinf(stdv[s])){
-                    cout << "error: " << d << "  " << s << endl;
+                    cout << "error: " << d << " inf " << s << endl;
                 }
             }
             // to plot different yaxis you need to overlay two different tpads
