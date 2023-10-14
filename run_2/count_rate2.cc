@@ -386,13 +386,12 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                                             (std::string("involved_particles") + std::string("_") + str_energy + std::string("eV")).c_str());
         hist_particles->Draw();
     }
-    std::vector<Double_t> t1, t2, t3;
-    t1 = {};
-    t2 = {0.1};
-    t3 = {0.1, 0.2};
-    cout << getStats(t1)[0] << endl;
-    cout << getStats(t2)[0] << endl;
-    cout << getStats(t3)[0] << endl;
+    
+    
+    cout << "------ \n";
+    for(int j = 0; j < timestamps[1][52].size(); j++){
+        cout << timestamps[1][52][j] << endl;
+    }
 
 }
 
