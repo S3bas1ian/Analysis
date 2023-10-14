@@ -311,11 +311,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                 }
                     strip.push_back(static_cast<double>(s));
                     mean.push_back(1e9 / stats[d][s][0]);
-                    if(1e9/stats[d][s][1] > 1e9/stats[d][s][0]){
-                        stdv.push_back(1e9/stats[d][s][0]);
-                    }else {
-                        stdv.push_back(1e9 / stats[d][s][1]);  
-                    }
+                    stdv.push_back(1e9 / stats[d][s][1]);  
                     hits.push_back(timestamps[d][s].size());
                 }
             }
