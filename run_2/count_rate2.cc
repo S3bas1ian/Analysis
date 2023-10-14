@@ -305,7 +305,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
             for (int s = 0; s < 1024; s++)
             {
                 
-                if(timestamps[d][s].size() > 1){    //only calc stats if there are at least two events. Otherwise Div by zero
+                if(timestamps[d][s].size() > 2){    //only calc stats if there are at least two events. Otherwise Div by zero
                     if (std::isinf(1e9/ stats[d][s][0]) || std::isinf(1e9/ stats[d][s][1])){
                     cout << d << "inf" << s << "  " << stats[d][s][0] << " " << stats[d][s][1] << endl;
                 }
