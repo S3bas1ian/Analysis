@@ -393,7 +393,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         cout << timestamps[1][52][j] << endl;
     }
 
-    std::vector<Double_t> t = {7.6427e11, 9.21775e11};
+    std::vector<Double_t> t = {9.21775e11-7.6427e11};
     cout << getStats(t)[0] << endl;
 
 }
@@ -402,7 +402,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
 //                                 high_quarter, minimum, maximum}
 std::vector<Double_t> getStats(std::vector<Double_t> &dt)
 {
-    if (dt.size() > 1)
+    if (dt.size() > 0)
     {
         std::sort(dt.begin(), dt.end());
         std::vector<Double_t> output;
