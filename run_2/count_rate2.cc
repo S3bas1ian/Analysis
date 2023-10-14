@@ -304,19 +304,15 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
             // create vectors with the content to pass to the graphs
             for (int s = 0; s < 1024; s++)
             {
-                strip.push_back(static_cast<double>(s));
+                
                 if(timestamps[d][s].size() > 1){    //only calc stats if there are at least two events. Otherwise Div by zero
+                    if (std::isinf(1e9/ stats[d][s][0]) || std::isinf(1e9/ stats[d][s][1])){
+                    cout << d << "inf" << s << "  " << stats[d][s][0] << " " << stats[d][s][1] << endl;
+                }
+                    strip.push_back(static_cast<double>(s));
                     mean.push_back(1e9 / stats[d][s][0]);
                     stdv.push_back(1e9 / stats[d][s][1]);
                     hits.push_back(timestamps[d][s].size());
-                } else {
-                    mean.push_back(0);
-                    stdv.push_back(0);
-                    hits.push_back(0);
-                }
-
-                if (std::isinf(mean[s])){
-                    cout << d << "inf" << s << "  " << stats[d][s][1] << endl;
                 }
             }
             // to plot different yaxis you need to overlay two different tpads
