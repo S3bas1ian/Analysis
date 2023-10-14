@@ -394,7 +394,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     }
 
     std::vector<Double_t> t = {9.21775e11-7.6427e11};
-    cout << getStats(t)[0] << endl;
+    cout << 1e9/stats[1][52][0] << endl;
 
 }
 
