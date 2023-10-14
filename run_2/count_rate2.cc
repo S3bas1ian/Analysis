@@ -393,6 +393,9 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
         cout << timestamps[1][52][j] << endl;
     }
 
+    std::vector<Double_t> t = {7.6427e11, 9.21775e11};
+    cout << getStats(t)[0] << endl;
+
 }
 
 // output is structured following {mean, stdv, median, low_quarter,
