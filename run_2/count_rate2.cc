@@ -392,7 +392,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
 //                                 high_quarter, minimum, maximum}
 std::vector<Double_t> getStats(std::vector<Double_t> &dt)
 {
-    if (dt.size() > 0)
+    if (dt.size() > 1)
     {
         std::sort(dt.begin(), dt.end());
         std::vector<Double_t> output;
