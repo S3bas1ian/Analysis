@@ -165,7 +165,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     std::vector<std::vector<std::vector<Double_t> > > stats;
     // create correct dimension (8 detectors x 1024 strips)
     stats.resize(8); // 8 detectors
-    cout << "\n \n\n-----AVERAGE DELTA TIME DETECTORS-----\n";
+    cout << "\n \n\n-----AVERAGE COUNT RATE DETECTORS-----\n";
     cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [MHz] \n";
     // cout << "detector\tmean\tstdv\tmedian\tlow_quarter\thigh_quarter\thits\t [ms] \n";
     cout << "----------\n";
@@ -254,7 +254,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
                                       (std::string("Detector ") +
                                        std::to_string(d))
                                           .c_str(),
-                                      1000, 0, 100, 1024, 0, 1025));
+                                      1000, 0, 4, 1024, 0, 1025));
 
             histos[d]->SetXTitle("count rate [kHz]");
             histos[d]->SetYTitle("strip");
@@ -304,9 +304,15 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
             for (int s = 0; s < 1024; s++)
             {
                 strip.push_back(static_cast<double>(s));
-                mean.push_back(1e9 / stats[d][s][0]);
-                stdv.push_back(1e9 / stats[d][s][1]);
-                hits.push_back(timestamps[d][s].size());
+                if(timestamps[d][s].size() > 1){
+                    mean.push_back(1e9 / stats[d][s][0]);
+                    stdv.push_back(1e9 / stats[d][s][1]);
+                    hits.push_back(timestamps[d][s].size());
+                } else {
+                    mean.push_back(0);
+                    stdv.push_back(0);
+                    hits.push_back(0);
+                }
             }
             // to plot different yaxis you need to overlay two different tpads
             tpads.push_back(new TPad((std::string("pad") + std::to_string(d * 2)).c_str(), "", 0, 0, 1, 1));
