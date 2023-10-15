@@ -229,6 +229,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
 
     cout << "Contribution from specific particles to the total count rate in % \n \n";
     if(particle.compare("all")==0){
+        cout << "total hits \t" << total << "\n";
         cout << "protonen \t" << 100*hist_particles->GetBinContent(hist_particles->GetXaxis()->FindBin("proton"))/total << "\n";
         cout << "electrons \t" << 100*hist_particles->GetBinContent(hist_particles->GetXaxis()->FindBin("e-"))/total << "\n";
         cout << "deuterons \t" << 100*hist_particles->GetBinContent(hist_particles->GetXaxis()->FindBin("deuteron"))/total << "\n";
