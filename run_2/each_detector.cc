@@ -30,6 +30,14 @@ void each_detector(std::string path, std::string particle)
 
     // 1d histogram for gamma, proton, e- and other
     auto h_particles_1d = new TH1I("particles", "total events per particle; particle ;#", 4, 0, 4);
+    h_particles_1d->Fill("proton", 0);
+    h_particles_1d->Fill("deuteron", 0);
+    h_particles_1d->Fill("triton", 0);
+    h_particles_1d->Fill("e-", 0);
+    h_particles_1d->Fill("e+", 0);
+    h_particles_1d->Fill("other", 0);
+
+
 
     // 2d histogram for each detector where I seperate between front and backside
     auto h1_2d = new TH2I("0", "detector 0; front side; back side;", 10, 0, 10, 10, 0, 10);
@@ -91,15 +99,15 @@ void each_detector(std::string path, std::string particle)
                     // count the event
                     event_size += 1;
 
-                //     if (std::string(particle_name).compare("proton") == 0 || std::string(particle_name).compare("deuteron") == 0
-                //         || std::string(particle_name).compare("triton") == 0
-                //         || std::string(particle_name).compare("e-") == 0 || std::string(particle_name).compare("e+") == 0 )
-                //     {
-                //         h_particles_1d->Fill(particle_name, 1);
-                //     }else
-                // {
-                //     h_particles_1d->Fill("other", 1);
-                // }
+                    if (std::string(particle_name).compare("proton") == 0 || std::string(particle_name).compare("deuteron") == 0
+                        || std::string(particle_name).compare("triton") == 0
+                        || std::string(particle_name).compare("e-") == 0 || std::string(particle_name).compare("e+") == 0 )
+                    {
+                        h_particles_1d->Fill(particle_name, 1);
+                    }else
+                {
+                    h_particles_1d->Fill("other", 1);
+                }
                 
                 
                 
@@ -189,15 +197,19 @@ auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "
 c1->Divide(2, 2);
 TPad *p1 = (TPad *)(c1->cd(1));
 p1->SetLogz();
+h3_2d->SetLineWidth(3);
 h3_2d->Draw("colz");
 TPad *p2 = (TPad *)(c1->cd(2));
 p2->SetLogz();
+h4_2d->SetLineWidth(3);
 h4_2d->Draw("colz");
 TPad *p3 = (TPad *)(c1->cd(3));
 p3->SetLogz();
+h1_2d->SetLineWidth(3);
 h1_2d->Draw("colz");
 TPad *p4 = (TPad *)(c1->cd(4));
 p4->SetLogz();
+h2_2d->SetLineWidth(3);
 h2_2d->Draw("colz");
 c1->SetLogz();
 
@@ -222,9 +234,9 @@ auto stop = std::chrono::system_clock::now();
 // gStyle->SetImageScaling(3); should create a high res image, but doesnt work
 // c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
-// auto c3 = new TCanvas("particles", "particles (e_min= 100keV)");
+auto c3 = new TCanvas("particles", "particles (e_min= 100keV)");
 // // gStyle->SetOptStat(0); //we need only the name and amount of entries here
-// h_particles_1d->Draw();
+h_particles_1d->Draw();
 
 // c3->SaveAs((std::string("particle_overview_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 }
