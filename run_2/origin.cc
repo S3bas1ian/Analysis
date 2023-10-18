@@ -91,7 +91,7 @@ void origin(std::string path, std::string particle)
     auto c2 = new TCanvas((std::string("origin_100_particle==") + particle).c_str(), 
                             (std::string("origin_100_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
     auto outsider_100 = new TGraph(or_y.size(), or_y.data(), or_z.data());
-    outsider_100->SetTitle("view on 100; y [mm]; z [mm]");
+    outsider_100->SetTitle("yz-plane; y [mm]; z [mm]");
     outsider_100->Draw("AP");
 
 
@@ -99,14 +99,14 @@ void origin(std::string path, std::string particle)
     auto c3 = new TCanvas((std::string("origin_010_particle==") + particle).c_str(), 
                             (std::string("origin_010_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
     auto outsider_010 = new TGraph(or_x.size(), or_x.data(), or_z.data());
-    outsider_010->SetTitle("view on 010; x [mm]; z [mm]");
+    outsider_010->SetTitle("xz-plane; x [mm]; z [mm]");
     outsider_010->Draw("AP");
 
     //plotting view 001
     auto c4 = new TCanvas((std::string("origin_001_particle==") + particle).c_str(), 
                             (std::string("origin_001_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
     auto outsider_001 = new TGraph(or_x.size(), or_x.data(), or_y.data());
-    outsider_001->SetTitle("view on 001; x [mm]; y [mm]");
+    outsider_001->SetTitle("xy-plane; x [mm]; y [mm]");
     outsider_001->Draw("AP");
 
 }
