@@ -30,12 +30,12 @@ void each_detector(std::string path, std::string particle)
 
     // 1d histogram for gamma, proton, e- and other
     auto h_particles_1d = new TH1I("particles", " ; particle ;#", 4, 0, 4);
-    h_particles_1d->Fill("proton", 0);
-    h_particles_1d->Fill("deuteron", 0);
-    h_particles_1d->Fill("triton", 0);
-    h_particles_1d->Fill("e-", 0);
-    h_particles_1d->Fill("e+", 0);
-    h_particles_1d->Fill("other", 0);
+    h_particles_1d->Fill("proton", 1);
+    h_particles_1d->Fill("deuteron", 1);
+    h_particles_1d->Fill("triton", 1);
+    h_particles_1d->Fill("e-", 1);
+    h_particles_1d->Fill("e+", 1);
+    h_particles_1d->Fill("other", 1);
 
 
 
@@ -214,16 +214,16 @@ c1->SetLogz();
 auto c2 = new TCanvas((std::string("total_detectors_particle_") + particle).c_str(), "total detectors (e_min= 100keV)");
 c2->Divide(2, 2);
 c2->cd(1);
-h3_1d->SetLineWidth(6);
+h3_1d->SetLineWidth(3);
 h3_1d->Draw();
 c2->cd(2);
-h4_1d->SetLineWidth(6);
+h4_1d->SetLineWidth(3);
 h4_1d->Draw();
 c2->cd(3);
-h1_1d->SetLineWidth(6);
+h1_1d->SetLineWidth(3);
 h1_1d->Draw();
 c2->cd(4);
-h2_1d->SetLineWidth(6);
+h2_1d->SetLineWidth(3);
 h2_1d->Draw();
 
 auto stop = std::chrono::system_clock::now();
@@ -236,6 +236,7 @@ auto stop = std::chrono::system_clock::now();
 
 auto c3 = new TCanvas("particles", "particles (e_min= 100keV)");
 // // gStyle->SetOptStat(0); //we need only the name and amount of entries here
+h_particles_1d->SetLineWidth(3);
 h_particles_1d->Draw();
 
 // c3->SaveAs((std::string("particle_overview_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
