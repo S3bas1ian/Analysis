@@ -29,7 +29,7 @@ void each_detector(std::string path, std::string particle)
     auto h4_1d = new TH1I("total_3", "total detector 3; N_{Counts}; #", 10, 0, 10);
 
     // 1d histogram for gamma, proton, e- and other
-    auto h_particles_1d = new TH1I("particles", "total events per particle; particle ;#", 4, 0, 4);
+    auto h_particles_1d = new TH1I("particles", " ; particle ;#", 4, 0, 4);
     h_particles_1d->Fill("proton", 0);
     h_particles_1d->Fill("deuteron", 0);
     h_particles_1d->Fill("triton", 0);
@@ -197,19 +197,19 @@ auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "
 c1->Divide(2, 2);
 TPad *p1 = (TPad *)(c1->cd(1));
 p1->SetLogz();
-h3_2d->SetLineWidth(3);
+h3_2d->SetLineWidth(6);
 h3_2d->Draw("colz");
 TPad *p2 = (TPad *)(c1->cd(2));
 p2->SetLogz();
-h4_2d->SetLineWidth(3);
+h4_2d->SetLineWidth(6);
 h4_2d->Draw("colz");
 TPad *p3 = (TPad *)(c1->cd(3));
 p3->SetLogz();
-h1_2d->SetLineWidth(3);
+h1_2d->SetLineWidth(6);
 h1_2d->Draw("colz");
 TPad *p4 = (TPad *)(c1->cd(4));
 p4->SetLogz();
-h2_2d->SetLineWidth(3);
+h2_2d->SetLineWidth(6);
 h2_2d->Draw("colz");
 c1->SetLogz();
 
