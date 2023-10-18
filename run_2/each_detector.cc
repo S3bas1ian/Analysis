@@ -197,19 +197,15 @@ auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "
 c1->Divide(2, 2);
 TPad *p1 = (TPad *)(c1->cd(1));
 p1->SetLogz();
-h3_2d->SetLineWidth(6);
 h3_2d->Draw("colz");
 TPad *p2 = (TPad *)(c1->cd(2));
 p2->SetLogz();
-h4_2d->SetLineWidth(6);
 h4_2d->Draw("colz");
 TPad *p3 = (TPad *)(c1->cd(3));
 p3->SetLogz();
-h1_2d->SetLineWidth(6);
 h1_2d->Draw("colz");
 TPad *p4 = (TPad *)(c1->cd(4));
 p4->SetLogz();
-h2_2d->SetLineWidth(6);
 h2_2d->Draw("colz");
 c1->SetLogz();
 
@@ -218,12 +214,16 @@ c1->SetLogz();
 auto c2 = new TCanvas((std::string("total_detectors_particle_") + particle).c_str(), "total detectors (e_min= 100keV)");
 c2->Divide(2, 2);
 c2->cd(1);
+h3_1d->SetLineWidth(6);
 h3_1d->Draw();
 c2->cd(2);
+h4_1d->SetLineWidth(6);
 h4_1d->Draw();
 c2->cd(3);
+h1_1d->SetLineWidth(6);
 h1_1d->Draw();
 c2->cd(4);
+h2_1d->SetLineWidth(6);
 h2_1d->Draw();
 
 auto stop = std::chrono::system_clock::now();
