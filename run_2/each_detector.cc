@@ -7,9 +7,13 @@ for cluster size
 #include <TFile.h>
 #include <TTree.h>
 #include <string.h>
+#include <chrono>
+
 
 void each_detector(std::string path, std::string particle)
 {
+    //time measurment of runtime script
+    auto start = std::chrono::system_clock::now();
 
     // constants
     double energy_min = 100000; // eV
@@ -82,7 +86,7 @@ void each_detector(std::string path, std::string particle)
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min && (particle.compare(std::string(particle_name))==0 || particle.compare("all"))) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
+                if (edep > energy_min && (particle.compare(std::string(particle_name))==0 || particle.compare("all") == 0)) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
                 {
                     // count the event
                     event_size += 1;
@@ -209,6 +213,11 @@ c2->cd(3);
 h1_1d->Draw();
 c2->cd(4);
 h2_1d->Draw();
+
+auto stop = std::chrono::system_clock::now();
+    cout << "took: "
+         << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count()
+         << " s \n";
 
 // gStyle->SetImageScaling(3); should create a high res image, but doesnt work
 // c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
