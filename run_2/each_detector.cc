@@ -8,7 +8,7 @@ for cluster size
 #include <TTree.h>
 #include <string.h>
 
-void each_detector(std::string path)
+void each_detector(std::string path, std::string particle)
 {
 
     // constants
@@ -33,20 +33,20 @@ void each_detector(std::string path)
     auto h3_2d = new TH2I("2", "detector 2; front side; back side;", 10, 0, 10, 10, 0, 10);
     auto h4_2d = new TH2I("3", "detector 3; front side; back side;", 10, 0, 10, 10, 0, 10);
 
-    char name_hitscoll[128];
+    //char name_hitscoll[128];
     char particle_name[128];
     int event_number;
     int det_id;
     double edep;
 
-    hits->SetBranchAddress("Hit_Name", &name_hitscoll);
+    //hits->SetBranchAddress("Hit_Name", &name_hitscoll);
     hits->SetBranchAddress("name", &particle_name);
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
     hits->SetBranchAddress("edep", &edep);
 
     // preload stuff to speed things up
-    hits->LoadBaskets();
+    //hits->LoadBaskets();
 
     int i = 0;
     int size = hits->GetEntries();
@@ -82,7 +82,7 @@ void each_detector(std::string path)
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min && std::string(particle_name).compare("triton")==0) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
+                if (edep > energy_min && (particle.compare(std::string(particle_name))==0 || particle.compare("all"))) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
                 {
                     // count the event
                     event_size += 1;
@@ -181,7 +181,7 @@ void each_detector(std::string path)
 }
 
 // plotting and saving images with root
-auto c1 = new TCanvas("detectors_particle==triton", "detectors (e_min= 100keV)");
+auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "detectors (e_min= 100keV)");
 c1->Divide(2, 2);
 TPad *p1 = (TPad *)(c1->cd(1));
 p1->SetLogz();
@@ -199,7 +199,7 @@ c1->SetLogz();
 
 // c1->SaveAs((std::string("2d_hist_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
-auto c2 = new TCanvas("total_detectors_particle==triton", "total detectors (e_min= 100keV)");
+auto c2 = new TCanvas((std::string("total_detectors_particle_") + particle).c_str(), "total detectors (e_min= 100keV)");
 c2->Divide(2, 2);
 c2->cd(1);
 h3_1d->Draw();
