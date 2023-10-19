@@ -30,6 +30,7 @@ void stopping_power(std::string path, std::string particle)
     int i = 0;
     int size = hits->GetEntries();
 
+    //amount of hits per detector side
     int front_size_det_1;
     int front_size_det_2;
     int front_size_det_3;
@@ -52,6 +53,7 @@ void stopping_power(std::string path, std::string particle)
 
     while (i < size)
     {
+        //initiualize for each event block
         front_size_det_1 = 0;
         front_size_det_2 = 0;
         front_size_det_3 = 0;
@@ -82,9 +84,11 @@ void stopping_power(std::string path, std::string particle)
         {
             hits->GetEntry(i);
 
+            //only if we are still in the same event block
             if (event_number == currEvent)
             {
 
+                //only if matching particle
                 if (std::string(particle_name).compare(particle) == 0 )
                 {
                     if (det_id == 0)

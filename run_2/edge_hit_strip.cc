@@ -2,26 +2,27 @@
 #include <TTree.h>
 #include <string.h>
 
-void edge_hit_strip(std::string path, std::string particle)
+void edge_hit_strip(std::string path, std::string particle, Double_t energy_min)
 {
 
-    // constants
-    double energy_min = 100000; // eV
-
+    //Trees
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
+    //histogramms
     auto h1_1d = new TH1I("edges_det_0", "edges detector 0; strip; #", 1024, 0, 1024);
     auto h2_1d = new TH1I("edges_det_1", "edges detector 1; strip; #", 1024, 0, 1024);
     auto h3_1d = new TH1I("edges_det_2", "edges detector 2; strip; #", 1024, 0, 1024);
     auto h4_1d = new TH1I("edges_det_3", "edges detector 3; strip; #", 1024, 0, 1024);
 
+    //variables for tree
     char particle_name[128];
     Int_t event_number;
     Int_t det_id;
     Int_t strip_id;
     Double_t edep;
 
+    //connecting variables and tree
     hits->SetBranchAddress("name", &particle_name);
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
@@ -53,6 +54,7 @@ void edge_hit_strip(std::string path, std::string particle)
     while (i < size) // loop through all events
     {
 
+        //initialize for each new event
         event_size_det_1 = 0;
         event_size_det_2 = 0;
         event_size_det_3 = 0;
@@ -128,6 +130,7 @@ void edge_hit_strip(std::string path, std::string particle)
                 sameEvent = false;
             }
 
+            //only add if we are in the case of "one side hitters" still
             if((det_id==0 && back_size_det_1 == 0) || (det_id==1 && front_size_det_1 == 0)){
                 strips1.push_back(strip_id);
             } else if((det_id==2 && back_size_det_2 == 0) || (det_id==3 && front_size_det_2 == 0)){
@@ -168,12 +171,14 @@ void edge_hit_strip(std::string path, std::string particle)
                 h4_1d->Fill(s);
             }
         }
+        //delete strips for next event block
         strips1.resize(0);
         strips2.resize(0);
         strips3.resize(0);
         strips4.resize(0);
     }
 
+    //plotting
     auto c2 = new TCanvas((std::string("edge_hitsStrip_particle==") + particle).c_str(), (std::string("edge hits (strip) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
     c2->Divide(2, 2);
     c2->cd(1);

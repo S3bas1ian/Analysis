@@ -4,15 +4,13 @@
 
 bool producedInPhantom(double x, double y, double z);
 
-void origin(std::string path, std::string particle)
+void origin(std::string path, std::string particle, Double_t energy_min)
 {
-
-    // constants
-    double energy_min = 100000; // eV
-
+    //open root file
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
 
+    //variables to connect to
     char particle_name[128];
     Int_t event_number;
     Int_t det_id;
@@ -21,10 +19,7 @@ void origin(std::string path, std::string particle)
     Double_t hits_x, hits_y, hits_z;
     Double_t produced_x, produced_y, produced_z;
 
-    std::vector<double> or_x, or_y, or_z;
-    int or_phantom = 0;
-    int or_outside = 0;
-
+    //connect root file to variables
     hits->SetBranchAddress("name", &particle_name);
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
@@ -38,7 +33,12 @@ void origin(std::string path, std::string particle)
     hits->SetBranchAddress("Produced_y", &produced_y);
     hits->SetBranchAddress("Produced_z", &produced_z);
 
+    std::vector<double> or_x, or_y, or_z; //origin x, y, z
+    int or_phantom = 0; //counter particles origin phantom
+    int or_outside = 0; //counter particles origin outside
+
     // preload stuff to speed things up
+    //WARNING: Can cause problem in form of long loading times, if large data is loaded. 
     hits->LoadBaskets();
 
     int i = 0;

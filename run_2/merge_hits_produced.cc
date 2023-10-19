@@ -210,7 +210,7 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
     Long64_t size_h = wrapper.getEntriesHits();
     wrapper.getEntryHits(h);
     Long64_t startIndex = 0;
-    Long64_t endIndex = wrapper.getEndIndex(wrapper.getHitsEventNumber(), startIndex);
+    Long64_t endIndex = wrapper.getEndIndex(wrapper.getHitsEventNumber(), startIndex);  //end Index is the produced index of the last entrie that belongs to a hit event
 
     while (h < size_h)
     {
@@ -224,28 +224,25 @@ void merge_hits_produced(std::string inputPath, std::string outputPath)
 
             if (currEvent == wrapper.getHitsEventNumber())
             {
-
+                //find fitting produced inbetween start and end index
                 Long64_t p = wrapper.findProducedIndex(currEvent,
                                                         wrapper.getHitsTrackNumber(),
                                                         startIndex,
                                                         endIndex);
-                wrapper.getEntryProduced(p);
-                wrapper.fill();
-                // std::cout << "Hits [event, track]: " << wrapper.getHitsEventNumber() << "  " 
-                // << wrapper.getHitsTrackNumber() << "  Produced [, ]: " 
-                // << wrapper.getProducedEventNumber() << "  " 
-                // << wrapper.getProducedTrackNumber() << "\n";
+                wrapper.getEntryProduced(p);    //get content of fitting produced
+                wrapper.fill(); //fill all the (merged) information.
 
-                h++;
+                h++;    //go to next entrie in the same event block
             }
             else
             {
+                //one event block is finished
                 sameEvent = false;
-                startIndex = endIndex;
-                endIndex = wrapper.getEndIndex(wrapper.getHitsEventNumber(), startIndex);
+                startIndex = endIndex; //we start now there where we ended
+                endIndex = wrapper.getEndIndex(wrapper.getHitsEventNumber(), startIndex); //calculating the new end index
             }
         }
     }
-    wrapper.write();
+    wrapper.write();    //create merged root file
     std::cout << "Done!" << std::endl;
 }

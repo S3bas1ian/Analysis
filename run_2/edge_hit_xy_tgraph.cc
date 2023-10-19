@@ -6,11 +6,8 @@
 
 bool producedInPhantom(double x, double y, double z);
 
-void edge_hit_xy_tgraph(std::string path, std::string particle)
+void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_min)
 {
-
-    // constants
-    double energy_min = 100000; // eV
 
     TFile *file = new TFile(path.c_str(), "read");
     TTree *hits = (TTree *)file->Get("hits");
@@ -39,6 +36,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     //origigin of particles that are not from the phantom
     std::vector<double> outsider_x, outsider_y, outsider_z;
 
+    //variables that will get connected
     char particle_name[128];
     Int_t event_number;
     Int_t det_id;
@@ -47,6 +45,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     Double_t hits_x, hits_y, hits_z;
     Double_t produced_x, produced_y, produced_z;
 
+    //connecting the variables
     hits->SetBranchAddress("name", &particle_name);
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
@@ -66,6 +65,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     int i = 0;
     int size = hits->GetEntries();
 
+    //events per full detector (both sides) for each event block
     int event_size_det_1 = 0;
     int event_size_det_2 = 0;
     int event_size_det_3 = 0;
@@ -85,6 +85,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
     while (i < size) // loop through all events
     {
 
+        //initialize for each event block
         event_size_det_1 = 0;
         event_size_det_2 = 0;
         event_size_det_3 = 0;
@@ -103,6 +104,8 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
         hits->GetEntry(i);
         int currEvent = event_number;
         bool sameEvent = true;
+
+        //initialize needed verctors for each event block
         std::vector<double> x1, x2, x3, x4;
         std::vector<double> y1, y2, y3, y4;
         std::vector<double> prod_x1, prod_x2, prod_x3, prod_x4;
@@ -163,6 +166,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
                 sameEvent = false;
             }
 
+            //if still one side hitter, than add to the belonging detector
             if ((det_id == 0 && back_size_det_1 == 0) || (det_id == 1 && front_size_det_1 == 0))
             {
                 x1.push_back(hits_x * TMath::Cos(TMath::Pi() / 4) - hits_z * TMath::Sin(TMath::Pi() / 4));
@@ -302,6 +306,8 @@ void edge_hit_xy_tgraph(std::string path, std::string particle)
 
     auto c1 = new TCanvas((std::string("edge_hitsXY_colored_particle==") + particle).c_str(), (std::string("edge hits (XY colored) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
 
+
+    //particles with origin inside or outside the phantom have different colors
     TMultiGraph *mg1 = new TMultiGraph();
     mg1->SetTitle("detector 0; x [mm]; y [mm]");
     graph1_phantom->SetMarkerColor(kBlue);

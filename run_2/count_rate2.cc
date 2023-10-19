@@ -13,7 +13,7 @@ std::vector<Double_t> getStats(std::vector<Double_t> &dt);
 
 // calculates delta time
 
-void count_rate2(std::string path, std::string particle, Double_t e, std::string draw_opt, bool draw)
+void count_rate2(std::string path, std::string particle, Double_t energy_min, std::string draw_opt, bool draw)
 {
     auto start = std::chrono::system_clock::now();
     // constants
@@ -61,7 +61,7 @@ void count_rate2(std::string path, std::string particle, Double_t e, std::string
     {
         hits->GetEntry(i);
         if ((particle.compare(std::string(particle_name)) == 0 || particle.compare(std::string("all")) == 0) 
-            && edep > e)
+            && edep > energy_min)
         {
             //histogram with involved particles
             timestamps[det_id][strip_id].push_back(psPerEvent * event_number + time);

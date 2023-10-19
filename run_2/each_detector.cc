@@ -10,13 +10,10 @@ for cluster size
 #include <chrono>
 
 
-void each_detector(std::string path, std::string particle)
+void each_detector(std::string path, std::string particle, Double_t energy_min)
 {
     //time measurment of runtime script
     auto start = std::chrono::system_clock::now();
-
-    // constants
-    double energy_min = 100000; // eV
 
     // File which will be read
     TFile *file = new TFile(path.c_str(), "read");
@@ -61,11 +58,12 @@ void each_detector(std::string path, std::string particle)
     //hits->LoadBaskets();
 
     int i = 0;
-    int size = hits->GetEntries();
+    int size = hits->GetEntries();  //get amount of entries
 
     while (i < size) // loop through all events
     {
 
+        //initialize new event
         int event_size_det_1 = 0;
         int event_size_det_2 = 0;
         int event_size_det_3 = 0;
@@ -82,6 +80,7 @@ void each_detector(std::string path, std::string particle)
         int back_size_det_4 = 0;
         int event_size = 0;
 
+        //start with a new event
         hits->GetEntry(i);
         int currEvent = event_number;
         bool sameEvent = true;
@@ -94,11 +93,13 @@ void each_detector(std::string path, std::string particle)
             {
                 // we are still looking at the right event
 
-                if (edep > energy_min && (particle.compare(std::string(particle_name))==0 || particle.compare("all") == 0)) // only count event if energy is deposited  && std::string(particle_name).compare("e+")==0
+                // only count event if energy is deposited and the particle name matches
+                if (edep > energy_min && (particle.compare(std::string(particle_name))==0 || particle.compare("all") == 0)) 
                 {
                     // count the event
                     event_size += 1;
 
+                    //fill involved particles
                     if (std::string(particle_name).compare("proton") == 0 || std::string(particle_name).compare("deuteron") == 0
                         || std::string(particle_name).compare("triton") == 0
                         || std::string(particle_name).compare("e-") == 0 || std::string(particle_name).compare("e+") == 0 )
@@ -111,7 +112,7 @@ void each_detector(std::string path, std::string particle)
                 
                 
                 
-
+                //increase counter hit detector
                 if (det_id == 0)
                 {
                     event_size_det_1 += 1;
@@ -161,6 +162,7 @@ void each_detector(std::string path, std::string particle)
         }
         else
         {
+            //we are no longer in the "correct" event in will go to the next event
             sameEvent = false;
         }
     }
@@ -192,7 +194,7 @@ void each_detector(std::string path, std::string particle)
     }
 }
 
-// plotting and saving images with root
+// plotting images with root in divided window. Linewidth(3) or even bigger for vivibility
 auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "detectors (e_min= 100keV)");
 c1->Divide(2, 2);
 TPad *p1 = (TPad *)(c1->cd(1));
@@ -209,7 +211,6 @@ p4->SetLogz();
 h2_2d->Draw("colz");
 c1->SetLogz();
 
-// c1->SaveAs((std::string("2d_hist_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
 auto c2 = new TCanvas((std::string("total_detectors_particle_") + particle).c_str(), "total detectors (e_min= 100keV)");
 c2->Divide(2, 2);
@@ -231,13 +232,9 @@ auto stop = std::chrono::system_clock::now();
          << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count()
          << " s \n";
 
-// gStyle->SetImageScaling(3); should create a high res image, but doesnt work
-// c2->SaveAs((std::string("total_detectors_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 
 auto c3 = new TCanvas("particles", "particles (e_min= 100keV)");
-// // gStyle->SetOptStat(0); //we need only the name and amount of entries here
 h_particles_1d->SetLineWidth(3);
 h_particles_1d->Draw();
 
-// c3->SaveAs((std::string("particle_overview_") + std::to_string((int) energy_min) + std::string(".png")).c_str());
 }
