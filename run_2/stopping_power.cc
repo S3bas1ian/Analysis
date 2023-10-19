@@ -6,8 +6,6 @@
 
 void stopping_power(std::string path, std::string particle)
 {
-    // constants
-    double energy_min = 100000; // eV
 
     //root file and trees
     TFile *file = new TFile(path.c_str(), "read");

@@ -58,7 +58,7 @@ void origin(std::string path, std::string particle)
             if (event_number == currEvent)
             {
                 // we are still looking at the right event
-                if (edep > energy_min && !counted)
+                if (edep > energy_min && !counted && (particle.compare(std::string(particle_name)) == 0 || particle.compare("all") == 0))
                 {
                     if (producedInPhantom(produced_x, produced_y, produced_z))
                     {
