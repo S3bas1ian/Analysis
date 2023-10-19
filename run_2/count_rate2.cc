@@ -1,3 +1,7 @@
+/*
+All the informations and plots about the count rate are generated in this file.
+*/
+
 #include <TFile.h>
 #include <TTree.h>
 #include <string.h>
