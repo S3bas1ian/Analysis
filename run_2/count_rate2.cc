@@ -18,7 +18,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
     auto start = std::chrono::system_clock::now();
     // constants
     Double_t psPerEvent = 1e4; // 10^9 particles/s in ps
-    std::string str_energy = std::to_string(e);
+    std::string str_energy = std::to_string(energy_min);
 
     //variables
     TH1I *hist_particles = new TH1I();
