@@ -37,10 +37,10 @@ void each_detector(std::string path, std::string particle, Double_t energy_min)
 
 
     // 2d histogram for each detector where I seperate between front and backside
-    auto h1_2d = new TH2I("0", "detector 0; front side; back side;", 10, 0, 10, 10, 0, 10);
-    auto h2_2d = new TH2I("1", "detector 1; front side; back side;", 10, 0, 10, 10, 0, 10);
-    auto h3_2d = new TH2I("2", "detector 2; front side; back side;", 10, 0, 10, 10, 0, 10);
-    auto h4_2d = new TH2I("3", "detector 3; front side; back side;", 10, 0, 10, 10, 0, 10);
+    auto h1_2d = new TH2I("0", "detector 0; front side  ; back side ;", 10, 0, 10, 10, 0, 10);
+    auto h2_2d = new TH2I("1", "detector 1; front side  ; back side ;", 10, 0, 10, 10, 0, 10);
+    auto h3_2d = new TH2I("2", "detector 2; front side  ; back side ;", 10, 0, 10, 10, 0, 10);
+    auto h4_2d = new TH2I("3", "detector 3; front side  ; back side ;", 10, 0, 10, 10, 0, 10);
 
     //char name_hitscoll[128];
     char particle_name[128];
@@ -214,8 +214,8 @@ c1->Divide(2, 2);
 c1->cd(1);
 gPad->SetLogz();
 h3_2d->SetTitle("a)");
-h3_2d->SetTitleSize(50, "xyz");
-h3_2d->SetLabelSize(30, "xyz");
+h3_2d->SetTitleSize(80, "xyz");
+h3_2d->SetLabelSize(50, "xyz");
 h3_2d->SetLabelFont(43, "xyz");
 h3_2d->SetTitleFont(43, "xyz");
 h3_2d->Draw("colz");
