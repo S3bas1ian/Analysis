@@ -204,15 +204,16 @@ gStyle->SetLabelFont(43, "xyz");
 gStyle->SetTickLength(0.06, "x");
 gStyle->SetTickLength(0.06, "y");
 gStyle->SetTickLength(0.06, "z");
-gStyle->SetLineWidth(2);
+gStyle->SetLineWidth(3);
 gStyle->SetOptStat(0);
+gStyle->SetPadBottomMargin(0.16);
 
 auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "detectors (e_min= 100keV)");
 c1->SetCanvasSize(2880, 1800);
 c1->Divide(2, 2);
 c1->cd(1);
 gPad->SetLogz();
-h3_2d->GetXaxis()->SetLabelSize(20);
+h3_2d->GetXaxis()->SetLabelSize(30);
 h3_2d->GetXaxis()->SetTitleSize(60);
 h3_2d->GetXaxis()->SetLabelFont(43);
 h3_2d->GetXaxis()->SetTitleFont(43);
@@ -222,6 +223,9 @@ h3_2d->GetYaxis()->SetTitleSize(60);
 h3_2d->GetYaxis()->SetLabelFont(43);
 h3_2d->GetYaxis()->SetTitleFont(43);
 h3_2d->GetYaxis()->SetTickLength(0.04);
+
+h3_2d->GetZaxis()->SetLabelSize(30);
+h3_2d->GetZaxis()->SetLabelFont(43);
 h3_2d->Draw("colz");
 TPad *p2 = (TPad *)(c1->cd(2));
 p2->SetLogz();
