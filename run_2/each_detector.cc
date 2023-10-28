@@ -208,7 +208,8 @@ gStyle->SetLineWidth(3);
 gStyle->SetOptStat(0);
 gStyle->SetPadBottomMargin(0.17);
 gStyle->SetPadLeftMargin(0.1);
-gStyle->SetPadRightMargin(0.12);
+gStyle->SetPadRightMargin(0.11);
+//gStyle->SetPadTopMargin(0.05);
 
 auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "detectors (e_min= 100keV)");
 c1->SetCanvasSize(2880, 1800);
@@ -239,7 +240,7 @@ h1_2d->SetTitleFont(43, "xyz");
 h1_2d->Draw("colz");
 c1->cd(4);
 gPad->SetLogz();
-h2_2d->SetTitle("a)");
+h2_2d->SetTitle("d)");
 h2_2d->SetTitleSize(70, "xyz");
 h2_2d->SetLabelSize(45, "xyz");
 h2_2d->SetLabelFont(43, "xyz");
