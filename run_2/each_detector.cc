@@ -197,6 +197,8 @@ void each_detector(std::string path, std::string particle, Double_t energy_min)
 // plotting images with root in divided window. Linewidth(3) or even bigger for vivibility
 gStyle->SetLabelSize(5);
 gStyle->SetTitleSize(5);
+gStyle->SetCanvasDefW(2880);
+gStyle->SetCanvasDefH(1800);
 gStyle->SetTitleFont(43, "xyz");
 gStyle->SetLabelFont(43, "xyz");
 gStyle->SetTickLength(0.06, "x");
@@ -209,6 +211,12 @@ c1->SetCanvasSize(2880, 1800);
 c1->Divide(2, 2);
 TPad *p1 = (TPad *)(c1->cd(1));
 p1->SetLogz();
+h3_2d->GetXaxis()->SetLabelSize(5);
+h3_2d->GetXaxis()->SetLabelFont(43, "xyz");
+h3_2d->GetXaxis()->SetTickLength(0.06);
+h3_2d->GetYaxis()->SetLabelSize(5);
+h3_2d->GetYaxis()->SetLabelFont(43, "xyz");
+h3_2d->GetYaxis()->SetTickLength(0.06);
 h3_2d->Draw("colz");
 TPad *p2 = (TPad *)(c1->cd(2));
 p2->SetLogz();
