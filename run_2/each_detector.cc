@@ -271,7 +271,11 @@ auto stop = std::chrono::system_clock::now();
 
 
 auto c3 = new TCanvas("particles", "particles (e_min= 100keV)");
-h_particles_1d->SetLineWidth(3);
+h_particles_1d->SetLineWidth(4);
+c3->SetLogY();
+h_particles_1d->SetLabelSize(45, "xyz");
+h_particles_1d->SetLabelFont(43, "xyz");
+h_particles_1d->SetTitleFont(43, "xyz");
 h_particles_1d->Draw();
 
 }
