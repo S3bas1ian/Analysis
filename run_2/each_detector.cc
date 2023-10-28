@@ -29,8 +29,8 @@ void each_detector(std::string path, std::string particle, Double_t energy_min)
     auto h_particles_1d = new TH1I("particles", " ; particle ;#", 4, 0, 4);
     h_particles_1d->Fill("proton", 1);
     h_particles_1d->Fill("deuteron", 1);
-    h_particles_1d->Fill("triton", 1);
     h_particles_1d->Fill("e-", 1);
+    h_particles_1d->Fill("triton", 1);
     h_particles_1d->Fill("e+", 1);
     h_particles_1d->Fill("other", 1);
 
