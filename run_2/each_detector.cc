@@ -206,7 +206,7 @@ gStyle->SetTickLength(0.06, "y");
 gStyle->SetTickLength(0.06, "z");
 gStyle->SetLineWidth(3);
 gStyle->SetOptStat(0);
-gStyle->SetPadBottomMargin(0.1);
+gStyle->SetPadBottomMargin(0.15);
 
 auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "detectors (e_min= 100keV)");
 c1->SetCanvasSize(2880, 1800);
