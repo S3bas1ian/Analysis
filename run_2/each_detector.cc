@@ -276,6 +276,7 @@ c3->SetLogy();
 h_particles_1d->SetLabelSize(45, "xyz");
 h_particles_1d->SetLabelFont(43, "xyz");
 h_particles_1d->SetTitleFont(43, "xyz");
+h_particles_1d->SetTitleSize(70, "xyz");
 h_particles_1d->Draw();
 
 }
