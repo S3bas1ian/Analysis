@@ -195,7 +195,16 @@ void each_detector(std::string path, std::string particle, Double_t energy_min)
 }
 
 // plotting images with root in divided window. Linewidth(3) or even bigger for vivibility
+gStyle->SetLabelSize(2);
+gStyle->SetTitleSize(2);
+gStyle->SetTitleFont(43, "xyz");
+gStyle->SetLabelFont(43, "xyz");
+gStyle->SetTickLength(0.03, "x");
+gStyle->SetTickLength(0.03, "y");
+gStyle->SetTickLength(0.03, "z");
+
 auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "detectors (e_min= 100keV)");
+c1->SetCanvasSize(2880, 1800);
 c1->Divide(2, 2);
 TPad *p1 = (TPad *)(c1->cd(1));
 p1->SetLogz();
