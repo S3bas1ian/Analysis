@@ -158,7 +158,6 @@ void stopping_power(std::string path, std::string particle, bool all)
             //add stopping power only if we have no "one side hitters"
             if (front_size_det_1 > 0 && back_size_det_1 > 0)
             {
-                cout << front_size_det_1 << "  " << back_size_det_1 << endl;
                 for (int j = 0; j < E1.size(); j++)
                 {
                     hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
@@ -185,28 +184,27 @@ void stopping_power(std::string path, std::string particle, bool all)
                     hist->Fill(E4[j] / 1e6, dE4[j] / 1e3);
                 }
             }
-        }else if(all == true){
-            cout << "never" << endl;
-            for (int j = 0; j < E1.size(); j++)
-                {
-                    hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
-                }
+        }//else if(all == true){
+        //     for (int j = 0; j < E1.size(); j++)
+        //         {
+        //             hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
+        //         }
 
-            for (int j = 0; j < E2.size(); j++)
-                {
-                    hist->Fill(E2[j] / 1e6, dE2[j] / 1e3);
-                }
+        //     for (int j = 0; j < E2.size(); j++)
+        //         {
+        //             hist->Fill(E2[j] / 1e6, dE2[j] / 1e3);
+        //         }
 
-            for (int j = 0; j < E3.size(); j++)
-                {
-                    hist->Fill(E3[j] / 1e6, dE3[j] / 1e3);
-                }
+        //     for (int j = 0; j < E3.size(); j++)
+        //         {
+        //             hist->Fill(E3[j] / 1e6, dE3[j] / 1e3);
+        //         }
 
-            for (int j = 0; j < E4.size(); j++)
-                {
-                    hist->Fill(E4[j] / 1e6, dE4[j] / 1e3);
-                }
-        }
+        //     for (int j = 0; j < E4.size(); j++)
+        //         {
+        //             hist->Fill(E4[j] / 1e6, dE4[j] / 1e3);
+        //         }
+        // }
     }
 
     gStyle->SetCanvasDefW(2880);
