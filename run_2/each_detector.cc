@@ -197,6 +197,7 @@ void each_detector(std::string path, std::string particle, Double_t energy_min)
 // plotting images with root in divided window. Linewidth(3) or even bigger for vivibility
 gStyle->SetLabelSize(50, "xyz");
 gStyle->SetTitleSize(70, "xyz");
+gStyle->SetTitleSize(50, "t");
 gStyle->SetCanvasDefW(2880);
 gStyle->SetCanvasDefH(1800);
 gStyle->SetTitleFont(43, "xyz");
@@ -207,7 +208,6 @@ gStyle->SetOptStat(0);
 gStyle->SetPadBottomMargin(0.17);
 gStyle->SetPadLeftMargin(0.11);
 gStyle->SetPadRightMargin(0.12);
-//gStyle->SetPadTopMargin(0.05);
 
 auto c1 = new TCanvas((std::string("detectors_particle_") + particle).c_str(), "detectors (e_min= 100keV)");
 c1->SetCanvasSize(2880, 1800);
@@ -249,14 +249,17 @@ h2_2d->Draw("colz");
 c1->SetLogz();
 
 
-auto c2 = new TCanvas((std::string("total_detectors_particle_") + particle).c_str(), "total detectors (e_min= 100keV)");
 gStyle->SetPadTopMargin(0.1);
+
+auto c2 = new TCanvas((std::string("total_detectors_particle_") + particle).c_str(), "total detectors (e_min= 100keV)");
+
+c2->SetCanvasSize(2880, 1800);
 c2->Divide(2, 2);
 c2->cd(1);
 h3_1d->SetTitle("detector 2");
 h3_1d->SetLineWidth(4);
-h3_1d->GetYaxis()->SetMaxDigits(1);
-h3_1d->GetYaxis()->SetNdivisions(4, 2, 0);
+h3_1d->GetYaxis()->SetMaxDigits(2);
+h3_1d->GetYaxis()->SetNdivisions(4, 2, false);
 h3_1d->SetTitleSize(70, "xyz");
 h3_1d->SetLabelSize(50, "xyz");
 h3_1d->SetLabelFont(43, "xyz");
@@ -265,8 +268,8 @@ h3_1d->Draw();
 c2->cd(2);
 h4_1d->SetTitle("detector 3");
 h4_1d->SetLineWidth(4);
-h4_1d->GetYaxis()->SetMaxDigits(1);
-h4_1d->GetYaxis()->SetNdivisions(4, 2, 0);
+h4_1d->GetYaxis()->SetMaxDigits(2);
+h4_1d->GetYaxis()->SetNdivisions(4, 2, false);
 h4_1d->SetTitleSize(70, "xyz");
 h4_1d->SetLabelSize(50, "xyz");
 h4_1d->SetLabelFont(43, "xyz");
@@ -275,8 +278,8 @@ h4_1d->Draw();
 c2->cd(3);
 h1_1d->SetTitle("detector 0");
 h1_1d->SetLineWidth(4);
-h1_1d->GetYaxis()->SetMaxDigits(1);
-h1_1d->GetYaxis()->SetNdivisions(4, 2, 0);
+h1_1d->GetYaxis()->SetMaxDigits(2);
+h1_1d->GetYaxis()->SetNdivisions(4, 2, false);
 h1_1d->SetTitleSize(70, "xyz");
 h1_1d->SetLabelSize(50, "xyz");
 h1_1d->SetLabelFont(43, "xyz");
@@ -285,8 +288,8 @@ h1_1d->Draw();
 c2->cd(4);
 h2_1d->SetTitle("detector 1");
 h2_1d->SetLineWidth(4);
-h2_1d->GetYaxis()->SetMaxDigits(1);
-h2_1d->GetYaxis()->SetNdivisions(4, 2, 0);
+h2_1d->GetYaxis()->SetMaxDigits(2);
+h2_1d->GetYaxis()->SetNdivisions(4, 2, false);
 h2_1d->SetTitleSize(70, "xyz");
 h2_1d->SetLabelSize(50, "xyz");
 h2_1d->SetLabelFont(43, "xyz");
