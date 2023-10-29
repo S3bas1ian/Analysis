@@ -4,7 +4,7 @@
 
 // calculates the stopping power (dE vs E) for a specific particle
 
-void stopping_power(std::string path, std::string particle)
+void stopping_power(std::string path, std::string particle, bool all)
 {
 
     //root file and trees
@@ -152,34 +152,58 @@ void stopping_power(std::string path, std::string particle)
             }
         }
 
-        //add stopping power only if we have no "one side hitters"
-        if (front_size_det_1 > 0 && back_size_det_1 > 0)
-        {
+
+        if(!all){
+
+            //add stopping power only if we have no "one side hitters"
+            if (front_size_det_1 > 0 && back_size_det_1 > 0)
+            {
+                for (int j = 0; j < E1.size(); j++)
+                {
+                    hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
+                }
+            }
+            if (front_size_det_2 > 0 && back_size_det_2 > 0)
+            {
+                for (int j = 0; j < E2.size(); j++)
+                {
+                    hist->Fill(E2[j] / 1e6, dE2[j] / 1e3);
+                }
+            }
+            if (front_size_det_3 > 0 && back_size_det_3 > 0)
+            {
+                for (int j = 0; j < E3.size(); j++)
+                {
+                    hist->Fill(E3[j] / 1e6, dE3[j] / 1e3);
+                }
+            }
+            if (front_size_det_4 > 0 && back_size_det_4 > 0)
+            {
+                for (int j = 0; j < E4.size(); j++)
+                {
+                    hist->Fill(E4[j] / 1e6, dE4[j] / 1e3);
+                }
+            }
+        }else if(all){
             for (int j = 0; j < E1.size(); j++)
-            {
-                hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
-            }
-        }
-        if (front_size_det_2 > 0 && back_size_det_2 > 0)
-        {
+                {
+                    hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
+                }
+
             for (int j = 0; j < E2.size(); j++)
-            {
-                hist->Fill(E2[j] / 1e6, dE2[j] / 1e3);
-            }
-        }
-        if (front_size_det_3 > 0 && back_size_det_3 > 0)
-        {
+                {
+                    hist->Fill(E2[j] / 1e6, dE2[j] / 1e3);
+                }
+
             for (int j = 0; j < E3.size(); j++)
-            {
-                hist->Fill(E3[j] / 1e6, dE3[j] / 1e3);
-            }
-        }
-        if (front_size_det_4 > 0 && back_size_det_4 > 0)
-        {
+                {
+                    hist->Fill(E3[j] / 1e6, dE3[j] / 1e3);
+                }
+
             for (int j = 0; j < E4.size(); j++)
-            {
-                hist->Fill(E4[j] / 1e6, dE4[j] / 1e3);
-            }
+                {
+                    hist->Fill(E4[j] / 1e6, dE4[j] / 1e3);
+                }
         }
     }
 
