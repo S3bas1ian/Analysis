@@ -209,17 +209,17 @@ void stopping_power(std::string path, std::string particle, bool all)
 
     gStyle->SetCanvasDefW(2880);
     gStyle->SetCanvasDefH(1800);
-    gStyle->SetLabelSize(59, "xyz");
+    gStyle->SetLabelSize(60, "xyz");
     gStyle->SetTitleSize(70, "xyz");
     gStyle->SetTitleFont(43, "xyz");
     gStyle->SetLabelFont(43, "xyz");
     gStyle->SetTickLength(0.04, "xyz");
     gStyle->SetLineWidth(4);
     gStyle->SetOptStat(0);
-    gStyle->SetPadBottomMargin(0.12);
-    gStyle->SetPadLeftMargin(0.1);
-    gStyle->SetPadRightMargin(0.1);
-    gStyle->SetPadTopMargin(0.03);
+    gStyle->SetPadBottomMargin(0.1);
+    gStyle->SetPadLeftMargin(0.09);
+    gStyle->SetPadRightMargin(0.09);
+    gStyle->SetPadTopMargin(0.02);
 
     //create canvas with all information
     auto c1 = new TCanvas((std::string("stopping_power_particle_") +
@@ -233,7 +233,7 @@ void stopping_power(std::string path, std::string particle, bool all)
     hist->SetTitle("");
     hist->SetXTitle("Energy [MeV]");
     hist->SetTitleSize(70, "xyz");
-    hist->SetLabelSize(59, "xyz");
+    hist->SetLabelSize(60, "xyz");
     hist->SetLabelFont(43, "xyz");
     hist->SetTitleFont(43, "xyz");
     hist->GetXaxis()->SetNdivisions(7, 3, false);
