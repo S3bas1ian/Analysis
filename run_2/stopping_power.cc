@@ -158,6 +158,7 @@ void stopping_power(std::string path, std::string particle, bool all)
             //add stopping power only if we have no "one side hitters"
             if (front_size_det_1 > 0 && back_size_det_1 > 0)
             {
+                cout << front_size_det1 << "  " << back_size_det_1 << endl;
                 for (int j = 0; j < E1.size(); j++)
                 {
                     hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
