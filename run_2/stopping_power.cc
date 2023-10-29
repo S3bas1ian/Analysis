@@ -186,6 +186,7 @@ void stopping_power(std::string path, std::string particle, bool all)
                 }
             }
         }else if(all == true){
+            cout << "never" << endl;
             for (int j = 0; j < E1.size(); j++)
                 {
                     hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
