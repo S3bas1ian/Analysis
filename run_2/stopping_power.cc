@@ -225,17 +225,17 @@ void stopping_power(std::string path, std::string particle, bool all)
     TCanvas* c1;
     if(all){
         c1 = new TCanvas((std::string("stopping_power_particle_") +
-                           particle + std::string("all"))
+                           particle + std::string("_all"))
                               .c_str(),
                           (std::string("stopping_power_particle_") +
-                           particle + std::string("all"))
+                           particle + std::string("_all"))
                               .c_str());
     }else {
         c1 = new TCanvas((std::string("stopping_power_particle_") +
-                           particle + std::string("1and1"))
+                           particle + std::string("_1and1"))
                               .c_str(),
                           (std::string("stopping_power_particle_") +
-                           particle + std::string("1and1"))
+                           particle + std::string("_1and1"))
                               .c_str());
     }
     
