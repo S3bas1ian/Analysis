@@ -195,30 +195,31 @@ void edge_hit_strip(std::string path, std::string particle, Double_t energy_min)
 
     //plotting
     auto c2 = new TCanvas((std::string("edge_hitsStrip_particle_") + particle).c_str(), (std::string("edge hits (strip) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
+    c2->SetCanvasSize(2880, 1800);
     c2->Divide(2, 2);
     c2->cd(1);
-    h3_2d->SetTitleSize(70, "xyz");
+    h3_1d->SetTitleSize(70, "xyz");
     h3_1d->SetLabelSize(59, "xyz");
     h3_1d->SetLabelFont(43, "xyz");
     h3_1d->SetTitleFont(43, "xyz");
     h3_1d->GetYaxis()->SetNdivisions(6, 3, false);
     h3_1d->Draw();
     c2->cd(2);
-    h4_2d->SetTitleSize(70, "xyz");
+    h4_1d->SetTitleSize(70, "xyz");
     h4_1d->SetLabelSize(59, "xyz");
     h4_1d->SetLabelFont(43, "xyz");
     h4_1d->SetTitleFont(43, "xyz");
     h4_1d->GetYaxis()->SetNdivisions(6, 3, false);
     h4_1d->Draw();
     c2->cd(3);
-    h1_2d->SetTitleSize(70, "xyz");
+    h1_1d->SetTitleSize(70, "xyz");
     h1_1d->SetLabelSize(59, "xyz");
     h1_1d->SetLabelFont(43, "xyz");
     h1_1d->SetTitleFont(43, "xyz");
     h1_1d->GetYaxis()->SetNdivisions(6, 3, false);
     h1_1d->Draw();
     c2->cd(4);
-    h2_2d->SetTitleSize(70, "xyz");
+    h2_1d->SetTitleSize(70, "xyz");
     h2_1d->SetLabelSize(59, "xyz");
     h2_1d->SetLabelFont(43, "xyz");
     h2_1d->SetTitleFont(43, "xyz");
