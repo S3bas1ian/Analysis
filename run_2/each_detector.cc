@@ -249,7 +249,7 @@ c1->SetLogz();
 
 gStyle->SetPadTopMargin(0.1);
 gStyle->SetPadLeftMargin(0.13);
-gStyle->SetPadRightMargin(0.06);
+gStyle->SetPadRightMargin(0.03);
 
 auto c2 = new TCanvas((std::string("total_detectors_particle_") + particle).c_str(), "total detectors (e_min= 100keV)");
 
@@ -301,6 +301,11 @@ auto stop = std::chrono::system_clock::now();
          << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count()
          << " s \n";
 
+
+gStyle->SetPadTopMargin(0.02);
+gStyle->SetPadLeftMargin(0.09);
+gStyle->SetPadRightMargin(0.02);
+gStyle->SetPadBottomMargin(0.1);
 
 auto c3 = new TCanvas("particles", "particles (e_min= 100keV)");
 h_particles_1d->SetLineWidth(4);
