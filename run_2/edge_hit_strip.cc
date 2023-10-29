@@ -10,10 +10,10 @@ void edge_hit_strip(std::string path, std::string particle, Double_t energy_min)
     TTree *hits = (TTree *)file->Get("hits");
 
     //histogramms
-    auto h1_1d = new TH1I("edges_det_0", "edges detector 0; strip; #", 1024, 0, 1024);
-    auto h2_1d = new TH1I("edges_det_1", "edges detector 1; strip; #", 1024, 0, 1024);
-    auto h3_1d = new TH1I("edges_det_2", "edges detector 2; strip; #", 1024, 0, 1024);
-    auto h4_1d = new TH1I("edges_det_3", "edges detector 3; strip; #", 1024, 0, 1024);
+    auto h1_1d = new TH1I("edges_det_0", "detector 0; strip; #", 1024, 0, 1024);
+    auto h2_1d = new TH1I("edges_det_1", "detector 1; strip; #", 1024, 0, 1024);
+    auto h3_1d = new TH1I("edges_det_2", "detector 2; strip; #", 1024, 0, 1024);
+    auto h4_1d = new TH1I("edges_det_3", "detector 3; strip; #", 1024, 0, 1024);
 
     //variables for tree
     char particle_name[128];
@@ -178,15 +178,50 @@ void edge_hit_strip(std::string path, std::string particle, Double_t energy_min)
         strips4.resize(0);
     }
 
+
+    gStyle->SetLabelSize(50, "xyz");
+    gStyle->SetTitleSize(70, "xyz");
+    gStyle->SetTitleSize(0.09f, "t");
+    gStyle->SetCanvasDefW(2880);
+    gStyle->SetCanvasDefH(1800);
+    gStyle->SetTitleFont(43, "xyz");
+    gStyle->SetLabelFont(43, "xyz");
+    gStyle->SetTickLength(0.04, "xyz");
+    gStyle->SetLineWidth(4);
+    gStyle->SetOptStat(0);
+    gStyle->SetPadBottomMargin(0.17);
+    gStyle->SetPadLeftMargin(0.11);
+    gStyle->SetPadRightMargin(0.13);
+
     //plotting
-    auto c2 = new TCanvas((std::string("edge_hitsStrip_particle==") + particle).c_str(), (std::string("edge hits (strip) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
+    auto c2 = new TCanvas((std::string("edge_hitsStrip_particle_") + particle).c_str(), (std::string("edge hits (strip) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
     c2->Divide(2, 2);
     c2->cd(1);
+    h3_2d->SetTitleSize(70, "xyz");
+    h3_1d->SetLabelSize(59, "xyz");
+    h3_1d->SetLabelFont(43, "xyz");
+    h3_1d->SetTitleFont(43, "xyz");
+    h3_1d->GetYaxis()->SetNdivisions(6, 3, false);
     h3_1d->Draw();
     c2->cd(2);
+    h4_2d->SetTitleSize(70, "xyz");
+    h4_1d->SetLabelSize(59, "xyz");
+    h4_1d->SetLabelFont(43, "xyz");
+    h4_1d->SetTitleFont(43, "xyz");
+    h4_1d->GetYaxis()->SetNdivisions(6, 3, false);
     h4_1d->Draw();
     c2->cd(3);
+    h1_2d->SetTitleSize(70, "xyz");
+    h1_1d->SetLabelSize(59, "xyz");
+    h1_1d->SetLabelFont(43, "xyz");
+    h1_1d->SetTitleFont(43, "xyz");
+    h1_1d->GetYaxis()->SetNdivisions(6, 3, false);
     h1_1d->Draw();
     c2->cd(4);
+    h2_2d->SetTitleSize(70, "xyz");
+    h2_1d->SetLabelSize(59, "xyz");
+    h2_1d->SetLabelFont(43, "xyz");
+    h2_1d->SetTitleFont(43, "xyz");
+    h2_1d->GetYaxis()->SetNdivisions(6, 3, false);
     h2_1d->Draw();
 }
