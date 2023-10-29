@@ -24,7 +24,7 @@ void stopping_power(std::string path, std::string particle, bool all)
     hits->SetBranchAddress("event", &event_number);
     hits->SetBranchAddress("Det_ID", &det_id);
     hits->SetBranchAddress("edep", &edep);
-    hits->SetBranchAddress("energy", &energy);
+    hits->SetBranchAddress("Hit_energy", &energy);
 
     //needed for the loop through the tree
     int i = 0;
@@ -155,29 +155,29 @@ void stopping_power(std::string path, std::string particle, bool all)
 
         if(all == false){
 
-            //add stopping power only if we have no "one side hitters"
-            if (front_size_det_1 > 0 && back_size_det_1 > 0)
+            //add stopping power only if we have 1 and 1
+            if (front_size_det_1 == 1 && back_size_det_1 == 1)
             {
                 for (int j = 0; j < E1.size(); j++)
                 {
                     hist->Fill(E1[j] / 1e6, dE1[j] / 1e3);
                 }
             }
-            if (front_size_det_2 > 0 && back_size_det_2 > 0)
+            if (front_size_det_2 == 1 && back_size_det_2 == 1)
             {
                 for (int j = 0; j < E2.size(); j++)
                 {
                     hist->Fill(E2[j] / 1e6, dE2[j] / 1e3);
                 }
             }
-            if (front_size_det_3 > 0 && back_size_det_3 > 0)
+            if (front_size_det_3 == 1 && back_size_det_3 == 1)
             {
                 for (int j = 0; j < E3.size(); j++)
                 {
                     hist->Fill(E3[j] / 1e6, dE3[j] / 1e3);
                 }
             }
-            if (front_size_det_4 > 0 && back_size_det_4 > 0)
+            if (front_size_det_4 == 1 && back_size_det_4 == 1)
             {
                 for (int j = 0; j < E4.size(); j++)
                 {
