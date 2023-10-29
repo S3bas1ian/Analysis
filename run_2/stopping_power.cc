@@ -183,17 +183,31 @@ void stopping_power(std::string path, std::string particle)
         }
     }
 
+
+    gStyle->SetLabelSize(50, "xyz");
+    gStyle->SetTitleSize(70, "xyz");
+    gStyle->SetTitleFont(43, "xyz");
+    gStyle->SetLabelFont(43, "xyz");
+    gStyle->SetTickLength(0.04, "xyz");
+    gStyle->SetLineWidth(4);
+    gStyle->SetOptStat(0);
+    gStyle->SetPadBottomMargin(0.17);
+    gStyle->SetPadLeftMargin(0.11);
+    gStyle->SetPadRightMargin(0.03);
+
     //create canvas with all information
-    auto c1 = new TCanvas((std::string("stopping_power_particle=") +
+    auto c1 = new TCanvas((std::string("stopping_power_particle_") +
                            particle)
                               .c_str(),
-                          (std::string("stopping_power_particle=") +
+                          (std::string("stopping_power_particle_") +
                            particle)
                               .c_str());
+    c1->SetCanvasSize(2880, 1800);
 
-    hist->SetTitle((std::string("Stopping Power for ") + 
-                    particle).c_str());
+    hist->SetTitle("");
     hist->SetXTitle("Energy [MeV]");
+    hist->GetXaxis()->SetNdivisions(7, 2, false);
+    hist->GetYaxis()->SetNdivisions(5, 3, false);
     hist->SetYTitle("#Delta E [keV]");
     hist->Draw("colz");
 }
