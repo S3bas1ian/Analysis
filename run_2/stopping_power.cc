@@ -214,7 +214,7 @@ void stopping_power(std::string path, std::string particle, bool all)
     gStyle->SetTitleFont(43, "xyz");
     gStyle->SetLabelFont(43, "xyz");
     gStyle->SetTickLength(0.04, "xyz");
-    gStyle->SetLineWidth(4);
+    gStyle->SetLineWidth(5);
     gStyle->SetOptStat(0);
     gStyle->SetPadBottomMargin(0.12);
     gStyle->SetPadLeftMargin(0.1);
@@ -222,12 +222,22 @@ void stopping_power(std::string path, std::string particle, bool all)
     gStyle->SetPadTopMargin(0.02);
 
     //create canvas with all information
-    auto c1 = new TCanvas((std::string("stopping_power_particle_") +
-                           particle)
+    if(all){
+        auto c1 = new TCanvas((std::string("stopping_power_particle_") +
+                           particle + std::string("all"))
                               .c_str(),
                           (std::string("stopping_power_particle_") +
-                           particle)
+                           particle + std::string("all"))
                               .c_str());
+    }else {
+        auto c1 = new TCanvas((std::string("stopping_power_particle_") +
+                           particle + std::string("1and1"))
+                              .c_str(),
+                          (std::string("stopping_power_particle_") +
+                           particle + std::string("1and1"))
+                              .c_str());
+    }
+    
     c1->SetCanvasSize(2880, 1800);
 
     hist->SetTitle("");
