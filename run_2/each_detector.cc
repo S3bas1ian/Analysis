@@ -248,6 +248,8 @@ c1->SetLogz();
 
 
 gStyle->SetPadTopMargin(0.1);
+gStyle->SetPadLeftMargin(0.13);
+gStyle->SetPadRightMargin(0.06);
 
 auto c2 = new TCanvas((std::string("total_detectors_particle_") + particle).c_str(), "total detectors (e_min= 100keV)");
 
