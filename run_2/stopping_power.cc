@@ -228,7 +228,7 @@ void stopping_power(std::string path, std::string particle, bool all)
                           (std::string("stopping_power_particle_") +
                            particle)
                               .c_str());
-    //c1->SetCanvasSize(2880, 1800);
+    c1->SetCanvasSize(2880, 1800);
 
     hist->SetTitle("");
     hist->SetXTitle("Energy [MeV]");
