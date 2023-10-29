@@ -210,7 +210,7 @@ void stopping_power(std::string path, std::string particle, bool all)
     gStyle->SetCanvasDefW(2880);
     gStyle->SetCanvasDefH(1800);
     gStyle->SetLabelSize(59, "xyz");
-    gStyle->SetTitleSize(100, "xyz");
+    gStyle->SetTitleSize(70, "xyz");
     gStyle->SetTitleFont(43, "xyz");
     gStyle->SetLabelFont(43, "xyz");
     gStyle->SetTickLength(0.04, "xyz");
@@ -232,6 +232,10 @@ void stopping_power(std::string path, std::string particle, bool all)
 
     hist->SetTitle("");
     hist->SetXTitle("Energy [MeV]");
+    hist->SetTitleSize(70, "xyz");
+    hist->SetLabelSize(59, "xyz");
+    hist->SetLabelFont(43, "xyz");
+    hist->SetTitleFont(43, "xyz");
     hist->GetXaxis()->SetNdivisions(7, 3, false);
     hist->GetYaxis()->SetNdivisions(6, 4, false);
     hist->SetYTitle("#Delta E [keV]");
