@@ -209,7 +209,7 @@ void stopping_power(std::string path, std::string particle, bool all)
 
     gStyle->SetCanvasDefW(2880);
     gStyle->SetCanvasDefH(1800);
-    gStyle->SetLabelSize(50, "xyz");
+    gStyle->SetLabelSize(59, "xyz");
     gStyle->SetTitleSize(70, "xyz");
     gStyle->SetTitleFont(43, "xyz");
     gStyle->SetLabelFont(43, "xyz");
@@ -217,9 +217,9 @@ void stopping_power(std::string path, std::string particle, bool all)
     gStyle->SetLineWidth(4);
     gStyle->SetOptStat(0);
     gStyle->SetPadBottomMargin(0.17);
-    gStyle->SetPadLeftMargin(0.11);
-    gStyle->SetPadRightMargin(0.08);
-    gStyle->SetPadTopMargin(0.05);
+    gStyle->SetPadLeftMargin(0.08);
+    gStyle->SetPadRightMargin(0.1);
+    gStyle->SetPadTopMargin(0.03);
 
     //create canvas with all information
     auto c1 = new TCanvas((std::string("stopping_power_particle_") +
