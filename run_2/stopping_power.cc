@@ -222,15 +222,16 @@ void stopping_power(std::string path, std::string particle, bool all)
     gStyle->SetPadTopMargin(0.02);
 
     //create canvas with all information
+    TCanvas* c1;
     if(all){
-        auto c1 = new TCanvas((std::string("stopping_power_particle_") +
+        c1 = new TCanvas((std::string("stopping_power_particle_") +
                            particle + std::string("all"))
                               .c_str(),
                           (std::string("stopping_power_particle_") +
                            particle + std::string("all"))
                               .c_str());
     }else {
-        auto c1 = new TCanvas((std::string("stopping_power_particle_") +
+        c1 = new TCanvas((std::string("stopping_power_particle_") +
                            particle + std::string("1and1"))
                               .c_str(),
                           (std::string("stopping_power_particle_") +
