@@ -191,7 +191,7 @@ void edge_hit_strip(std::string path, std::string particle, Double_t energy_min)
     gStyle->SetOptStat(0);
     gStyle->SetPadBottomMargin(0.17);
     gStyle->SetPadLeftMargin(0.13);
-    gStyle->SetPadRightMargin(0.02);
+    gStyle->SetPadRightMargin(0.03);
 
     //plotting
     auto c2 = new TCanvas((std::string("edge_hitsStrip_particle_") + particle).c_str(), (std::string("edge hits (strip) for ") + particle + std::string(" (e_min= 100keV)")).c_str());
