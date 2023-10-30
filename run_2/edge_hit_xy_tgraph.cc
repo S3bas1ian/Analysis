@@ -304,7 +304,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     gStyle->SetPadBottomMargin(0.15);
     gStyle->SetPadLeftMargin(0.17);
     gStyle->SetPadRightMargin(0.02);
-    gStyle->SetPadTopMargin(0.02);
+    gStyle->SetPadTopMargin(0.03);
     gStyle->SetLabelOffset(0.015, "y");
 
     auto graph1_phantom = new TGraph(x1_phantom.size(), x1_phantom.data(), y1_phantom.data());
@@ -361,12 +361,12 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg3->GetXaxis()->SetNdivisions(6,2,false);
     mg3->GetXaxis()->SetTitleFont(43);
     mg3->GetXaxis()->SetLabelFont(43);
-    mg3->GetXaxis()->SetTitleSize(57);
+    mg3->GetXaxis()->SetTitleSize(53);
     mg3->GetXaxis()->SetLabelSize(50);
     mg3->GetYaxis()->SetNdivisions(6,2,false);
     mg3->GetYaxis()->SetTitleFont(43);
     mg3->GetYaxis()->SetLabelFont(43);
-    mg3->GetYaxis()->SetTitleSize(57);
+    mg3->GetYaxis()->SetTitleSize(53);
     mg3->GetYaxis()->SetLabelSize(50);
     mg3->GetYaxis()->SetTitleOffset(1.1);
     mg3->Draw("AP");
@@ -374,12 +374,12 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg4->GetXaxis()->SetNdivisions(6,2,false);
     mg4->GetXaxis()->SetTitleFont(43);
     mg4->GetXaxis()->SetLabelFont(43);
-    mg4->GetXaxis()->SetTitleSize(57);
+    mg4->GetXaxis()->SetTitleSize(53);
     mg4->GetXaxis()->SetLabelSize(50);
     mg4->GetYaxis()->SetNdivisions(6,2,false);
     mg4->GetYaxis()->SetTitleFont(43);
     mg4->GetYaxis()->SetLabelFont(43);
-    mg4->GetYaxis()->SetTitleSize(57);
+    mg4->GetYaxis()->SetTitleSize(53);
     mg4->GetYaxis()->SetLabelSize(50);
     mg4->GetYaxis()->SetTitleOffset(1.1);
     mg4->Draw("AP");
@@ -387,12 +387,12 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg1->GetXaxis()->SetNdivisions(6,2,false);
     mg1->GetXaxis()->SetTitleFont(43);
     mg1->GetXaxis()->SetLabelFont(43);
-    mg1->GetXaxis()->SetTitleSize(57);
+    mg1->GetXaxis()->SetTitleSize(53);
     mg1->GetXaxis()->SetLabelSize(50);
     mg1->GetYaxis()->SetNdivisions(6,2,false);
     mg1->GetYaxis()->SetTitleFont(43);
     mg1->GetYaxis()->SetLabelFont(43);
-    mg1->GetYaxis()->SetTitleSize(57);
+    mg1->GetYaxis()->SetTitleSize(53);
     mg1->GetYaxis()->SetLabelSize(50);
     mg1->GetYaxis()->SetTitleOffset(1.1);
     mg1->Draw("AP");
@@ -400,12 +400,12 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg2->GetXaxis()->SetNdivisions(6,2,false);
     mg2->GetXaxis()->SetTitleFont(43);
     mg2->GetXaxis()->SetLabelFont(43);
-    mg2->GetXaxis()->SetTitleSize(57);
+    mg2->GetXaxis()->SetTitleSize(53);
     mg2->GetXaxis()->SetLabelSize(50);
     mg2->GetYaxis()->SetNdivisions(6,2,false);
     mg2->GetYaxis()->SetTitleFont(43);
     mg2->GetYaxis()->SetLabelFont(43);
-    mg2->GetYaxis()->SetTitleSize(57);
+    mg2->GetYaxis()->SetTitleSize(53);
     mg2->GetYaxis()->SetLabelSize(50);
     mg2->GetYaxis()->SetTitleOffset(1.1);
     mg2->Draw("AP");
