@@ -204,6 +204,7 @@ gStyle->SetTitleFont(43, "xyz");
 gStyle->SetLabelFont(43, "xyz");
 gStyle->SetTickLength(0.04, "xyz");
 gStyle->SetLineWidth(4);
+gStyle->SetFrameLineWidth(4);
 gStyle->SetOptStat(0);
 gStyle->SetPadBottomMargin(0.17);
 gStyle->SetPadLeftMargin(0.11);
