@@ -296,13 +296,14 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     gStyle->SetLabelSize(60, "xyz");
     gStyle->SetTitleSize(70, "xyz");
     gStyle->SetTitleFont(43, "xyz");
+    gStyle->SetTitleFontSize(0.09f);
     gStyle->SetLabelFont(43, "xyz");
     gStyle->SetTickLength(0.04, "xyz");
     gStyle->SetLineWidth(5);
     gStyle->SetOptStat(0);
-    gStyle->SetPadBottomMargin(0.12);
-    gStyle->SetPadLeftMargin(0.1);
-    gStyle->SetPadRightMargin(0.1);
+    gStyle->SetPadBottomMargin(0.15);
+    gStyle->SetPadLeftMargin(0.15);
+    gStyle->SetPadRightMargin(0.02);
     gStyle->SetPadTopMargin(0.02);
 
     auto graph1_phantom = new TGraph(x1_phantom.size(), x1_phantom.data(), y1_phantom.data());
