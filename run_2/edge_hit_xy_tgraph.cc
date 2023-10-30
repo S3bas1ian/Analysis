@@ -302,7 +302,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     gStyle->SetLineWidth(5);
     gStyle->SetOptStat(0);
     gStyle->SetPadBottomMargin(0.15);
-    gStyle->SetPadLeftMargin(0.15);
+    gStyle->SetPadLeftMargin(0.17);
     gStyle->SetPadRightMargin(0.02);
     gStyle->SetPadTopMargin(0.02);
     gStyle->SetLabelOffset(0.015, "y");
