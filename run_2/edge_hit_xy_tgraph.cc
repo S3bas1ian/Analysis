@@ -363,13 +363,12 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg3->GetXaxis()->SetLabelFont(43);
     mg3->GetXaxis()->SetTitleSize(57);
     mg3->GetXaxis()->SetLabelSize(50);
-    mg3->GetXaxis()->SetTicks("+-");
     mg3->GetYaxis()->SetNdivisions(6,2,false);
     mg3->GetYaxis()->SetTitleFont(43);
     mg3->GetYaxis()->SetLabelFont(43);
     mg3->GetYaxis()->SetTitleSize(57);
     mg3->GetYaxis()->SetLabelSize(50);
-    mg3->GetYaxis()->SetTicks("+-");
+    mg3->GetYaxis()->SetTitleOffset(1.5);
     mg3->Draw("AP");
     c1->cd(2);
     mg4->GetXaxis()->SetNdivisions(6,2,false);
@@ -377,13 +376,12 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg4->GetXaxis()->SetLabelFont(43);
     mg4->GetXaxis()->SetTitleSize(57);
     mg4->GetXaxis()->SetLabelSize(50);
-    mg4->GetXaxis()->SetTicks("+-");
     mg4->GetYaxis()->SetNdivisions(6,2,false);
     mg4->GetYaxis()->SetTitleFont(43);
     mg4->GetYaxis()->SetLabelFont(43);
     mg4->GetYaxis()->SetTitleSize(57);
     mg4->GetYaxis()->SetLabelSize(50);
-    mg4->GetYaxis()->SetTicks("+-");
+    mg4->GetYaxis()->SetTitleOffset(1.5);
     mg4->Draw("AP");
     c1->cd(3);
     mg1->GetXaxis()->SetNdivisions(6,2,false);
@@ -391,13 +389,12 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg1->GetXaxis()->SetLabelFont(43);
     mg1->GetXaxis()->SetTitleSize(57);
     mg1->GetXaxis()->SetLabelSize(50);
-    mg1->GetXaxis()->SetTicks("+-");
     mg1->GetYaxis()->SetNdivisions(6,2,false);
     mg1->GetYaxis()->SetTitleFont(43);
     mg1->GetYaxis()->SetLabelFont(43);
     mg1->GetYaxis()->SetTitleSize(57);
     mg1->GetYaxis()->SetLabelSize(50);
-    mg1->GetYaxis()->SetTicks("+-");
+    mg1->GetYaxis()->SetTitleOffset(1.5);
     mg1->Draw("AP");
     c1->cd(4);
     mg2->GetXaxis()->SetNdivisions(6,2,false);
@@ -405,13 +402,12 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg2->GetXaxis()->SetLabelFont(43);
     mg2->GetXaxis()->SetTitleSize(57);
     mg2->GetXaxis()->SetLabelSize(50);
-    mg2->GetXaxis()->SetTicks("+-");
     mg2->GetYaxis()->SetNdivisions(6,2,false);
     mg2->GetYaxis()->SetTitleFont(43);
     mg2->GetYaxis()->SetLabelFont(43);
     mg2->GetYaxis()->SetTitleSize(57);
     mg2->GetYaxis()->SetLabelSize(50);
-    mg2->GetYaxis()->SetTicks("+-");
+    mg2->GetYaxis()->SetTitleOffset(1.5);
     mg2->Draw("AP");
 
 
