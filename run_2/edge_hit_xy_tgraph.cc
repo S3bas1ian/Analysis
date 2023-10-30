@@ -306,7 +306,9 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     gStyle->SetPadLeftMargin(0.17);
     gStyle->SetPadRightMargin(0.02);
     gStyle->SetPadTopMargin(0.06);
-    gStyle->SetLabelOffset(0.015, "y");
+    gStyle->SetTitleOffset(0.015, "y");
+    gStyle->SetTitleOffset(0.015, "t");
+
 
     auto graph1_phantom = new TGraph(x1_phantom.size(), x1_phantom.data(), y1_phantom.data());
     auto graph1_outside = new TGraph(x1_outside.size(), x1_outside.data(), y1_outside.data());
