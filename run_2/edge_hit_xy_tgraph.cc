@@ -292,6 +292,19 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     }
 
     //plotting hits on detector
+
+    gStyle->SetLabelSize(60, "xyz");
+    gStyle->SetTitleSize(70, "xyz");
+    gStyle->SetTitleFont(43, "xyz");
+    gStyle->SetLabelFont(43, "xyz");
+    gStyle->SetTickLength(0.04, "xyz");
+    gStyle->SetLineWidth(5);
+    gStyle->SetOptStat(0);
+    gStyle->SetPadBottomMargin(0.12);
+    gStyle->SetPadLeftMargin(0.1);
+    gStyle->SetPadRightMargin(0.1);
+    gStyle->SetPadTopMargin(0.02);
+
     auto graph1_phantom = new TGraph(x1_phantom.size(), x1_phantom.data(), y1_phantom.data());
     auto graph1_outside = new TGraph(x1_outside.size(), x1_outside.data(), y1_outside.data());
 
@@ -309,7 +322,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
 
     //particles with origin inside or outside the phantom have different colors
     TMultiGraph *mg1 = new TMultiGraph();
-    mg1->SetTitle("detector 0; x [mm]; y [mm]");
+    mg1->SetTitle("detector 0; x [mm]   ; y [mm]   ");
     graph1_phantom->SetMarkerColor(kBlue);
     graph1_outside->SetMarkerColor(kRed);
 
@@ -317,7 +330,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg1->Add(graph1_outside);
 
     TMultiGraph *mg2 = new TMultiGraph();
-    mg2->SetTitle("detector 1; x [mm]; y [mm]");
+    mg2->SetTitle("detector 1; x [mm]   ; y [mm]   ");
     graph2_phantom->SetMarkerColor(kBlue);
     graph2_outside->SetMarkerColor(kRed);
 
@@ -325,7 +338,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg2->Add(graph2_outside);
 
     TMultiGraph *mg3 = new TMultiGraph();
-    mg3->SetTitle("detector 2; x [mm]; y [mm]");
+    mg3->SetTitle("detector 2; x [mm]   ; y [mm]   ");
     graph3_phantom->SetMarkerColor(kBlue);
     graph3_outside->SetMarkerColor(kRed);
 
@@ -333,7 +346,7 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     mg3->Add(graph3_outside);
 
     TMultiGraph *mg4 = new TMultiGraph();
-    mg4->SetTitle("detector 3; x [mm]; y [mm]");
+    mg4->SetTitle("detector 3; x [mm]   ; y [mm]   ");
     graph4_phantom->SetMarkerColor(kBlue);
     graph4_outside->SetMarkerColor(kRed);
 
@@ -343,12 +356,36 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     c1->SetCanvasSize(1500, 1500);
     c1->Divide(2, 2);
     c1->cd(1);
+    mg3->GetYaxis()->SetNdivisions(5,2,false);
+    mg3->GetXaxis()->SetNdivisions(5,2,false);
+    mg3->SetTitleSize(70, "xyz");
+    mg3->SetLabelSize(59, "xyz");
+    mg3->SetLabelFont(43, "xyz");
+    mg3->SetTitleFont(43, "xyz");
     mg3->Draw("AP");
     c1->cd(2);
+    mg4->GetYaxis()->SetNdivisions(5,2,false);
+    mg4->GetXaxis()->SetNdivisions(5,2,false);
+    mg4->SetTitleSize(70, "xyz");
+    mg4->SetLabelSize(59, "xyz");
+    mg4->SetLabelFont(43, "xyz");
+    mg4->SetTitleFont(43, "xyz");
     mg4->Draw("AP");
     c1->cd(3);
+    mg1->GetYaxis()->SetNdivisions(5,2,false);
+    mg1->GetXaxis()->SetNdivisions(5,2,false);
+    mg1->SetTitleSize(70, "xyz");
+    mg1->SetLabelSize(59, "xyz");
+    mg1->SetLabelFont(43, "xyz");
+    mg1->SetTitleFont(43, "xyz");
     mg1->Draw("AP");
     c1->cd(4);
+    mg2->GetYaxis()->SetNdivisions(5,2,false);
+    mg2->GetXaxis()->SetNdivisions(5,2,false);
+    mg2->SetTitleSize(70, "xyz");
+    mg2->SetLabelSize(59, "xyz");
+    mg2->SetLabelFont(43, "xyz");
+    mg2->SetTitleFont(43, "xyz");
     mg2->Draw("AP");
 
 
