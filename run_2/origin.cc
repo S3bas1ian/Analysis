@@ -94,8 +94,8 @@ void origin(std::string path, std::string particle, Double_t energy_min)
     gStyle->SetTitleFont(43, "xyz");
     gStyle->SetLabelFont(43, "xyz");
     gStyle->SetTickLength(0.04, "xyz");
-    gStyle->SetLineWidth(4);
-    gStyle->SetFrameLineWidth(4);
+    gStyle->SetLineWidth(5);
+    gStyle->SetFrameLineWidth(5);
     gStyle->SetOptStat(0);
     gStyle->SetPadBottomMargin(0.17);
     gStyle->SetPadLeftMargin(0.11);
