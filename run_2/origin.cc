@@ -86,20 +86,21 @@ void origin(std::string path, std::string particle, Double_t energy_min)
     cout << particle << " coming from phantom: " << or_phantom << " and from outside the phantom: " << or_outside << "\n";
 
     //plotting origin
-    gStyle->SetLabelSize(59, "xyz");
+    gStyle->SetLabelSize(60, "xyz");
     gStyle->SetTitleSize(70, "xyz");
-    gStyle->SetTitleSize(0.09f, "t");
-    // gStyle->SetCanvasDefW(2880);
-    // gStyle->SetCanvasDefH(1800);
     gStyle->SetTitleFont(43, "xyz");
+    gStyle->SetTitleFontSize(0.08f);
     gStyle->SetLabelFont(43, "xyz");
     gStyle->SetTickLength(0.04, "xyz");
     gStyle->SetLineWidth(5);
     gStyle->SetFrameLineWidth(5);
     gStyle->SetOptStat(0);
-    gStyle->SetPadBottomMargin(0.17);
-    gStyle->SetPadLeftMargin(0.11);
-    gStyle->SetPadRightMargin(0.13);
+    gStyle->SetPadBottomMargin(0.1);
+    gStyle->SetPadLeftMargin(0.06);
+    gStyle->SetPadRightMargin(0.02);
+    gStyle->SetPadTopMargin(0.09);
+    gStyle->SetTitleOffset(1.2, "y");
+    gStyle->SetTitleOffset(0.1, "t");
 
     //plotting view 100
     auto c2 = new TCanvas((std::string("origin_100_particle==") + particle).c_str(), 
