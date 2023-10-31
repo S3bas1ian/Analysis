@@ -215,6 +215,7 @@ void stopping_power(std::string path, std::string particle, bool all)
     gStyle->SetLabelFont(43, "xyz");
     gStyle->SetTickLength(0.04, "xyz");
     gStyle->SetLineWidth(5);
+    gStyle->SetFrameLineWidth(5);
     gStyle->SetOptStat(0);
     gStyle->SetPadBottomMargin(0.12);
     gStyle->SetPadLeftMargin(0.1);
