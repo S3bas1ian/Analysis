@@ -424,11 +424,11 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     gStyle->SetLineWidth(5);
     gStyle->SetFrameLineWidth(5);
     gStyle->SetOptStat(0);
-    gStyle->SetPadBottomMargin(0.15);
-    gStyle->SetPadLeftMargin(0.1);
+    gStyle->SetPadBottomMargin(0.1);
+    gStyle->SetPadLeftMargin(0.06);
     gStyle->SetPadRightMargin(0.02);
     gStyle->SetPadTopMargin(0.09);
-    //gStyle->SetTitleOffset(0.015, "y");
+    gStyle->SetTitleOffset(0.015, "y");
     gStyle->SetTitleOffset(0.1, "t");
 
 
@@ -437,7 +437,9 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
                             (std::string("position_outsider_100_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
     c2->SetCanvasSize(2880, 1800);
     auto outsider_100 = new TGraph(outsider_y.size(), outsider_y.data(), outsider_z.data());
-    outsider_100->SetTitle("yz plane; y [mm]; z [mm]");
+    outsider_100->GetXaxis()->SetNdivisions(7, 3, false);
+    outsider_100->GetYaxis()->SetNdivisions(7, 3, false);
+    outsider_100->SetTitle("yz plane; y [mm]   ; z [mm]   ");
     outsider_100->Draw("AP");
 
 
@@ -446,7 +448,9 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
                             (std::string("position_outsider_010_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
     c3->SetCanvasSize(2880, 1800);
     auto outsider_010 = new TGraph(outsider_x.size(), outsider_x.data(), outsider_z.data());
-    outsider_010->SetTitle("xz plane; x [mm]; z [mm]");
+    outsider_010->GetXaxis()->SetNdivisions(7, 3, false);
+    outsider_010->GetYaxis()->SetNdivisions(7, 3, false);
+    outsider_010->SetTitle("xz plane; x [mm]   ; z [mm]   ");
     outsider_010->Draw("AP");
 
     //plotting view 001
@@ -454,7 +458,9 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
                             (std::string("position_outsider_001_particle==") + particle + std::string(" (e_min= 100keV)")).c_str());
     c4->SetCanvasSize(2880, 1800);
     auto outsider_001 = new TGraph(outsider_x.size(), outsider_x.data(), outsider_y.data());
-    outsider_001->SetTitle("xy plane; x [mm]; y [mm]");
+    outsider_001->GetXaxis()->SetNdivisions(7, 3, false);
+    outsider_001->GetYaxis()->SetNdivisions(7, 3, false);
+    outsider_001->SetTitle("xy plane; x [mm]   ; y [mm]   ");
     outsider_001->Draw("AP");
 
 
