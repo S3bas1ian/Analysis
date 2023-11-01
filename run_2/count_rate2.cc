@@ -288,6 +288,12 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         gStyle->SetLineWidth(5);
         gStyle->SetFrameLineWidth(5);
         gStyle->SetOptStat(0);
+        gStyle->SetPadBottomMargin(0.15);
+        gStyle->SetPadLeftMargin(0.04);
+        gStyle->SetPadRightMargin(0.17);
+        gStyle->SetPadTopMargin(0.09);
+        //gStyle->SetTitleOffset(1.2, "y");
+        gStyle->SetTitleOffset(0.12, "t");
 
 
         start = std::chrono::system_clock::now();
@@ -326,6 +332,15 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
 
         stop = std::chrono::system_clock::now();
         cout << "creating and filling canvases took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
+
+
+        gStyle->SetPadBottomMargin(0.15);
+        gStyle->SetPadLeftMargin(0.04);
+        gStyle->SetPadRightMargin(0.04);
+        gStyle->SetPadTopMargin(0.09);
+        //gStyle->SetTitleOffset(1.2, "y");
+        gStyle->SetTitleOffset(0.12, "t");
+
 
         // draw the average time with errorbars and the total hits
         std::vector<TGraphErrors *> gr_errors;
@@ -389,7 +404,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[d]->SetLineColor(kRed);
             graphs[d]->SetLineWidth(1);
             //graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
-            //graphs[d]->GetYaxis()->SetTitleOffset(0.6);
+            graphs[d]->GetYaxis()->SetTitleOffset(0.6);
             graphs[d]->GetYaxis()->SetTitleColor(kRed);
             //graphs[d]->SetLineColorAlpha(kAzure - 4, 0.1);
             graphs[d]->GetXaxis()->SetLabelFont(43);
@@ -409,12 +424,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         }
 
         
-        gStyle->SetPadBottomMargin(0.15);
-        gStyle->SetPadLeftMargin(0.04);
-        gStyle->SetPadRightMargin(0.17);
-        gStyle->SetPadTopMargin(0.09);
-        //gStyle->SetTitleOffset(1.2, "y");
-        gStyle->SetTitleOffset(0.12, "t");
+        
 
         std::vector<TCanvas *> canvases2;
         std::vector<TLegend *> legends;
