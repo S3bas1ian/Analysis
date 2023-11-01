@@ -362,6 +362,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             gr_errors[d]->SetMarkerColorAlpha(kAzure - 2, 0.7);
             gr_errors[d]->SetMarkerSize(1.2);
             gr_errors[d]->SetLineColorAlpha(kAzure - 4, 0.1);
+            gr_errors[d]->GetXaxis()->SetRangeUser(0, 1024);
             gr_errors[d]->GetXaxis()->SetLabelFont(43);
             gr_errors[d]->GetXaxis()->SetTitleFont(43);
             gr_errors[d]->GetXaxis()->SetTitleSize(70);
@@ -388,10 +389,11 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[d]->SetLineColor(kRed);
             graphs[d]->SetLineWidth(1);
             //graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
-            graphs[d]->GetYaxis()->SetTitleOffset(0.6);
+            //graphs[d]->GetYaxis()->SetTitleOffset(0.6);
             graphs[d]->GetYaxis()->SetTitleColor(kRed);
             //graphs[d]->SetLineColorAlpha(kAzure - 4, 0.1);
             graphs[d]->GetXaxis()->SetLabelFont(43);
+            graphs[d]->GetXaxis()->SetRangeUser(0, 1024);
             graphs[d]->GetXaxis()->SetTitleFont(43);
             graphs[d]->GetXaxis()->SetTitleSize(70);
             graphs[d]->GetXaxis()->SetLabelSize(59);
