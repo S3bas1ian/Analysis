@@ -290,7 +290,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         gStyle->SetOptStat(0);
         gStyle->SetPadBottomMargin(0.1);
         gStyle->SetPadLeftMargin(0.1);
-        gStyle->SetPadRightMargin(0.06);
+        gStyle->SetPadRightMargin(0.04);
         gStyle->SetPadTopMargin(0.09);
         //gStyle->SetTitleOffset(1.2, "y");
         gStyle->SetTitleOffset(0.12, "t");
@@ -404,7 +404,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[d]->SetLineColor(kRed);
             graphs[d]->SetLineWidth(1);
             //graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
-            graphs[d]->GetYaxis()->SetTitleOffset(1.2);
+            graphs[d]->GetYaxis()->SetTitleOffset(1.3);
             graphs[d]->GetYaxis()->SetTitleColor(kRed);
             //graphs[d]->SetLineColorAlpha(kAzure - 4, 0.1);
             graphs[d]->GetXaxis()->SetLabelFont(43);
