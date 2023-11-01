@@ -290,9 +290,9 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         gStyle->SetFrameLineWidth(5);
         gStyle->SetOptStat(0);
         gStyle->SetPadBottomMargin(0.1);
-        gStyle->SetPadLeftMargin(0.15);
-        gStyle->SetPadRightMargin(0.04);
-        gStyle->SetPadTopMargin(0.07);
+        gStyle->SetPadLeftMargin(0.17);
+        gStyle->SetPadRightMargin(0.02);
+        gStyle->SetPadTopMargin(0.08);
         //gStyle->SetTitleOffset(1.2, "y");
         gStyle->SetTitleOffset(0.12, "t");
 
@@ -412,6 +412,22 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
                 graphs[d]->SetTitle((std::string("rear side det ") + std::to_string((d-1)/2) + std::string("; strip; hits")).c_str());
             }
         }
+
+        gStyle->SetLabelSize(60, "xyz");
+        gStyle->SetTitleSize(70, "xyz");
+        gStyle->SetTitleFont(43, "xyz");
+        gStyle->SetTitleFontSize(0.08f);
+        gStyle->SetLabelFont(43, "xyz");
+        gStyle->SetTickLength(0.04, "xyz");
+        gStyle->SetLineWidth(2);
+        gStyle->SetFrameLineWidth(5);
+        gStyle->SetOptStat(0);
+        gStyle->SetPadBottomMargin(0.1);
+        gStyle->SetPadLeftMargin(0.1);
+        gStyle->SetPadRightMargin(0.1);
+        gStyle->SetPadTopMargin(0.08);
+        //gStyle->SetTitleOffset(1.2, "y");
+        gStyle->SetTitleOffset(0.12, "t");
 
         std::vector<TCanvas *> canvases2;
         std::vector<TLegend *> legends;
