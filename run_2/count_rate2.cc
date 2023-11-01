@@ -407,9 +407,9 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[d]->GetYaxis()->SetTitleSize(70);
             graphs[d]->GetYaxis()->SetLabelSize(59);
             if(d%2 == 0){
-                graphs[d]->SetTitle((std::string("front side det ") + std::to_string(d/2) + std::string("; strip; hits")).c_str());
+                graphs[d]->SetTitle((std::string("front side det ") + std::to_string(d/2) + std::string("; strip   ; hits")).c_str());
             } else {
-                graphs[d]->SetTitle((std::string("rear side det ") + std::to_string((d-1)/2) + std::string("; strip; hits")).c_str());
+                graphs[d]->SetTitle((std::string("rear side det ") + std::to_string((d-1)/2) + std::string("; strip   ; hits")).c_str());
             }
         }
 
@@ -419,13 +419,13 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         gStyle->SetTitleFontSize(0.08f);
         gStyle->SetLabelFont(43, "xyz");
         gStyle->SetTickLength(0.04, "xyz");
-        gStyle->SetLineWidth(2);
+        gStyle->SetLineWidth(1);
         gStyle->SetFrameLineWidth(5);
         gStyle->SetOptStat(0);
-        gStyle->SetPadBottomMargin(0.1);
-        gStyle->SetPadLeftMargin(0.1);
-        gStyle->SetPadRightMargin(0.1);
-        gStyle->SetPadTopMargin(0.08);
+        gStyle->SetPadBottomMargin(0.15);
+        gStyle->SetPadLeftMargin(0.04);
+        gStyle->SetPadRightMargin(0.17);
+        gStyle->SetPadTopMargin(0.09);
         //gStyle->SetTitleOffset(1.2, "y");
         gStyle->SetTitleOffset(0.12, "t");
 
