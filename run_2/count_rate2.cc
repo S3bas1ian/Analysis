@@ -290,7 +290,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         gStyle->SetOptStat(0);
         gStyle->SetPadBottomMargin(0.1);
         gStyle->SetPadLeftMargin(0.1);
-        gStyle->SetPadRightMargin(0.08);
+        gStyle->SetPadRightMargin(0.06);
         gStyle->SetPadTopMargin(0.09);
         //gStyle->SetTitleOffset(1.2, "y");
         gStyle->SetTitleOffset(0.12, "t");
@@ -334,9 +334,9 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         cout << "creating and filling canvases took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
 
-        gStyle->SetPadBottomMargin(0.15);
-        gStyle->SetPadLeftMargin(0.08);
-        gStyle->SetPadRightMargin(0.08);
+        gStyle->SetPadBottomMargin(0.17);
+        gStyle->SetPadLeftMargin(0.07);
+        gStyle->SetPadRightMargin(0.07);
         gStyle->SetPadTopMargin(0.09);
         //gStyle->SetTitleOffset(1.2, "y");
         gStyle->SetTitleOffset(0.12, "t");
