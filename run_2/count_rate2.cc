@@ -290,11 +290,11 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         gStyle->SetFrameLineWidth(5);
         gStyle->SetOptStat(0);
         gStyle->SetPadBottomMargin(0.1);
-        gStyle->SetPadLeftMargin(0.1);
+        gStyle->SetPadLeftMargin(0.15);
         gStyle->SetPadRightMargin(0.04);
         gStyle->SetPadTopMargin(0.07);
         //gStyle->SetTitleOffset(1.2, "y");
-        gStyle->SetTitleOffset(0.1, "t");
+        gStyle->SetTitleOffset(0.12, "t");
 
 
         start = std::chrono::system_clock::now();
