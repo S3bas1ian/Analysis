@@ -373,7 +373,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             gr_errors[d]->GetXaxis()->SetTitleFont(43);
             gr_errors[d]->GetXaxis()->SetTitleSize(70);
             gr_errors[d]->GetXaxis()->SetLabelSize(59);
-            //gr_errors[d]->SetLineWidth(5);
+            gr_errors[d]->SetLineWidth(1);
             gr_errors[d]->GetYaxis()->SetLabelFont(43);
             gr_errors[d]->GetYaxis()->SetTitleFont(43);
             gr_errors[d]->GetYaxis()->SetTitleSize(70);
@@ -393,7 +393,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[d]->SetName("hits per strip");
             graphs[d]->SetMarkerColor(kRed);
             graphs[d]->SetLineColor(kRed);
-            //graphs[d]->SetLineWidth(1);
+            graphs[d]->SetLineWidth(1);
             //graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
             graphs[d]->GetYaxis()->SetTitleOffset(0.6);
             graphs[d]->GetYaxis()->SetTitleColor(kRed);
@@ -413,15 +413,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             }
         }
 
-        gStyle->SetLabelSize(60, "xyz");
-        gStyle->SetTitleSize(70, "xyz");
-        gStyle->SetTitleFont(43, "xyz");
-        gStyle->SetTitleFontSize(0.08f);
-        gStyle->SetLabelFont(43, "xyz");
-        gStyle->SetTickLength(0.04, "xyz");
-        gStyle->SetLineWidth(1);
-        gStyle->SetFrameLineWidth(5);
-        gStyle->SetOptStat(0);
+        
         gStyle->SetPadBottomMargin(0.15);
         gStyle->SetPadLeftMargin(0.04);
         gStyle->SetPadRightMargin(0.17);
