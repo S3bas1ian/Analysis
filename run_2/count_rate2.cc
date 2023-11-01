@@ -373,11 +373,11 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             gr_errors[d]->GetXaxis()->SetTitleFont(43);
             gr_errors[d]->GetXaxis()->SetTitleSize(70);
             gr_errors[d]->GetXaxis()->SetLabelSize(59);
-            gr_errors[d]->GetXaxis()->SetLineWidth(5);
+            //gr_errors[d]->GetXaxis()->SetLineWidth(5);
             gr_errors[d]->GetYaxis()->SetLabelFont(43);
             gr_errors[d]->GetYaxis()->SetTitleFont(43);
             gr_errors[d]->GetYaxis()->SetTitleSize(70);
-            gr_errors[d]->GetYaxis()->SetLineWidth(5);
+            //gr_errors[d]->GetYaxis()->SetLineWidth(5);
             gr_errors[d]->GetYaxis()->SetLabelSize(59);
             //gr_errors[d]->GetYaxis()->SetLabelColor(kAzure - 2, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kAzure - 2);
