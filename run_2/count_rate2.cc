@@ -288,9 +288,9 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         gStyle->SetLineWidth(5);
         gStyle->SetFrameLineWidth(5);
         gStyle->SetOptStat(0);
-        gStyle->SetPadBottomMargin(0.15);
-        gStyle->SetPadLeftMargin(0.04);
-        gStyle->SetPadRightMargin(0.17);
+        gStyle->SetPadBottomMargin(0.1);
+        gStyle->SetPadLeftMargin(0.1);
+        gStyle->SetPadRightMargin(0.08);
         gStyle->SetPadTopMargin(0.09);
         //gStyle->SetTitleOffset(1.2, "y");
         gStyle->SetTitleOffset(0.12, "t");
@@ -335,8 +335,8 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
 
 
         gStyle->SetPadBottomMargin(0.15);
-        gStyle->SetPadLeftMargin(0.1);
-        gStyle->SetPadRightMargin(0.1);
+        gStyle->SetPadLeftMargin(0.08);
+        gStyle->SetPadRightMargin(0.08);
         gStyle->SetPadTopMargin(0.09);
         //gStyle->SetTitleOffset(1.2, "y");
         gStyle->SetTitleOffset(0.12, "t");
@@ -404,7 +404,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[d]->SetLineColor(kRed);
             graphs[d]->SetLineWidth(1);
             //graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
-            graphs[d]->GetYaxis()->SetTitleOffset(0.6);
+            graphs[d]->GetYaxis()->SetTitleOffset(1.2);
             graphs[d]->GetYaxis()->SetTitleColor(kRed);
             //graphs[d]->SetLineColorAlpha(kAzure - 4, 0.1);
             graphs[d]->GetXaxis()->SetLabelFont(43);
