@@ -286,12 +286,12 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         gStyle->SetTitleFontSize(0.08f);
         gStyle->SetLabelFont(43, "xyz");
         gStyle->SetTickLength(0.04, "xyz");
-        //gStyle->SetLineWidth(5);
+        gStyle->SetLineWidth(5);
         gStyle->SetFrameLineWidth(5);
         gStyle->SetOptStat(0);
-        gStyle->SetPadBottomMargin(0.1);
+        gStyle->SetPadBottomMargin(0.15);
         gStyle->SetPadLeftMargin(0.1);
-        gStyle->SetPadRightMargin(0.02);
+        gStyle->SetPadRightMargin(0.1);
         gStyle->SetPadTopMargin(0.09);
         gStyle->SetTitleOffset(1.2, "y");
         gStyle->SetTitleOffset(0.1, "t");
@@ -373,7 +373,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             gr_errors[d]->GetXaxis()->SetTitleFont(43);
             gr_errors[d]->GetXaxis()->SetTitleSize(70);
             gr_errors[d]->GetXaxis()->SetLabelSize(59);
-            //gr_errors[d]->GetXaxis()->SetLineWidth(5);
+            gr_errors[d]->SetLineWidth(5);
             gr_errors[d]->GetYaxis()->SetLabelFont(43);
             gr_errors[d]->GetYaxis()->SetTitleFont(43);
             gr_errors[d]->GetYaxis()->SetTitleSize(70);
