@@ -353,10 +353,14 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             gr_errors[d]->SetMarkerColorAlpha(kAzure - 2, 0.7);
             gr_errors[d]->SetMarkerSize(1.2);
             gr_errors[d]->SetLineColorAlpha(kAzure - 4, 0.1);
-            gr_errors[d]->SetLabelFont(43, "xyz");
-            gr_errors[d]->SetTitleFont(43, "xyz");
-            gr_errors[d]->SetTitleSize(70, "xyz");
-            gr_errors[d]->SetLabelSize(59, "xyz");
+            gr_errors[d]->GetXaxis()->SetLabelFont(43);
+            gr_errors[d]->GetXaxis()->SetTitleFont(43);
+            gr_errors[d]->GetXaxis()->SetTitleSize(70);
+            gr_errors[d]->GetXaxis()->SetLabelSize(59);
+            gr_errors[d]->GetYaxis()->SetLabelFont(43);
+            gr_errors[d]->GetYaxis()->SetTitleFont(43);
+            gr_errors[d]->GetYaxis()->SetTitleSize(70);
+            gr_errors[d]->GetYaxis()->SetLabelSize(59);
             //gr_errors[d]->GetYaxis()->SetLabelColor(kAzure - 2, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kAzure - 2);
             if(d%2 == 0){
@@ -376,10 +380,14 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[d]->GetYaxis()->SetTitleOffset(0.6);
             graphs[d]->GetYaxis()->SetTitleColor(kRed);
             graphs[d]->SetLineColorAlpha(kAzure - 4, 0.1);
-            graphs[d]->SetLabelFont(43, "xyz");
-            graphs[d]->SetTitleFont(43, "xyz");
-            graphs[d]->SetTitleSize(70, "xyz");
-            graphs[d]->SetLabelSize(59, "xyz");
+            graphs[d]->GetXaxis()->SetLabelFont(43);
+            graphs[d]->GetXaxis()->SetTitleFont(43);
+            graphs[d]->GetXaxis()->SetTitleSize(70);
+            graphs[d]->GetXaxis()->SetLabelSize(59);
+            graphs[d]->GetYaxis()->SetLabelFont(43);
+            graphs[d]->GetYaxis()->SetTitleFont(43);
+            graphs[d]->GetYaxis()->SetTitleSize(70);
+            graphs[d]->GetYaxis()->SetLabelSize(59);
             if(d%2 == 0){
                 graphs[d]->SetTitle((std::string("front side det ") + std::to_string(d/2) + std::string("; strip; hits")).c_str());
             } else {
