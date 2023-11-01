@@ -286,11 +286,11 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         gStyle->SetTitleFontSize(0.08f);
         gStyle->SetLabelFont(43, "xyz");
         gStyle->SetTickLength(0.04, "xyz");
-        gStyle->SetLineWidth(5);
+        //gStyle->SetLineWidth(5);
         gStyle->SetFrameLineWidth(5);
         gStyle->SetOptStat(0);
         gStyle->SetPadBottomMargin(0.1);
-        gStyle->SetPadLeftMargin(0.06);
+        gStyle->SetPadLeftMargin(0.1);
         gStyle->SetPadRightMargin(0.02);
         gStyle->SetPadTopMargin(0.09);
         gStyle->SetTitleOffset(1.2, "y");
@@ -309,9 +309,25 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             canvases[i]->Divide(2, 1);
             canvases[i]->cd(1);
             histos[i*2]->SetTitle((std::string("front side det") + std::to_string(i)).c_str());
+            histos[i*2]->GetXaxis()->SetLabelFont(43);
+            histos[i*2]->GetXaxis()->SetTitleFont(43);
+            histos[i*2]->GetXaxis()->SetTitleSize(70);
+            histos[i*2]->GetXaxis()->SetLabelSize(59);
+            histos[i*2]->GetYaxis()->SetLabelFont(43);
+            histos[i*2]->GetYaxis()->SetTitleFont(43);
+            histos[i*2]->GetYaxis()->SetTitleSize(70);
+            histos[i*2]->GetYaxis()->SetLabelSize(59);
             histos[i * 2]->Draw(draw_opt.c_str());
             canvases[i]->cd(2);
             histos[i*2+1]->SetTitle((std::string("rear side det") + std::to_string(i)).c_str());
+            histos[i*2+1]->GetXaxis()->SetLabelFont(43);
+            histos[i*2+1]->GetXaxis()->SetTitleFont(43);
+            histos[i*2+1]->GetXaxis()->SetTitleSize(70);
+            histos[i*2+1]->GetXaxis()->SetLabelSize(59);
+            histos[i*2+1]->GetYaxis()->SetLabelFont(43);
+            histos[i*2+1]->GetYaxis()->SetTitleFont(43);
+            histos[i*2+1]->GetYaxis()->SetTitleSize(70);
+            histos[i*2+1]->GetYaxis()->SetLabelSize(59);
             histos[i * 2 + 1]->Draw(draw_opt.c_str());
         }
 
@@ -357,9 +373,11 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             gr_errors[d]->GetXaxis()->SetTitleFont(43);
             gr_errors[d]->GetXaxis()->SetTitleSize(70);
             gr_errors[d]->GetXaxis()->SetLabelSize(59);
+            gr_errors[d]->GetXaxis()->SetLineWidth(5);
             gr_errors[d]->GetYaxis()->SetLabelFont(43);
             gr_errors[d]->GetYaxis()->SetTitleFont(43);
             gr_errors[d]->GetYaxis()->SetTitleSize(70);
+            gr_errors[d]->GetYaxis()->SetLineWidth(5);
             gr_errors[d]->GetYaxis()->SetLabelSize(59);
             //gr_errors[d]->GetYaxis()->SetLabelColor(kAzure - 2, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kAzure - 2);
@@ -379,7 +397,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             //graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
             graphs[d]->GetYaxis()->SetTitleOffset(0.6);
             graphs[d]->GetYaxis()->SetTitleColor(kRed);
-            graphs[d]->SetLineColorAlpha(kAzure - 4, 0.1);
+            //graphs[d]->SetLineColorAlpha(kAzure - 4, 0.1);
             graphs[d]->GetXaxis()->SetLabelFont(43);
             graphs[d]->GetXaxis()->SetTitleFont(43);
             graphs[d]->GetXaxis()->SetTitleSize(70);
@@ -402,6 +420,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             canvases2.push_back(new TCanvas((std::string("average count rate per strip detector") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV")).c_str(),
                                             (std::string("average_cr_per_strip_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV")).c_str()));
             // split each canvas in 2 to display front and rear side
+            canvases2[i]->SetCanvasSize(2880, 1800);
             canvases2[i]->Divide(1, 2);
             canvases2[i]->cd(1);
             tpads[i * 4]->Draw();
