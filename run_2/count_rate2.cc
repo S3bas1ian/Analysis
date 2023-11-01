@@ -335,7 +335,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
 
 
         gStyle->SetPadBottomMargin(0.17);
-        gStyle->SetPadLeftMargin(0.07);
+        gStyle->SetPadLeftMargin(0.09);
         gStyle->SetPadRightMargin(0.08);
         gStyle->SetPadTopMargin(0.09);
         //gStyle->SetTitleOffset(1.2, "y");
