@@ -304,7 +304,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         {
             canvases.push_back(new TCanvas((std::string("count_rate_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV_") + draw_opt).c_str(),
                                            (std::string("count_rate_detector_") + std::to_string(i * 2) + std::string("_") + std::to_string(i * 2 + 1) + std::string("_") + particle + std::string("_") + str_energy + std::string("eV_") + draw_opt).c_str()));
-            canvases1[i]->SetCanvasSize(2880, 1800);
+            canvases[i]->SetCanvasSize(2880, 1800);
             // split each canvas in 2 to display front and rear side
             canvases[i]->Divide(2, 1);
             canvases[i]->cd(1);
