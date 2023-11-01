@@ -279,6 +279,24 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
         stop = std::chrono::system_clock::now();
         cout << "creating and filling histograms took: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " s \n";
 
+
+        gStyle->SetLabelSize(60, "xyz");
+        gStyle->SetTitleSize(70, "xyz");
+        gStyle->SetTitleFont(43, "xyz");
+        gStyle->SetTitleFontSize(0.08f);
+        gStyle->SetLabelFont(43, "xyz");
+        gStyle->SetTickLength(0.04, "xyz");
+        gStyle->SetLineWidth(5);
+        gStyle->SetFrameLineWidth(5);
+        gStyle->SetOptStat(0);
+        gStyle->SetPadBottomMargin(0.1);
+        gStyle->SetPadLeftMargin(0.06);
+        gStyle->SetPadRightMargin(0.02);
+        gStyle->SetPadTopMargin(0.09);
+        gStyle->SetTitleOffset(1.2, "y");
+        gStyle->SetTitleOffset(0.1, "t");
+
+
         start = std::chrono::system_clock::now();
         // creating and filling the canvases
         std::vector<TCanvas *> canvases;
@@ -290,8 +308,10 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             // split each canvas in 2 to display front and rear side
             canvases[i]->Divide(2, 1);
             canvases[i]->cd(1);
+            histos[i*2]->SetTitle((std::string("front side det") + std::string(i)).c_str());
             histos[i * 2]->Draw(draw_opt.c_str());
             canvases[i]->cd(2);
+            histos[i*2+1]->SetTitle((std::string("rear side det") + std::string(i)).c_str());
             histos[i * 2 + 1]->Draw(draw_opt.c_str());
         }
 
@@ -333,20 +353,38 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             gr_errors[d]->SetMarkerColorAlpha(kAzure - 2, 0.7);
             gr_errors[d]->SetMarkerSize(1.2);
             gr_errors[d]->SetLineColorAlpha(kAzure - 4, 0.1);
-            gr_errors[d]->GetYaxis()->SetLabelColor(kAzure - 2, 1);
+            gr_errors[d]->SetLabelFont(43, "xyz");
+            gr_errors[d]->SetTitleFont(43, "xyz");
+            gr_errors[d]->SetTitleSize(70, "xyz");
+            gr_errors[d]->SetLabelSize(59, "xyz");
+            //gr_errors[d]->GetYaxis()->SetLabelColor(kAzure - 2, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kAzure - 2);
-            gr_errors[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; count rate [kHz]")).c_str());
+            if(d%2 == 0){
+                gr_errors[d]->SetTitle((std::string("front side det ") + std::to_string(d/2) + std::string("; strip; count rate [kHz]")).c_str());
+            }else {
+                gr_errors[d]->SetTitle((std::string("rear side det ") + std::to_string((d-1)/2) + std::string("; strip; count rate [kHz]")).c_str());
+            }
+            
 
             // graphs        contains the hits per strip
             graphs.push_back(new TGraph(hits.size(), &strip[0], &hits[0]));
+            graphs[d]->SetName("hits per strip");
             graphs[d]->SetMarkerColor(kRed);
             graphs[d]->SetLineColor(kRed);
-            graphs[d]->SetLineWidth(1);
-            graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
+            //graphs[d]->SetLineWidth(1);
+            //graphs[d]->GetYaxis()->SetLabelColor(kRed, 1);
             graphs[d]->GetYaxis()->SetTitleOffset(0.6);
             graphs[d]->GetYaxis()->SetTitleColor(kRed);
-            graphs[d]->SetTitle((std::string("detector ") + std::to_string(d) + std::string("; strip; hits")).c_str());
-            graphs[d]->SetName("hits per strip");
+            graphs[d]->SetLineColorAlpha(kAzure - 4, 0.1);
+            graphs[d]->SetLabelFont(43, "xyz");
+            graphs[d]->SetTitleFont(43, "xyz");
+            graphs[d]->SetTitleSize(70, "xyz");
+            graphs[d]->SetLabelSize(59, "xyz");
+            if(d%2 == 0){
+                graphs[d]->SetTitle((std::string("front side det ") + std::to_string(d/2) + std::string("; strip; hits")).c_str());
+            } else {
+                graphs[d]->SetTitle((std::string("rear side det ") + std::to_string((d-1)/2) + std::string("; strip; hits")).c_str());
+            }
         }
 
         std::vector<TCanvas *> canvases2;
