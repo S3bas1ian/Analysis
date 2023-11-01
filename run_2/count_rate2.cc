@@ -308,10 +308,10 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             // split each canvas in 2 to display front and rear side
             canvases[i]->Divide(2, 1);
             canvases[i]->cd(1);
-            histos[i*2]->SetTitle((std::string("front side det") + std::string(i)).c_str());
+            histos[i*2]->SetTitle((std::string("front side det") + std::to_string(i)).c_str());
             histos[i * 2]->Draw(draw_opt.c_str());
             canvases[i]->cd(2);
-            histos[i*2+1]->SetTitle((std::string("rear side det") + std::string(i)).c_str());
+            histos[i*2+1]->SetTitle((std::string("rear side det") + std::to_string(i)).c_str());
             histos[i * 2 + 1]->Draw(draw_opt.c_str());
         }
 
