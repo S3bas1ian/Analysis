@@ -328,32 +328,32 @@ void edge_hit_xy_tgraph(std::string path, std::string particle, Double_t energy_
     //particles with origin inside or outside the phantom have different colors
     TMultiGraph *mg1 = new TMultiGraph();
     mg1->SetTitle("detector 0; x [mm]   ; y [mm]   ");
-    graph1_phantom->SetMarkerColor(kBlue);
-    graph1_outside->SetMarkerColor(kRed);
+    // graph1_phantom->SetMarkerColor(kBlue);
+    // graph1_outside->SetMarkerColor(kRed);
 
     mg1->Add(graph1_phantom);
     mg1->Add(graph1_outside);
 
     TMultiGraph *mg2 = new TMultiGraph();
     mg2->SetTitle("detector 1; x [mm]   ; y [mm]   ");
-    graph2_phantom->SetMarkerColor(kBlue);
-    graph2_outside->SetMarkerColor(kRed);
+    // graph2_phantom->SetMarkerColor(kBlue);
+    // graph2_outside->SetMarkerColor(kRed);
 
     mg2->Add(graph2_phantom);
     mg2->Add(graph2_outside);
 
     TMultiGraph *mg3 = new TMultiGraph();
     mg3->SetTitle("detector 2; x [mm]   ; y [mm]   ");
-    graph3_phantom->SetMarkerColor(kBlue);
-    graph3_outside->SetMarkerColor(kRed);
+    // graph3_phantom->SetMarkerColor(kBlue);
+    // graph3_outside->SetMarkerColor(kRed);
 
     mg3->Add(graph3_phantom);
     mg3->Add(graph3_outside);
 
     TMultiGraph *mg4 = new TMultiGraph();
     mg4->SetTitle("detector 3; x [mm]   ; y [mm]   ");
-    graph4_phantom->SetMarkerColor(kBlue);
-    graph4_outside->SetMarkerColor(kRed);
+    // graph4_phantom->SetMarkerColor(kBlue);
+    // graph4_outside->SetMarkerColor(kRed);
 
     mg4->Add(graph4_phantom);
     mg4->Add(graph4_outside);
