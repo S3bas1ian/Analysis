@@ -32,7 +32,7 @@ void each_detector(std::string path, std::string particle, Double_t energy_min)
     h_particles_1d->Fill("e-", 1);
     h_particles_1d->Fill("triton", 1);
     h_particles_1d->Fill("other", 1);
-    h_particles_1d->Fill("e+", 1);
+    //h_particles_1d->Fill("e+", 1);
 
 
 
@@ -102,7 +102,7 @@ void each_detector(std::string path, std::string particle, Double_t energy_min)
                     //fill involved particles
                     if (std::string(particle_name).compare("proton") == 0 || std::string(particle_name).compare("deuteron") == 0
                         || std::string(particle_name).compare("triton") == 0
-                        || std::string(particle_name).compare("e-") == 0 || std::string(particle_name).compare("e+") == 0 )
+                        || std::string(particle_name).compare("e-") == 0)
                     {
                         h_particles_1d->Fill(particle_name, 1);
                     }else
