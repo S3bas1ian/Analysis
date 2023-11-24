@@ -446,7 +446,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[i * 2]->Draw("ALY+");
 
             legends.push_back(new TLegend(0.4, 0.72, 0.75, 0.9));
-            legends[i]->AddEntry(gr_errors[i * 2], "count rate per strip", "lep"); //with 1 #sigma"
+            legends[i]->AddEntry(gr_errors[i * 2], "count rate per strip", "l"); //with 1 #sigma"
             legends[i]->AddEntry(graphs[i * 2], "hits per strip", "l");
             legends[i]->Draw();
 
