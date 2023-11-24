@@ -384,7 +384,6 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             gr_errors[d]->GetXaxis()->SetLabelSize(59);
             gr_errors[d]->SetLineWidth(1);
             gr_errors[d]->GetYaxis()->SetLabelFont(43);
-            gr_errors[d]->GetYaxis()->SetRangeUser(0, 2400);
             gr_errors[d]->GetYaxis()->SetTitleFont(43);
             gr_errors[d]->GetYaxis()->SetTitleSize(70);
             //gr_errors[d]->GetYaxis()->SetLineWidth(5);
@@ -414,6 +413,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[d]->GetXaxis()->SetTitleSize(70);
             graphs[d]->GetXaxis()->SetLabelSize(59);
             graphs[d]->GetYaxis()->SetLabelFont(43);
+            graphs[d]->GetYaxis()->SetRangeUser(0, 2400);
             graphs[d]->GetYaxis()->SetTitleFont(43);
             graphs[d]->GetYaxis()->SetTitleSize(70);
             graphs[d]->GetYaxis()->SetLabelSize(59);
