@@ -413,13 +413,14 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             graphs[d]->GetXaxis()->SetTitleSize(70);
             graphs[d]->GetXaxis()->SetLabelSize(59);
             graphs[d]->GetYaxis()->SetLabelFont(43);
-            graphs[d]->GetYaxis()->SetRangeUser(0, 2400);
             graphs[d]->GetYaxis()->SetTitleFont(43);
             graphs[d]->GetYaxis()->SetTitleSize(70);
             graphs[d]->GetYaxis()->SetLabelSize(59);
             if(d%2 == 0){
+                graphs[d]->GetYaxis()->SetRangeUser(0, 2400);
                 graphs[d]->SetTitle((std::string("front side det ") + std::to_string(d/2) + std::string("; strip   ; hits")).c_str());
             } else {
+                graphs[d]->GetYaxis()->SetRangeUser(0, 1100);
                 graphs[d]->SetTitle((std::string("rear side det ") + std::to_string((d-1)/2) + std::string("; strip   ; hits")).c_str());
             }
         }
