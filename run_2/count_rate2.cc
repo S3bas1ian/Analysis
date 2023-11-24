@@ -371,7 +371,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             tpads[d * 2 + 1]->SetFrameFillStyle(0);
 
             // gr_errors     contains average delta time with one stdv error
-            gr_errors.push_back(new TGraph(strip.size(), &strip[0], &mean[0], 0));  //, &stdv[0]
+            gr_errors.push_back(new TGraph(strip.size(), &strip[0], &mean[0]));  //, &stdv[0]
             gr_errors[d]->SetName("count rate per strip");
             gr_errors[d]->SetMarkerStyle(4);
             gr_errors[d]->SetMarkerColorAlpha(kAzure - 2, 0.7);
