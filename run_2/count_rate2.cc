@@ -343,7 +343,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
 
 
         // draw the average time with errorbars and the total hits
-        std::vector<TGraphErrors *> gr_errors;
+        std::vector<TGraph *> gr_errors;
         std::vector<TGraph *> graphs;
         std::vector<TPad *> tpads;
 
@@ -371,7 +371,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             tpads[d * 2 + 1]->SetFrameFillStyle(0);
 
             // gr_errors     contains average delta time with one stdv error
-            gr_errors.push_back(new TGraphErrors(strip.size(), &strip[0], &mean[0], 0, &stdv[0]));
+            gr_errors.push_back(new TGraph(strip.size(), &strip[0], &mean[0], 0));  //, &stdv[0]
             gr_errors[d]->SetName("count rate per strip");
             gr_errors[d]->SetMarkerStyle(4);
             gr_errors[d]->SetMarkerColorAlpha(kAzure - 2, 0.7);
@@ -384,6 +384,7 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             gr_errors[d]->GetXaxis()->SetLabelSize(59);
             gr_errors[d]->SetLineWidth(1);
             gr_errors[d]->GetYaxis()->SetLabelFont(43);
+            gr_errors[d]->GetYaxis()->SetRangeUser(0, 2400);
             gr_errors[d]->GetYaxis()->SetTitleFont(43);
             gr_errors[d]->GetYaxis()->SetTitleSize(70);
             //gr_errors[d]->GetYaxis()->SetLineWidth(5);
@@ -443,8 +444,8 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             tpads[i * 4 + 1]->cd();
             graphs[i * 2]->Draw("ALY+");
 
-            legends.push_back(new TLegend(0.45, 0.77, 0.7, 0.9));
-            legends[i]->AddEntry(gr_errors[i * 2], "count rate per strip with 1 #sigma", "lep"); //with 1 #sigma"
+            legends.push_back(new TLegend(0.4, 0.72, 0.75, 0.9));
+            legends[i]->AddEntry(gr_errors[i * 2], "count rate per strip", "lep"); //with 1 #sigma"
             legends[i]->AddEntry(graphs[i * 2], "hits per strip", "l");
             legends[i]->Draw();
 
