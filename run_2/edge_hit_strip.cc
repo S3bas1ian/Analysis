@@ -206,7 +206,7 @@ void edge_hit_strip(std::string path, std::string particle, Double_t energy_min)
     h3_1d->SetLabelFont(43, "xyz");
     h3_1d->SetTitleFont(43, "xyz");
     h3_1d->GetYaxis()->SetNdivisions(6, 3, false);
-    h3_1d->GetXaxis()->SetRangeUser(-50, 1050);
+    h3_1d->GetXaxis()->SetRangeUser(-100, 1100);
     h3_1d->SetLineWidth(2);
     h3_1d->Draw();
     c2->cd(2);
@@ -215,7 +215,7 @@ void edge_hit_strip(std::string path, std::string particle, Double_t energy_min)
     h4_1d->SetLabelFont(43, "xyz");
     h4_1d->SetTitleFont(43, "xyz");
     h4_1d->GetYaxis()->SetNdivisions(6, 3, false);
-    h4_1d->GetXaxis()->SetRangeUser(-50, 1050);
+    h4_1d->GetXaxis()->SetRangeUser(-100, 1100);
     h4_1d->SetLineWidth(2);
     h4_1d->Draw();
     c2->cd(3);
@@ -224,7 +224,7 @@ void edge_hit_strip(std::string path, std::string particle, Double_t energy_min)
     h1_1d->SetLabelFont(43, "xyz");
     h1_1d->SetTitleFont(43, "xyz");
     h1_1d->GetYaxis()->SetNdivisions(6, 3, false);
-    h1_1d->GetXaxis()->SetRangeUser(-50, 1050);
+    h1_1d->GetXaxis()->SetRangeUser(-100, 1100);
     h1_1d->SetLineWidth(2);
     h1_1d->Draw();
     c2->cd(4);
@@ -233,7 +233,7 @@ void edge_hit_strip(std::string path, std::string particle, Double_t energy_min)
     h2_1d->SetLabelFont(43, "xyz");
     h2_1d->SetTitleFont(43, "xyz");
     h2_1d->GetYaxis()->SetNdivisions(6, 3, false);
-    h2_1d->GetXaxis()->SetRangeUser(-50, 1050);
+    h2_1d->GetXaxis()->SetRangeUser(-100, 1100);
     h2_1d->SetLineWidth(2);
     h2_1d->Draw();
 }
