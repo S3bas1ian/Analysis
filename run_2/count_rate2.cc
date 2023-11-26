@@ -391,8 +391,10 @@ void count_rate2(std::string path, std::string particle, Double_t energy_min, st
             //gr_errors[d]->GetYaxis()->SetLabelColor(kAzure - 2, 1);
             gr_errors[d]->GetYaxis()->SetTitleColor(kAzure - 2);
             if(d%2 == 0){
+                gr_errors[d]->GetYaxis()->SetRangeUser(0, 2.4);
                 gr_errors[d]->SetTitle((std::string("front side det ") + std::to_string(d/2) + std::string("; strip   ; count rate [kHz]")).c_str());
             }else {
+                gr_errors[d]->GetYaxis()->SetRangeUser(0, 1.1);
                 gr_errors[d]->SetTitle((std::string("rear side det ") + std::to_string((d-1)/2) + std::string("; strip   ; count rate [kHz]")).c_str());
             }
             
