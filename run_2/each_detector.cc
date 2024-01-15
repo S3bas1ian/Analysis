@@ -235,12 +235,12 @@ void each_detector(std::string path, std::string particle, Double_t energy_min, 
     //-----OUTPUT and PLOTS-----
     //---------------------------------------
 
-    std::cout << "Total amount of hits per detector side at " << energy_min << "eV considering " << particle << "particles" << std::endl;
-    std::cout << "Detector \t #" << std::endl;
+    std::cout << "Total amount of hits per detector side at " << energy_min << "eV considering " << particle << " particles" << std::endl;
+    std::cout << "Detector \t#" << std::endl;
 
     for (int i = 0; i < 8; i++)
     {
-        std::cout << i << "\t" << total_hits[i] << std::endl;
+        std::cout << i << " \t" << total_hits[i] << std::endl;
     }
 
     if (draw)
